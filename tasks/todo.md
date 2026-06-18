@@ -27,7 +27,7 @@ Sequential first (shared chrome), then parallelizable:
 
 ## Pages (`src/pages/`)
 - [ ] `index.astro` — hero + featured certs/projects/blog (replace placeholder)
-- [ ] `about.astro`, `now.astro`
+- [x] `about.astro`, `now.astro`
 - [ ] `blog/index.astro`, `blog/[...slug].astro` (+ reading time)
 - [ ] `projects/index.astro`, `projects/[...slug].astro`
 - [ ] `certs/index.astro`, `certs/[...slug].astro`

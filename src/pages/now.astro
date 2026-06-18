@@ -1,0 +1,149 @@
+---
+// Now — ports pages/now.js + components/now/now.js (custom markdown renderers
+// become element styles within .card).
+import Layout from '../layouts/Layout.astro';
+import { getEntry, render } from 'astro:content';
+
+const entry = await getEntry('now', 'now');
+const { Content } = await render(entry!);
+const nowDate = entry!.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+const wordCount = entry!.body!.split(/\s+/).filter(Boolean).length;
+---
+
+<Layout title="Dave Levine - Now" description="What Dave Levine is focused on now.">
+  <div class="now">
+    <div class="container section mvh-100">
+      <div class="card">
+        <h1 class="title">Here and Now</h1>
+        <div class="metaInfo">
+          <span class="inlineMeta">
+            <span class="inlineItem">
+              <i class="fa-regular fa-calendar-lines-pen"></i> {nowDate} &nbsp;•&nbsp;
+              <i class="fa-regular fa-font"></i> {wordCount} words
+            </span>
+            <span class="inlineItem">
+              <i class="fa-regular fa-tags"></i> Personal &nbsp;•&nbsp; Professional
+            </span>
+          </span>
+        </div>
+        <hr class="divider" />
+        <Content />
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style is:global lang="scss">
+  // Global (scoped by the .now wrapper) so the rules also reach the rendered
+  // markdown from <Content />, which doesn't carry Astro's scope attribute.
+  .now {
+    padding: 60px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .now .container {
+    max-width: 1200px;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .now .card {
+    border-radius: 12px;
+    padding: 30px;
+    background-color: var(--background-card);
+    transition: background var(--transition-speed);
+    border: 1px solid var(--border-card);
+    margin: -35px -15px;
+    display: flex;
+    flex-direction: column;
+    color: var(--navbar-primary);
+  }
+
+  .now .card h1 { margin-bottom: 0; font-size: 2.1rem; font-weight: 700; color: var(--text-secondary); text-align: left; }
+  .now .card h2 { margin-top: 15px; margin-bottom: 10px; font-size: 1.8rem; font-weight: 600; color: var(--text-secondary); }
+  .now .card h3 { margin-top: 10px; margin-bottom: 0; font-size: 1.5rem; font-weight: 500; color: var(--text-secondary); }
+
+  .now .card .metaInfo { margin-bottom: 10px; color: var(--text-primary); font-size: 1rem; }
+  .now .card .metaInfo span { color: var(--navbar-primary); font-size: 1.05rem; line-height: 1.6; display: block; }
+  .now .card .metaInfo i { margin-right: 5px; color: var(--accent); }
+
+  .now .card p { font-size: 1rem; margin-top: 0; color: var(--text-primary); }
+  .now .card strong { color: var(--accent); }
+
+  .now .card a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+
+    &:hover,
+    &:focus,
+    &:active { color: var(--link-hover); text-decoration: underline; }
+  }
+
+  .now .card img {
+    max-width: 80%;
+    height: auto;
+    width: auto;
+    border-radius: 8px;
+    margin: 15px auto;
+    aspect-ratio: 1536 / 720;
+    display: block;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px);
+    transition: transform 0.3s ease;
+  }
+
+  .now .card .divider,
+  .now .card hr {
+    width: 100%;
+    height: 0.5px;
+    background-color: var(--text-primary);
+    margin: 0;
+    border: none;
+    display: block;
+  }
+
+  .now .card ul,
+  .now .card ol { margin-top: 0; }
+  .now .card li { margin-top: 10px; }
+
+  .now .card i {
+    margin-right: 5px;
+    color: var(--accent);
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    font-style: normal;
+    display: inline-block;
+    font-size: 1rem;
+  }
+
+  .now .card blockquote {
+    padding: 15px;
+    padding-bottom: 0;
+    background-color: var(--background-card);
+    border: 1px solid var(--accent);
+    margin: 20px 0;
+    margin-top: 5px;
+    color: var(--text-primary);
+    border-radius: 12px;
+    overflow-wrap: break-word;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  @media only screen and (max-width: 767px) {
+    .now .card img { max-width: 100%; width: auto; }
+  }
+</style>

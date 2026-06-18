@@ -44,4 +44,9 @@ const certs = defineCollection({
   }),
 });
 
-export const collections = { blog, projects, certs };
+const now = defineCollection({
+  loader: glob({ pattern: 'now.md', base: './src/content' }),
+  schema: z.object({ date: z.coerce.date() }),
+});
+
+export const collections = { blog, projects, certs, now };
