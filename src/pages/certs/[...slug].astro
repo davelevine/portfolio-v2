@@ -1,0 +1,49 @@
+---
+// Cert detail — ports pages/certs/[slug].js + components/certs/certContent.js.
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const certs = await getCollection('certs');
+  return certs.map((cert) => ({ params: { slug: cert.id }, props: { cert } }));
+}
+
+const { cert } = Astro.props;
+const { Content } = await render(cert);
+---
+
+<Layout title={cert.data.title} description={cert.data.excerpt}>
+  <div class="certContent">
+    <div class="container">
+      <article>
+        <Content />
+      </article>
+    </div>
+  </div>
+</Layout>
+
+<style is:global lang="scss">
+  .certContent { padding: 50px 15px; text-align: center; }
+  .certContent h1,
+  .certContent h2 { font-size: 2.7rem; }
+  .certContent h3,
+  .certContent h4 { color: var(--text-secondary); }
+  .certContent a { color: var(--accent); }
+  .certContent p { font-size: 1.5rem; }
+  .certContent img { max-width: 100%; }
+  .certContent strong { background: #cecece; padding: 0 4px; border-radius: 4px; color: black; font-weight: 400; font-size: 1.5rem; }
+  .certContent ol { margin-bottom: 50px; font-size: 1.5rem; }
+  .certContent pre { font-size: 0.8rem; }
+
+  @media only screen and (min-width: 768px) {
+    .certContent { padding: 100px 25px; }
+    .certContent .container { max-width: 1200px; margin: auto; }
+    .certContent h1 { font-size: 3rem; }
+    .certContent li { margin-bottom: 35px; }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .certContent h2 { font-size: 2rem; }
+    .certContent p { font-size: 1.3rem; }
+  }
+</style>
