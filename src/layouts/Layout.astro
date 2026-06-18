@@ -1,6 +1,8 @@
 ---
 // Base layout — ports pages/_app.js + pages/_document.js (head, theme, analytics).
 import '../styles/globals.scss';
+import Navbar from '../components/Navbar.astro';
+import Modals from '../components/Modals.astro';
 
 interface Props {
   title?: string;
@@ -78,7 +80,15 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
           if (m) m.setAttribute('content', light ? '#ffffff' : '#121212');
         })();
       </script>
-      <slot />
+      <Navbar />
+      <main><slot /></main>
+      <Modals />
     </div>
+
+    <script>
+      import AOS from 'aos';
+      import 'aos/dist/aos.css';
+      AOS.init({ duration: 500, once: true });
+    </script>
   </body>
 </html>

@@ -1,0 +1,261 @@
+---
+// Contact + resume modals — ports components/layout/modal/{modal,contactModal}.js.
+// Formspree React hook replaced with a vanilla fetch submit.
+const PGP = 'https://cdn.levine.io/uploads/portfolio/public/assets/dave.levine.io-pgp-key-pub.asc';
+const LINKEDIN = 'https://www.linkedin.com/in/iamdavelevine';
+---
+
+<div class="backdrop" id="modal-backdrop" hidden>
+  <div class="modalContent">
+    {/* Contact */}
+    <div class="modal" id="contact-modal" hidden>
+      <div class="contactModal">
+        <button class="close" data-modal-close aria-label="Close Modal">✕</button>
+
+        <div id="contact-form-view">
+          <h2>Contact Me</h2>
+          <form id="contactForm" class="contactForm">
+            <div class="row">
+              <div class="inputField">
+                <label for="email">Your Email Address:</label>
+                <input id="email" type="email" name="email" required autocomplete="email" placeholder="Where can I send a response?" />
+              </div>
+            </div>
+            <div class="inputField">
+              <label for="message">Message:</label>
+              <textarea id="message" name="message" required placeholder="What would you like to talk about?"></textarea>
+            </div>
+            <div class="action">
+              <div class="contactLinks">
+                <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href={PGP} target="_blank" rel="noreferrer" aria-label="PGP Key"><i class="fa-sharp fa-regular fa-key" style="font-size: 3.2em;"></i></a>
+              </div>
+              <div class="sendLink">
+                <button type="submit" class="btn btn-filled" aria-label="Send Message">Send Message</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="contact-confirm-view" class="contactModalConfirmation" hidden>
+          <div>
+            <h2 id="confirm-title"></h2>
+            <p id="confirm-message"></p>
+            <div class="contactLinks" id="confirm-links">
+              <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+              <a href={PGP} target="_blank" rel="noreferrer" aria-label="PGP Key"><i class="fa-sharp fa-regular fa-key"></i></a>
+            </div>
+          </div>
+          <div class="confirmationButton" id="confirm-ok" hidden>
+            <button class="btn btn-filled" data-modal-close aria-label="Close Confirmation">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Resume */}
+    <div class="modal" id="resume-modal" hidden>
+      <div class="resumeModal">
+        <button class="close" data-modal-close aria-label="Close"><i class="fa-regular fa-xmark"></i></button>
+        <iframe src="/davelevine-resume.pdf" class="iframe" title="Resume"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const backdrop = document.getElementById('modal-backdrop')!;
+  const contactModal = document.getElementById('contact-modal')!;
+  const resumeModal = document.getElementById('resume-modal')!;
+  const formView = document.getElementById('contact-form-view')!;
+  const confirmView = document.getElementById('contact-confirm-view')!;
+  const confirmTitle = document.getElementById('confirm-title')!;
+  const confirmMessage = document.getElementById('confirm-message')!;
+  const confirmLinks = document.getElementById('confirm-links')!;
+  const confirmOk = document.getElementById('confirm-ok')!;
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+
+  const open = (type: string) => {
+    backdrop.hidden = false;
+    contactModal.hidden = type !== 'contact';
+    resumeModal.hidden = type !== 'resume';
+    if (type === 'contact') resetContact();
+    document.body.classList.add('modal-open');
+  };
+  const close = () => {
+    backdrop.hidden = true;
+    document.body.classList.remove('modal-open');
+    document.dispatchEvent(new CustomEvent('modal:closed'));
+  };
+  const resetContact = () => {
+    formView.hidden = false;
+    confirmView.hidden = true;
+    form.reset();
+  };
+  const showConfirm = (title: string, msg: string, success: boolean) => {
+    formView.hidden = true;
+    confirmView.hidden = false;
+    confirmTitle.textContent = title;
+    confirmMessage.innerHTML = success
+      ? 'Your message was sent!<br>Also feel free to contact me via Linkedin or PGP Key:'
+      : msg;
+    confirmLinks.hidden = !success;
+    confirmOk.hidden = !success;
+  };
+
+  document.addEventListener('modal:open', (e) => open((e as CustomEvent).detail?.type));
+  document.querySelectorAll('[data-modal-close]').forEach((b) => b.addEventListener('click', close));
+  backdrop.addEventListener('click', (e) => { if (e.target === backdrop) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !backdrop.hidden) close(); });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    showConfirm('Sending Message', 'Just a sec...', false);
+    try {
+      const res = await fetch('https://formspree.io/f/xzbloaed', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        showConfirm('Thanks for reaching out!', '', true);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        showConfirm('Error!', data?.errors?.[0]?.message || 'Something went wrong. Please try again.', false);
+      }
+    } catch {
+      showConfirm('Error!', 'Could not send your message. Please try again.', false);
+    }
+  });
+</script>
+
+<style lang="scss">
+  // modal.module.scss
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: modal-fade-in 0.3s ease;
+  }
+  .backdrop[hidden] { display: none; }
+  @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+  .modalContent { position: relative; }
+  .modal { display: flex; align-items: center; justify-content: center; }
+  .modal[hidden] { display: none; }
+
+  .resumeModal {
+    position: relative;
+    width: 90vw;
+    height: 90vh;
+    max-width: 1200px;
+    max-height: 90vh;
+    background: var(--modal-background, #2c2c2c);
+    border: 1px solid var(--modal-border, #555);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+  @media (max-width: 767px) { .resumeModal { height: 70vh; } }
+
+  .resumeModal .close,
+  .contactModal .close {
+    background: var(--background-card);
+    border: none;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  }
+  .resumeModal .close { z-index: 1001; }
+  .resumeModal .close:hover,
+  .contactModal .close:hover {
+    background-color: var(--background-secondary);
+    color: var(--transparent-primary);
+    transform: scale(1.1);
+  }
+  .resumeModal .iframe { width: 100%; height: 100%; border: none; }
+
+  // contactModal.module.scss
+  .contactModal {
+    text-align: center;
+    border-radius: 5px;
+    background-color: var(--background-card);
+    padding: 1rem 1rem 3rem;
+    overflow: auto;
+    z-index: 3;
+    position: fixed;
+    max-width: 1200px;
+    min-width: 340px;
+    max-height: 100vh;
+    min-height: 580px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .contactModal .inputField { margin: 25px 0; }
+  .contactModal .inputField label {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    text-align: left;
+    display: block;
+    color: var(--navbar-primary);
+    font-weight: 600;
+  }
+  .contactModal .inputField input,
+  .contactModal .inputField textarea {
+    color: var(--text-primary);
+    font-size: 1rem;
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--text-secondary);
+  }
+  .contactModal .inputField textarea { border: 1px solid var(--text-secondary); border-radius: 5px; height: 175px; }
+  .contactModal .inputField input:focus,
+  .contactModal .inputField textarea:focus { outline: none; }
+
+  .contactModal .action { margin: 20px 0 0; display: flex; justify-content: space-between; }
+  .contactModal .action i { font-size: 3.4rem; color: var(--background-secondary); }
+  .contactModal .action .sendLink { align-self: center; }
+
+  @media only screen and (min-width: 768px) {
+    .contactModal { min-width: 600px; overflow: hidden; padding: 2rem 2rem 4rem; }
+    .contactModal h2 { margin-bottom: 1rem; }
+    .contactModal .contactForm { display: flex; flex-direction: column; height: 425px; }
+    .contactModal .row { display: flex; justify-content: center; }
+    .contactModal .inputField { width: 100%; margin-top: 10px; }
+    .contactModal .action { margin-bottom: 0; }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .contactModal { min-height: 500px; top: 45%; transform: translate(-50%, -45%); }
+  }
+
+  .contactLinks a { margin-right: 20px; }
+  .contactLinks a i { font-size: 3rem; }
+
+  .contactModalConfirmation { display: flex; flex-direction: column; justify-content: space-between; }
+  .contactModalConfirmation .confirmationButton button { width: 100%; }
+  .contactModalConfirmation .contactLinks { margin-top: 40px; }
+  // The confirmation icons live outside .action, so give them the accent color.
+  .contactModalConfirmation .contactLinks a i { color: var(--background-secondary); }
+  .contactModalConfirmation p { color: var(--text-primary); }
+</style>

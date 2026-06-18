@@ -1,12 +1,12 @@
 ---
-// Home — placeholder until the hero/navbar are ported 1:1 (next step).
+// Home — hero (parity with pages/index.js, which renders only <Hero />).
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
 ---
 
-<Layout>
-  <section class="section text-center mvh-100">
-    <h1>Dave Levine</h1>
-    <h2>Solutions Engineer</h2>
-    <p>Astro rebuild in progress — design system, content collections, and base layout are in place.</p>
-  </section>
+<Layout
+  title="Dave Levine - Solutions Engineer"
+  description="My personal portfolio including various projects and certifications."
+>
+  <Hero />
 </Layout>
