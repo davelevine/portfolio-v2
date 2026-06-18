@@ -1,0 +1,84 @@
+---
+// Base layout — ports pages/_app.js + pages/_document.js (head, theme, analytics).
+import '../styles/globals.scss';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lcpImages?: string[];
+}
+
+const {
+  title = 'Dave Levine - Solutions Engineer',
+  description = "Dave Levine's Portfolio",
+  lcpImages = [],
+} = Astro.props;
+
+const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Dave Levine" />
+    <meta name="theme-color" content="#121212" id="theme-color-meta" />
+
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/x-icon" href={`${cdn}/images/favicon/favicon.ico`} />
+    <link rel="shortcut icon" href={`${cdn}/images/favicon/favicon.ico`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${cdn}/images/favicon/apple-touch-icon.png`} />
+
+    <link rel="preconnect" href="https://cdn.levine.io" />
+    <link rel="dns-prefetch" href="https://cdn.levine.io" />
+    <link rel="preconnect" href="https://stats.levine.io" />
+    <link rel="dns-prefetch" href="https://stats.levine.io" />
+
+    <link rel="preload" href={`${cdn}/fonts/googlefonts/google-fonts.css`} as="style" />
+    <link rel="preload" href={`${cdn}/fonts/webfonts/custom-fontawesome.css`} as="style" />
+    <link rel="stylesheet" href={`${cdn}/fonts/googlefonts/google-fonts.css`} />
+    <link rel="stylesheet" href={`${cdn}/fonts/webfonts/custom-fontawesome.css`} />
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS Feed for Dave Levine's Blog"
+      href="/rss.xml"
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {lcpImages.map((src) => (
+      <link rel="preload" href={src} as="image" fetchpriority="high" />
+    ))}
+
+    {/* next/font shipped Fira Code; define the variable globals.scss expects. */}
+    <style is:global>
+      :root { --font-fira-code: 'Fira Code', Menlo, monospace; }
+    </style>
+
+    {/* Umami analytics (self-hosted) */}
+    <script
+      defer
+      src="https://stats.levine.io/script.js"
+      data-website-id="6c39846d-da66-4f2d-91b8-79f01360682d"></script>
+  </head>
+  <body>
+    <div class="app" data-theme="dark" id="app">
+      {/* No-FOUC: match system preference before paint (parity with _app.js,
+          which starts dark then follows prefers-color-scheme; not persisted). */}
+      <script is:inline>
+        (function () {
+          var light = window.matchMedia('(prefers-color-scheme: light)').matches;
+          var theme = light ? 'light' : 'dark';
+          document.getElementById('app').setAttribute('data-theme', theme);
+          var m = document.getElementById('theme-color-meta');
+          if (m) m.setAttribute('content', light ? '#ffffff' : '#121212');
+        })();
+      </script>
+      <slot />
+    </div>
+  </body>
+</html>

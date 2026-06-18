@@ -1,0 +1,77 @@
+// Define the global transition speed variable
+$transition-speed: 0.5s;
+
+// Mixin for reusable .app styles
+@mixin app-styles {
+  color: var(--text-primary);
+  background-color: var(--background);
+  transition: background $transition-speed;
+  min-height: 100vh;
+  overflow: hidden; // Prevent content overflow
+}
+
+// Apply .app styles using the mixin
+.app {
+  @include app-styles;
+}
+
+// Media queries for larger screens
+@media only screen and (min-width: 768px) {
+  .section {
+    padding: 100px 25px; // Add padding to sections
+  }
+
+  .container {
+    max-width: 1200px; // Set maximum width for containers
+    margin: auto; // Center containers
+  }
+
+  .row {
+    display: flex; // Use flexbox for rows
+  }
+}
+
+// Hide .iconScroll by default
+.iconScroll {
+  display: none;
+}
+
+// Media queries for larger screens with specific height
+@media only screen and (min-width: 768px) and (min-height: 768px) {
+  .iconScrollContainer {
+    .iconScroll {
+      position: relative;
+      margin: auto;
+      display: block;
+      width: 20px;
+      height: 40px;
+      border: 2px solid var(--border-card);
+      border-radius: 25px;
+      overflow: hidden; // Prevent content overflow
+    }
+
+    .iconScroll:before {
+      position: absolute;
+      left: 50%;
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--text-secondary);
+      margin-left: -4px; // Center the dot horizontally
+      top: 2px;
+      border-radius: 4px;
+      animation: scroll 1.5s infinite; // Apply scroll animation
+    }
+
+    // Keyframes for scroll animation
+    @keyframes scroll {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(26px); // Move the dot down
+      }
+    }
+  }
+}
