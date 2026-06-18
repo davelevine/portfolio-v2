@@ -1,0 +1,114 @@
+---
+// Blog card — ports components/blog/blogItem.js.
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  slug: string;
+  readingTime: number;
+  liveLink?: string;
+}
+const { title, description, date, slug, readingTime, liveLink } = Astro.props;
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+});
+---
+
+<div class="card">
+  <a href={`/blog/${slug}`}>
+    <div class="cardContent">
+      <h4 class="title">{title}</h4>
+      <p class="description">{description}</p>
+    </div>
+  </a>
+  <div class="metaInfo">
+    <div class="metaItem">
+      <i class="fa-regular fa-calendar-lines-pen"></i>
+      <p class="date">{formattedDate}</p>
+    </div>
+    <div class="metaItem">
+      <i class="fa-regular fa-clock"></i>
+      <p class="readingTime">{readingTime} minute{readingTime !== 1 ? 's' : ''}</p>
+    </div>
+  </div>
+  <div class="blogLinks">
+    <a href={`/blog/${slug}`}><i class="fa-regular fa-arrow-up-right-from-square"></i>View Post</a>
+    {liveLink && (
+      <a href={liveLink} target="_blank" rel="noreferrer"><i class="fa-regular fa-arrow-up-right-from-square"></i> Website</a>
+    )}
+  </div>
+</div>
+
+<style lang="scss">
+  .card {
+    border-radius: 8px;
+    padding: 25px;
+    background-color: var(--background-card);
+    border: 1px solid var(--border-card);
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+    text-align: center;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    }
+
+    h4 { color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 0; }
+  }
+
+  .card p { color: var(--text-primary); margin-bottom: 1.5rem; }
+
+  .card .cardContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 120px;
+  }
+
+  .card .metaInfo {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: auto;
+
+    .metaItem {
+      display: flex;
+      align-items: center;
+
+      i { margin-right: 5px; font-weight: normal; color: var(--accent); line-height: 1; }
+      p { margin: 0; color: var(--text-primary); font-weight: bold; line-height: 1; }
+    }
+  }
+
+  .card .blogLinks {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    a {
+      color: var(--navbar-primary);
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 5px 0;
+      display: block;
+      transition: color var(--transition-speed) ease, transform var(--transition-speed) ease, text-decoration var(--transition-speed) ease;
+
+      &:hover { color: var(--link-hover); transform: scale(1.1); text-decoration: underline; }
+    }
+
+    i { width: 20px; margin-right: 5px; font-weight: normal; color: var(--accent); }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .card { margin-bottom: 0; }
+  }
+</style>
