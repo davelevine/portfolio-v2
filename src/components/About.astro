@@ -1,0 +1,127 @@
+---
+// About — ports components/about/about.js.
+---
+
+<section class="about" id="about">
+  <div class="container">
+    <h2 data-aos="slide-right">ABOUT ME</h2>
+
+    <div class="row">
+      <div class="columnLeft" data-aos="fade-right">
+        <h1>Designing effective solutions, organizing knowledge, and conveying complexity through visual design.</h1>
+        <br />
+        <p class="h3">
+          I'm a Solutions Engineer at Weill Cornell Medicine, where I help keep a portfolio of research administration systems running smoothly. Most of my work lives somewhere between infrastructure, security, and documentation. I like figuring out how things fit together, writing it down clearly, and making sure the next person doesn't have to start from scratch.
+        </p>
+        <br />
+        <p class="h3">
+          Lately, a lot of my time goes to drawing architecture diagrams, mapping how our services depend on one another, and helping with a big migration to a new system. Outside of work, I build and self-host things I find useful, like a micro-journaling app, my personal knowledge base, and a homelab that's a constant yet rewarding project.
+        </p>
+      </div>
+
+      <div class="columnRight">
+        <div class="imageContainer">
+          <img
+            src="https://cdn.levine.io/uploads/portfolio/public/images/avatar.webp"
+            width="500"
+            height="500"
+            alt="profile-pic"
+            data-aos="fade-left"
+            fetchpriority="high"
+            style="max-width: 100%; height: auto;"
+          />
+        </div>
+        <div class="quote" data-aos="fade-right"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .about {
+    padding: 60px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .about a { font-size: 1.3rem; color: var(--accent); }
+
+  .about h2 {
+    font-size: 2.3rem;
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .about .columnLeft { margin: auto; text-align: center; }
+  .about .columnLeft h1 { color: var(--navbar-primary); font-size: 1.5rem; margin: 0 0 25px; }
+  .about .columnLeft .h3 { color: var(--navbar-primary); font-size: 1.3rem; margin: 0; font-weight: 400; }
+  .about .columnLeft p { font-size: 1.3rem; padding-bottom: 1.5rem; line-height: 1.6; }
+
+  .about .columnRight .imageContainer { display: flex; justify-content: center; margin-bottom: 40px; }
+  .about .columnRight .imageContainer img { border-radius: 50%; width: 300px; height: 300px; }
+
+  .about .columnRight .quote { text-align: center; margin-top: 25px; font-style: italic; position: relative; }
+  .about .columnRight .quote .tooltip {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    visibility: hidden;
+    width: 340px;
+    background-color: var(--background-card);
+    border: 1px solid var(--border-card);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .about .columnRight .quote:hover .tooltip { visibility: visible; }
+
+  @media only screen and (min-width: 768px) {
+    .about { padding: 70px 25px 10px; }
+    .about .container {
+      max-width: 1200px;
+      margin: auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .about .row { display: flex; }
+    .about h2 { font-size: 3.5rem; margin-top: 5%; text-align: left; }
+    .about .columnLeft {
+      align-self: center;
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      padding-right: 100px;
+      font-size: 1rem;
+      text-align: left;
+    }
+    .about .columnRight { width: 40%; margin: auto; }
+    .about .columnRight .imageContainer { margin-top: -90px; }
+    .about .columnRight .imageContainer img { width: 500px; height: 500px; }
+  }
+
+  @media only screen and (min-width: 1600px) {
+    .about { padding: 100px 30px 25px; }
+    .about .container { max-width: 1400px; }
+    .about h2 { font-size: 4rem; margin-top: 4%; }
+    .about .columnLeft { width: 55%; padding-right: 120px; }
+    .about .columnRight { width: 45%; }
+    .about .columnRight .imageContainer { margin-top: -100px; }
+    .about .columnRight .imageContainer img { width: 500px; height: 500px; }
+  }
+</style>
