@@ -1,0 +1,175 @@
+---
+// Hero — ports components/home/hero.js. framer-motion → CSS; AOS kept.
+const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
+const profilePic = `${cdn}/images/profile-pic-1.webp`;
+const pgp = `${cdn}/assets/dave.levine.io-pgp-key-pub.asc`;
+
+const social = [
+  { href: 'https://github.com/davelevine', icon: 'fab fa-github', label: 'GitHub Profile', delay: 100 },
+  { href: 'https://www.linkedin.com/in/iamdavelevine', icon: 'fab fa-linkedin', label: 'LinkedIn Profile', delay: 150 },
+  { href: 'https://kb.levine.io', icon: 'fa fa-globe', label: 'Knowledge Base', delay: 200 },
+  { href: '/rss.xml', icon: 'fa fa-square-rss', label: 'RSS Feed', delay: 250, style: 'font-size: 2.02em; vertical-align: baseline;' },
+  { href: pgp, icon: 'fa-sharp fa-regular fa fa-key', label: 'PGP Key', delay: 300 },
+];
+---
+
+<section class="greetings">
+  <div class="container">
+    <div class="row">
+      <div class="columnLeft">
+        <h2 data-aos="fade-left">Hey, I&apos;m <span class="name">Dave</span>! </h2>
+        <h1 data-aos="fade-right">Solutions Engineer</h1>
+        <h3 data-aos="fade-left" data-aos-delay="100">I design and implement systems<span class="punctuation"><b>.</b></span></h3>
+
+        <div class="socialMedia">
+          {social.map((s) => (
+            <a href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}>
+              <i class={s.icon} data-aos="flip-up" data-aos-delay={s.delay} style={s.style}></i>
+            </a>
+          ))}
+        </div>
+
+        <div class="ctaButtons">
+          <button class="btn btn-filled" id="heroResumeBtn" data-aos="fade-up" data-aos-delay="100" aria-label="My Resume">MY RESUME</button>
+          <button class="btn btn-outlined" id="heroContactBtn" data-aos="fade-down" data-aos-delay="100" aria-label="Contact Me">CONTACT</button>
+        </div>
+      </div>
+
+      <div class="columnRight profilePic">
+        <div class="imageContainer">
+          <img
+            src={profilePic}
+            width="640"
+            height="640"
+            alt="Dave Levine - Solutions Engineer"
+            data-aos="fade-left"
+            data-aos-delay="50"
+            fetchpriority="high"
+            style="max-width: 100%; height: auto; border-radius: 50%; object-fit: contain;"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const fire = (type: string) =>
+    document.dispatchEvent(new CustomEvent('modal:open', { detail: { type } }));
+  document.getElementById('heroResumeBtn')?.addEventListener('click', () => fire('resume'));
+  document.getElementById('heroContactBtn')?.addEventListener('click', () => fire('contact'));
+</script>
+
+<style lang="scss">
+  .greetings { padding: 30px 15px 50px; height: 100vh; }
+
+  .greetings .row {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .greetings .columnLeft { margin-top: 20px; }
+    .greetings .columnRight.profilePic { max-width: 450px; max-height: 450px; margin: 0 auto 5px; }
+    .greetings .columnLeft h3 { font-size: 1.15rem !important; line-height: 2 !important; }
+  }
+
+  @media (orientation: landscape) {
+    .greetings .columnLeft { margin-top: 10px; }
+    .greetings .columnRight.profilePic { max-width: 200px; max-height: 200px; margin: 0 auto 5px; }
+  }
+
+  .greetings .columnLeft { order: 2; }
+  .greetings .columnLeft h1,
+  .greetings .columnLeft h2,
+  .greetings .columnLeft h3,
+  .greetings .columnLeft h4 { margin: 0; }
+  .greetings .columnLeft h1 { font-size: 3.9rem; color: var(--navbar-primary); line-height: 0.95; }
+  .greetings .columnLeft h2 { color: var(--navbar-primary); font-size: 1.45rem; margin: 0 2px; text-align: left; }
+  .greetings .columnLeft h3 {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 2px;
+    text-align: left;
+    line-height: 2.5;
+  }
+  .greetings .columnLeft h4 { color: var(--text-secondary); font-size: 1.5rem; margin: 0; text-align: left; }
+  .greetings .columnLeft .name { color: var(--background-secondary); }
+  .greetings .columnLeft .punctuation { color: var(--navbar-primary); }
+  .greetings .columnLeft .subtitle { font-size: 0.9rem; color: var(--text-tertiary); margin: 0; }
+  .greetings .columnLeft span { position: relative; top: 1px; }
+
+  .greetings .columnLeft .socialMedia { display: flex; margin-top: 14px; }
+  .greetings .columnLeft .socialMedia i {
+    font-size: 2rem;
+    margin: 0 5px;
+    color: var(--navbar-primary);
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.14));
+    align-self: center;
+  }
+  .greetings .columnLeft .socialMedia i:hover { color: var(--background-secondary); }
+
+  .greetings .columnLeft .ctaButtons { margin-top: 25px; display: flex; }
+  .greetings .columnLeft .ctaButtons button { font-size: 18px; padding: 10px 20px; transition: all 0.3s ease; }
+  .greetings .columnLeft .ctaButtons button:hover { transform: scale(1.05); background-color: var(--background-secondary); }
+  .greetings .columnLeft .ctaButtons button + button { margin-left: 15px; }
+
+  .greetings .columnRight { order: 1; }
+  .greetings .columnRight.profilePic {
+    text-align: center;
+    margin: 50px auto 0;
+    max-width: 230px;
+    max-height: 230px;
+    border-radius: 50%;
+  }
+  .greetings .columnRight.profilePic img { border-radius: 50%; }
+
+  @media only screen and (min-width: 480px) {
+    .greetings .columnRight.profilePic { max-width: 350px; max-height: 350px; margin: 0 auto 50px; }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .greetings { padding: 120px 25px 55px; height: 100vh; }
+    .greetings .container {
+      height: 100%;
+      max-width: 1140px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .greetings .row { display: flex; flex-direction: row; align-items: center; justify-content: space-between; height: 100%; }
+    .greetings .columnLeft { order: 1; align-self: center; display: flex; flex-direction: column; width: 45%; margin-left: auto; }
+    .greetings .columnLeft h1 { font-size: 4.5rem; margin: 0; text-align: left; line-height: 0.9; }
+    .greetings .columnLeft h2 { font-size: 2.3rem; margin: -5px 0; text-align: left; }
+    .greetings .columnLeft h3,
+    .greetings .columnLeft p { font-size: 1.5rem; margin: -10px 0; text-align: left; }
+    .greetings .columnRight { order: 2; width: 35%; margin: auto; margin-right: auto; }
+    .greetings .columnRight.profilePic { max-width: 440px; max-height: 440px; margin: 0 auto 20px; }
+    .greetings .columnRight.profilePic img { max-width: 100%; height: auto; }
+  }
+
+  @media only screen and (min-width: 1080px) {
+    .greetings .columnLeft h1 { font-size: 6.5rem; line-height: 0.85; margin: 0 0 20px -4px; }
+    .greetings .columnLeft { width: 45%; margin-left: auto; }
+    .greetings .columnRight { width: 45%; margin-right: auto; }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .greetings .columnLeft h1 { font-size: 4rem; line-height: 1.1; }
+    .greetings .columnLeft h2 { font-size: 1.8rem; }
+    .greetings .columnLeft h3,
+    .greetings .columnLeft p { font-size: 1.2rem; }
+  }
+
+  @media only screen and (min-width: 1080px) and (max-width: 1440px) {
+    .greetings .columnLeft h1 { font-size: 6.5rem; line-height: 0.9; }
+    .greetings .columnLeft h2 { font-size: 2.1rem; }
+    .greetings .columnLeft h3,
+    .greetings .columnLeft p { font-size: 1.3rem; }
+  }
+</style>
