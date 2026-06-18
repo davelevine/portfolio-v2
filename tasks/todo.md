@@ -20,7 +20,7 @@ Sequential first (shared chrome), then parallelizable:
 - [x] **Hero** (`home/hero.js`) — profile image, social links, CTA buttons (resume/contact modals), AOS.
 - [ ] **About** (`about/about.js`) — bio, image, quote box, AOS.
 - [ ] **Now** (`now/now.js`) — custom markdown renderers (quoteBox, divider, highlighted, image).
-- [ ] **Blog**: list (`blog.js` filter chips + scroll-progress), `blogItem.js` card, `blogContent.js` (markdown + Shiki + lightbox).
+- [x] **Blog** (list filters + scroll-progress + card grid; post markdown + Shiki code + copy + lightbox).
 - [ ] **Projects**: `allProjects.js` grid, `projectItem.js` (tech logos), `projectContent.js`.
 - [ ] **Certs**: `allCerts.js` (tech filter), `certItem.js` (date-status badges, modal), `certContent.js`.
 - [ ] Port each component's `.module.scss` (colocate as scoped `<style lang="scss">` or global where shared).
@@ -28,7 +28,7 @@ Sequential first (shared chrome), then parallelizable:
 ## Pages (`src/pages/`)
 - [ ] `index.astro` — hero + featured certs/projects/blog (replace placeholder)
 - [x] `about.astro`, `now.astro`
-- [ ] `blog/index.astro`, `blog/[...slug].astro` (+ reading time)
+- [x] `blog/index.astro`, `blog/[...slug].astro` (+ reading time)
 - [ ] `projects/index.astro`, `projects/[...slug].astro`
 - [ ] `certs/index.astro`, `certs/[...slug].astro`
 - [ ] Per-page `<title>`/description parity (raw titles: "Blog", "Projects", "Certifications")
@@ -36,11 +36,11 @@ Sequential first (shared chrome), then parallelizable:
 ## Features / parity
 - [ ] Theme toggle (system default, toggle in navbar, theme-color meta sync)
 - [ ] AOS scroll animations (`aos` npm + init script; keep `data-aos` attrs)
-- [ ] Lightbox for blog images — vanilla (GLightbox/PhotoSwipe) replacing yet-another-react-lightbox
+- [x] Lightbox for blog images — vanilla (GLightbox/PhotoSwipe) replacing yet-another-react-lightbox
 - [ ] Contact form → Formspree via fetch (no React)
-- [ ] `rss.xml` endpoint (`@astrojs/rss` from blog collection; title "Dave's Blog")
-- [ ] Reading-time helper (Math.ceil(words/200))
-- [ ] Scroll-progress bars (blog/projects lists)
+- [x] `rss.xml` endpoint (`@astrojs/rss` from blog collection; title "Dave's Blog")
+- [x] Reading-time helper (Math.ceil(words/200))
+- [x] Scroll-progress bars (blog/projects lists)
 - [ ] Verify CDN image refs (`cdn.levine.io/uploads/portfolio/public/images/...`)
 - [ ] Fira Code web font (currently var fallback only — confirm CDN google-fonts.css ships it, else add)
 
