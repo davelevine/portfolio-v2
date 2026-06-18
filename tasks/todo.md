@@ -14,10 +14,10 @@ the live `dave.levine.io`) in Astro. Static output → Cloudflare Pages, no runt
 
 ## Components to port (`components/**` → `src/components/*.astro`)
 Sequential first (shared chrome), then parallelizable:
-- [ ] **Navbar** (`navbar/navbar.js` + `themeToggle.js` + `menuToggle.js`) — sticky-on-scroll, nav links, theme toggle, mobile menu, contact-modal trigger. Drop framer-motion → CSS transitions; theme toggle flips `#app[data-theme]`.
-- [ ] **Modal system** (`layout/modal/*`) — generic modal + contact (Formspree `xzbloaed` via `fetch`) + resume (PDF iframe). Use `<dialog>` / backdrop; vanilla submit with submitting/succeeded/error states + honeypot.
+- [x] **Navbar** (`navbar/navbar.js` + `themeToggle.js` + `menuToggle.js`) — sticky-on-scroll, nav links + active state, theme toggle (flips `#app[data-theme]`), CSS hamburger→X, contact-modal trigger. framer-motion dropped.
+- [x] **Modal system** (`layout/modal/*`) — backdrop + contact (Formspree `xzbloaed` via `fetch`, submitting/succeeded/error states) + resume (PDF iframe); Escape/backdrop close; event-driven (`modal:open`/`modal:closed`).
 - [ ] **Footer** (empty)
-- [ ] **Hero** (`home/hero.js`) — profile image, social links, CTA buttons (resume/contact modals), AOS.
+- [x] **Hero** (`home/hero.js`) — profile image, social links, CTA buttons (resume/contact modals), AOS.
 - [ ] **About** (`about/about.js`) — bio, image, quote box, AOS.
 - [ ] **Now** (`now/now.js`) — custom markdown renderers (quoteBox, divider, highlighted, image).
 - [ ] **Blog**: list (`blog.js` filter chips + scroll-progress), `blogItem.js` card, `blogContent.js` (markdown + Shiki + lightbox).
