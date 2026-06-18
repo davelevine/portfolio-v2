@@ -37,7 +37,9 @@ const wordCount = entry!.body!.split(/\s+/).filter(Boolean).length;
   </div>
 </Layout>
 
-<style lang="scss">
+<style is:global lang="scss">
+  // Global (scoped by the .now wrapper) so the rules also reach the rendered
+  // markdown from <Content />, which doesn't carry Astro's scope attribute.
   .now {
     padding: 60px 15px;
     display: flex;
