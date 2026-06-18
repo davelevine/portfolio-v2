@@ -1,0 +1,154 @@
+---
+// Project card — ports components/projects/projectItem.js.
+interface Props {
+  title: string;
+  tech: string[];
+  image?: string;
+  description: string;
+  githubLink?: string;
+  githubComingSoon?: boolean;
+  liveLink?: string;
+  slug: string;
+}
+const { title, tech, image, description, githubLink, githubComingSoon, liveLink, slug } = Astro.props;
+const cdn = 'https://cdn.levine.io/uploads/portfolio/public/images/projects';
+const imageSrc = image?.startsWith('http') ? image : `${cdn}/${image}`;
+const logo = (t: string) => `${cdn}/logos/${encodeURIComponent(t)}.svg`;
+---
+
+<div class="card">
+  <a href={`/projects/${slug}`} aria-label={`View details about ${title}`}>
+    <div class="cardContent">
+      <h4>{title}</h4>
+      {image ? (
+        <div class="image">
+          <img src={imageSrc} width="320" height="220" alt={`Visual representation of the project titled "${title}"`} fetchpriority="high" style="object-fit: contain;" />
+        </div>
+      ) : (
+        <div class="placeholderContainer"><div class="placeholder">.</div></div>
+      )}
+      <div class="techLogos">
+        {tech.map((t) => (
+          <div class="techLogo"><img src={logo(t)} alt={`${t} logo`} width="24" height="24" loading="lazy" /></div>
+        ))}
+      </div>
+    </div>
+  </a>
+  <p>{description}</p>
+  <div class="projectLinks">
+    {githubLink && (
+      <a href={githubLink} target="_blank" rel="noreferrer" aria-label={`View ${title} on GitHub`}><i class="fab fa-github"></i>Github</a>
+    )}
+    {!githubLink && githubComingSoon && (
+      <span class="comingSoon" tabindex="0" aria-label={`${title} GitHub repository coming soon`}><i class="fab fa-github"></i>Github<span class="tooltip" role="tooltip">Coming soon</span></span>
+    )}
+    {liveLink && (
+      <a href={liveLink} target="_blank" rel="noreferrer" aria-label={`View ${title} live`}><i class="fa-regular fa-arrow-up-right-from-square"></i>Website</a>
+    )}
+    <a href={`/projects/${slug}`} aria-label={`More details about ${title}`}><i class="fa-regular fa-circle-info"></i>Details</a>
+  </div>
+</div>
+
+<style lang="scss">
+  .card {
+    border-radius: 8px;
+    padding: 25px;
+    background-color: var(--background-card);
+    border: 1px solid var(--border-card);
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .card h4 { color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 0.7rem; }
+
+  .card .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 320px;
+    height: 220px;
+    max-height: 220px;
+    margin: 0 auto 0.75rem auto;
+    overflow: hidden;
+    border-radius: 4px;
+    transition: transform var(--transition-speed) ease, filter var(--transition-speed) ease;
+  }
+  .card:hover .image { transform: scale(1.05); filter: brightness(1); }
+  .card .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: 320px;
+    max-height: 220px;
+    filter: brightness(0.85);
+    transition: filter var(--transition-speed) ease;
+  }
+
+  .card .techLogos { display: flex; justify-content: center; align-items: center; margin-top: 0.75rem; margin-bottom: 0.4rem; }
+  .card .techLogos .techLogo { width: 24px; height: 24px; margin: 0 10px; border-radius: 50%; overflow: hidden; }
+  .card .techLogos .techLogo img { width: 100%; height: 100%; object-fit: contain; }
+
+  .card p { color: var(--text-primary); margin-bottom: 1.5rem; overflow: hidden; text-overflow: ellipsis; }
+
+  .card .projectLinks {
+    margin-top: auto;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    a {
+      color: var(--text-primary);
+      font-size: 1rem;
+      margin: 0 15px 10px 0;
+      display: block;
+      font-weight: bold;
+      transition: color var(--transition-speed) ease, transform var(--transition-speed) ease, text-decoration var(--transition-speed) ease;
+      &:hover { color: var(--link-hover); transform: scale(1.1); text-decoration: underline; }
+    }
+    i { width: 20px; margin-right: 5px; color: var(--accent); font-weight: normal; }
+
+    .comingSoon {
+      position: relative;
+      color: var(--text-primary);
+      font-size: 1rem;
+      margin: 0 15px 10px 0;
+      display: inline-flex;
+      align-items: center;
+      font-weight: bold;
+      opacity: 0.6;
+      cursor: help;
+
+      .tooltip {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        bottom: 135%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        background-color: var(--background-card);
+        border: 1px solid var(--border-card);
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        font-weight: normal;
+        padding: 4px 8px;
+        border-radius: 6px;
+        z-index: 1;
+        transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+      }
+      &:hover .tooltip,
+      &:focus .tooltip { visibility: visible; opacity: 1; }
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .card { margin-bottom: 0; height: 100%; }
+  }
+</style>
