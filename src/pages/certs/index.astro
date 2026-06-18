@@ -1,0 +1,144 @@
+---
+// Certs list — ports pages/certs/index.js + components/certs/allCerts.js.
+import Layout from '../../layouts/Layout.astro';
+import CertItem from '../../components/CertItem.astro';
+import { getCollection } from 'astro:content';
+
+const certs = await getCollection('certs');
+// achievedDate desc, then: legacy certs last (by title), non-legacy featured-first.
+certs.sort((a, b) => new Date(b.data.achievedDate).valueOf() - new Date(a.data.achievedDate).valueOf());
+certs.sort((a, b) => {
+  const aL = a.data.originalTitle?.includes('(Legacy)');
+  const bL = b.data.originalTitle?.includes('(Legacy)');
+  if (aL && bL) return a.data.title.localeCompare(b.data.title);
+  if (aL) return 1;
+  if (bL) return -1;
+  return (b.data.isFeatured ? 1 : 0) - (a.data.isFeatured ? 1 : 0);
+});
+const topics = [...new Set(certs.flatMap((c) => c.data.tech ?? []))].sort();
+---
+
+<Layout title="Certifications" description="List of all my certifications.">
+  <section class="certs">
+    <div id="scroll-progress" class="scrollProgress"></div>
+
+    <div class="container">
+      <h1>CERTIFICATIONS</h1>
+
+      <div class="filter">
+        <h3><p>Sort By Topic</p></h3>
+        <div class="filterButtons" id="filterButtons">
+          <button class="btn btn-outlined sm active" data-topic="all">All</button>
+          {topics.map((t) => (
+            <button class="btn btn-outlined sm" data-topic={t}>{t}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="galleryWrap">
+        <div class="gallery" id="gallery">
+          {certs.map((c) => (
+            <div class="certCard" data-topic={(c.data.tech ?? []).join('|')}>
+              <CertItem
+                title={c.data.title}
+                excerpt={c.data.excerpt}
+                achievedDate={c.data.achievedDate}
+                expirationDate={c.data.expirationDate}
+                image={c.data.image}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import GLightbox from 'glightbox';
+  import 'glightbox/dist/css/glightbox.min.css';
+
+  // Topic filter.
+  const buttons = document.querySelectorAll<HTMLButtonElement>('#filterButtons button');
+  const items = document.querySelectorAll<HTMLElement>('#gallery .certCard');
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const topic = btn.dataset.topic!;
+      buttons.forEach((b) => b.classList.toggle('active', b === btn));
+      items.forEach((it) => {
+        const topics = (it.dataset.topic || '').split('|');
+        it.style.display = topic === 'all' || topics.includes(topic) ? '' : 'none';
+      });
+    })
+  );
+
+  // Clicking a cert title also opens its certificate image.
+  document.querySelectorAll<HTMLElement>('.certCard').forEach((card) => {
+    const title = card.querySelector<HTMLElement>('.cert-title');
+    const link = card.querySelector<HTMLAnchorElement>('.view-cert');
+    title?.addEventListener('click', () => link?.click());
+  });
+
+  GLightbox({ selector: '.glightbox', touchNavigation: true, loop: false });
+
+  // Scroll-progress bar.
+  const bar = document.getElementById('scroll-progress');
+  const onScroll = () =>
+    requestAnimationFrame(() => {
+      const el = document.documentElement;
+      const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+      if (bar) bar.style.width = `${pct}%`;
+    });
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+<style lang="scss">
+  .certs { padding: 50px 15px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
+
+  .certs .scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 5px;
+    background: var(--navbar-primary);
+    z-index: 1000;
+    transition: width var(--transition-speed) ease-out;
+    border-radius: 0 0 5px 5px;
+  }
+
+  .certs h1 {
+    text-align: center;
+    font-size: 2.3rem;
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-top: 40px;
+  }
+
+  .certs .filter p { text-align: center; margin-top: -5px; font-weight: 600; color: var(--text-primary); }
+  .certs .filter p::after { content: ':'; color: var(--accent); }
+
+  .certs .filterButtons { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+  .certs .galleryWrap { margin-top: 50px; }
+  .certs .gallery { display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 25px; }
+  .certs .certCard { display: grid; }
+
+  @media (min-width: 768px) {
+    .certs { padding: 150px 25px; min-height: 100vh; }
+    .certs .container { max-width: 1200px; margin: auto; }
+    .certs h1 { font-size: 3.8rem; margin-top: -40px; }
+    .certs .filter { margin-top: -30px; }
+  }
+
+  @media (min-width: 1200px) {
+    .certs .gallery { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 767px) {
+    .certs .scrollProgress { display: block; }
+    .certs .gallery { grid-template-columns: 1fr; grid-gap: 0; }
+  }
+</style>

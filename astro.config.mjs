@@ -3,6 +3,19 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import rehypeExternalLinks from 'rehype-external-links';
 
+// Rewrite root-relative /images/* references (used in cert markdown bodies) to
+// the CDN, where the imagery actually lives.
+function rehypeCdnImages() {
+  const base = 'https://cdn.levine.io/uploads/portfolio/public';
+  const walk = (node) => {
+    if (node.tagName === 'img' && typeof node.properties?.src === 'string' && node.properties.src.startsWith('/images/')) {
+      node.properties.src = base + node.properties.src;
+    }
+    (node.children || []).forEach(walk);
+  };
+  return (tree) => walk(tree);
+}
+
 // Fully static site — content sourced from markdown content collections at build
 // time. Emits to dist/, deploys to Cloudflare Pages with no runtime (parity with
 // the old Next.js `output: 'export'`).
@@ -18,6 +31,7 @@ export default defineConfig({
     // External links open in a new tab (parity with the now/blog renderers).
     rehypePlugins: [
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
+      rehypeCdnImages,
     ],
     // Theme-aware code blocks (parity with react-syntax-highlighter's
     // atomDark/solarizedlight pair); CSS variables drive the rest.
