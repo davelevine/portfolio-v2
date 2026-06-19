@@ -7,14 +7,18 @@ import { getCollection } from 'astro:content';
 const cdn = 'https://cdn.levine.io/uploads/portfolio/public/images/projects';
 const logo = (t: string) => `${cdn}/logos/${encodeURIComponent(t)}.svg`;
 
-const projects = (await getCollection('projects')).sort((a, b) => {
+const projects = await getCollection('projects');
+// Deterministic order (the collection's native order isn't alphabetical):
+// featured first, then date desc, then alphabetical by slug — matches Production.
+const ordered = [...projects].sort((a, b) => {
+  const fa = a.data.isFeatured ? 1 : 0;
+  const fb = b.data.isFeatured ? 1 : 0;
+  if (fa !== fb) return fb - fa;
   const da = a.data.date ? a.data.date.valueOf() : 0;
   const db = b.data.date ? b.data.date.valueOf() : 0;
-  return db - da;
+  if (da !== db) return db - da;
+  return a.id.localeCompare(b.id);
 });
-const ordered = [...projects].sort(
-  (a, b) => (b.data.isFeatured ? 1 : 0) - (a.data.isFeatured ? 1 : 0)
-);
 const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
 ---
 
@@ -23,19 +27,19 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
     <div id="scroll-progress" class="scrollProgress"></div>
 
     <div class="container">
-      <h1>PROJECTS</h1>
+      <h1 class="anim-header">PROJECTS</h1>
 
       <div class="filter">
-        <h3><p>Sort By Tech</p></h3>
+        <h3 class="anim-subheader"><p>Sort By Tech</p></h3>
         <div class="filterButtons" id="filterButtons">
-          <button class="btn btn-outlined sm active" data-tech="all" aria-label="Show all projects">
+          <button class="btn btn-outlined sm active anim-filter-btn" data-tech="all" aria-label="Show all projects">
             <span class="techLogoContainer">
               <i class="fa-regular fa-asterisk" aria-hidden="true"></i>
               <span class="techLogoName">All</span>
             </span>
           </button>
-          {techs.map((t) => (
-            <button class="btn btn-outlined sm" data-tech={t} aria-label={`Filter projects by ${t}`}>
+          {techs.map((t, i) => (
+            <button class="btn btn-outlined sm anim-filter-btn" data-tech={t} style={`animation-delay: ${(i + 1) * 50}ms`} aria-label={`Filter projects by ${t}`}>
               <span class="techLogoContainer">
                 <img class="techLogo" src={logo(t)} alt={t} width="32" height="32" loading="lazy" />
                 <span class="techLogoName">{t}</span>
@@ -48,7 +52,7 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
       <div class="galleryWrap">
         <div class="gallery" id="gallery">
           {ordered.map((p) => (
-            <div class="projectCard" data-tech={p.data.tech.join('|')}>
+            <div class="projectCard" data-tech={p.data.tech.join('|')} data-aos="card-pop" data-aos-duration="300" data-aos-easing="ease-in-out">
               <ProjectItem
                 title={p.data.title}
                 tech={p.data.tech}
@@ -68,28 +72,31 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
 </Layout>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('#filterButtons button');
-  const items = document.querySelectorAll<HTMLElement>('#gallery .projectCard');
-  buttons.forEach((btn) =>
-    btn.addEventListener('click', () => {
-      const tech = btn.dataset.tech!;
-      buttons.forEach((b) => b.classList.toggle('active', b === btn));
-      items.forEach((it) => {
-        const techs = (it.dataset.tech || '').split('|');
-        it.style.display = tech === 'all' || techs.includes(tech) ? '' : 'none';
-      });
-    })
-  );
-
-  const bar = document.getElementById('scroll-progress');
-  const onScroll = () =>
+  function onScroll() {
     requestAnimationFrame(() => {
       const el = document.documentElement;
-      const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
-      if (bar) bar.style.width = `${pct}%`;
+      const bar = document.getElementById('scroll-progress');
+      if (bar) bar.style.width = `${(el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100}%`;
     });
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  }
+  document.addEventListener('astro:page-load', () => {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('#filterButtons button');
+    const items = document.querySelectorAll<HTMLElement>('#gallery .projectCard');
+    if (!buttons.length) return;
+    buttons.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const tech = btn.dataset.tech!;
+        buttons.forEach((b) => b.classList.toggle('active', b === btn));
+        items.forEach((it) => {
+          const techs = (it.dataset.tech || '').split('|');
+          it.style.display = tech === 'all' || techs.includes(tech) ? '' : 'none';
+        });
+      })
+    );
+    window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  });
 </script>
 
 <style lang="scss">
@@ -128,19 +135,16 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
     transition: transform var(--transition-speed) ease, color var(--transition-speed) ease;
   }
 
-  // Circular tech-filter buttons (scoped to projects so the blog's text chips are unaffected).
+  // Round tech-filter buttons sized by their logo + the .btn.sm padding (parity
+  // with Production); scoped to projects so the blog/cert text chips are unaffected.
   .projectsGallery .filterButtons button {
-    width: 48px;
-    height: 48px;
-    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    overflow: visible;
   }
-  .projectsGallery .filterButtons button img,
-  .projectsGallery .filterButtons button .fa-asterisk { max-width: 60%; max-height: 60%; font-size: 1.5rem; }
+  .projectsGallery .filterButtons button img { width: 32px; height: 32px; border-radius: 50%; object-fit: contain; }
+  .projectsGallery .filterButtons button .fa-asterisk { font-size: 32px; color: currentColor; }
   .projectsGallery .techLogoContainer { position: relative; display: flex; align-items: center; justify-content: center; text-align: center; }
   .projectsGallery .techLogoName {
     display: none;
@@ -161,6 +165,7 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
 
   .projectsGallery .galleryWrap { margin-top: 50px; }
   .projectsGallery .gallery { display: grid; grid-template-columns: 1fr; gap: 25px; }
+  .projectsGallery .projectCard { display: grid; }
 
   @media (min-width: 768px) {
     .projectsGallery { padding: 150px 25px; min-height: 100vh; margin-bottom: 0; }
@@ -174,5 +179,7 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
     .projectsGallery .gallery { grid-template-columns: repeat(3, 1fr); }
   }
 
-  [data-theme='dark'] .projectsGallery .techLogoName { background: var(--button-border); color: var(--text-primary); }
+  // :global() so Astro doesn't scope the theme selector onto an element that
+  // also needs the page scope-id (data-theme lives on #app, no scope-id).
+  :global([data-theme='dark']) .projectsGallery .techLogoName { background: var(--button-border); color: var(--text-primary); }
 </style>
