@@ -56,14 +56,36 @@ h4 {
   color: var(--text-secondary);
 }
 
-// Manage scrollbar width when modal is open
+// Lock scroll when a modal is open. Scrollbars are hidden globally (no gutter),
+// so NO padding-right compensation — adding it shifts the page left and forces a
+// horizontal scrollbar.
 body.modal-open {
   overflow: hidden;
-  padding-right: 15px; /* Adjust this value to match your scrollbar width */
 }
 
 // Hide scrollbar in WebKit browsers (Chrome, Safari)
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
+}
+
+// Filter-section entrance animations (replace the framer-motion variants on the
+// blog/projects/certs list pages).
+@keyframes filter-slide-left { from { opacity: 0; transform: translateX(-600px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes filter-slide-right { from { opacity: 0; transform: translateX(300px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes filter-btn-in { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
+
+.anim-header { animation: filter-slide-left 0.3s ease-in-out both; }
+.anim-subheader { animation: filter-slide-right 0.3s ease-in-out both; }
+.anim-filter-btn { animation: filter-btn-in 0.3s ease-in-out both; }
+
+// Card scroll-in (custom AOS animation) matching the framer-motion item variant
+// on the blog/project grids: opacity 0 + translateY(100) + scale(0.5) -> settled.
+[data-aos='card-pop'] {
+  opacity: 0;
+  transform: translateY(100px) scale(0.5);
+}
+[data-aos='card-pop'].aos-animate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }

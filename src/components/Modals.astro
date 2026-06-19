@@ -5,7 +5,7 @@ const PGP = 'https://cdn.levine.io/uploads/portfolio/public/assets/dave.levine.i
 const LINKEDIN = 'https://www.linkedin.com/in/iamdavelevine';
 ---
 
-<div class="backdrop" id="modal-backdrop" hidden>
+<div class="backdrop" id="modal-backdrop" transition:persist="modals" hidden>
   <div class="modalContent">
     {/* Contact */}
     <div class="modal" id="contact-modal" hidden>
@@ -253,6 +253,9 @@ const LINKEDIN = 'https://www.linkedin.com/in/iamdavelevine';
   .contactLinks a i { font-size: 3rem; }
 
   .contactModalConfirmation { display: flex; flex-direction: column; justify-content: space-between; }
+  // The class's display:flex would otherwise override the [hidden] attribute,
+  // showing the confirmation (and its social icons) on top of the form.
+  .contactModalConfirmation[hidden] { display: none; }
   .contactModalConfirmation .confirmationButton button { width: 100%; }
   .contactModalConfirmation .contactLinks { margin-top: 40px; }
   // The confirmation icons live outside .action, so give them the accent color.

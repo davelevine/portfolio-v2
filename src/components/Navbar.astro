@@ -16,7 +16,7 @@ const isActive = (path: string) =>
   path === '/' ? current === '/' : current === path || current.startsWith(path + '/');
 ---
 
-<div class="navbar" id="navbar">
+<div class="navbar" id="navbar" transition:persist="navbar">
   <div class="container">
     <a href="/" class="logo"><span class="name">&lt;</span>/DAVE LEVINE<span class="name">&gt;</span></a>
 
@@ -58,7 +58,9 @@ const isActive = (path: string) =>
   const themeIcon = document.getElementById('theme-icon')!;
   const contactBtn = document.getElementById('contactBtn')!;
   const contactIcon = document.getElementById('contact-icon')!;
-  const app = document.getElementById('app')!;
+  // The navbar persists across View Transitions, so this script runs once; #app
+  // (theme host) is swapped on navigation, so query it fresh each time.
+  const getApp = () => document.getElementById('app');
 
   // Sticky on scroll (>= 100px), debounced.
   let t: number | undefined;
@@ -68,33 +70,36 @@ const isActive = (path: string) =>
   };
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Theme toggle — flips #app[data-theme] (not persisted, parity with original).
+  // Theme toggle — flips #app[data-theme]; remembered in sessionStorage so it
+  // survives client-side navigations (re-applied in Layout on after-swap).
   const syncThemeIcon = () => {
-    const dark = app.getAttribute('data-theme') !== 'light';
+    const app = getApp();
+    const dark = !app || app.getAttribute('data-theme') !== 'light';
     themeIcon.className = `fa ${dark ? 'fa-moon' : 'fa-sun'}`;
     const meta = document.getElementById('theme-color-meta');
     if (meta) meta.setAttribute('content', dark ? '#121212' : '#ffffff');
   };
   syncThemeIcon();
   themeBtn.addEventListener('click', () => {
-    const dark = app.getAttribute('data-theme') !== 'light';
-    app.setAttribute('data-theme', dark ? 'light' : 'dark');
+    const app = getApp();
+    if (!app) return;
+    const next = app.getAttribute('data-theme') !== 'light' ? 'light' : 'dark';
+    app.setAttribute('data-theme', next);
+    sessionStorage.setItem('theme', next);
     syncThemeIcon();
   });
 
-  // Mobile menu.
+  // Mobile menu (delegated so it survives independent of link identity).
   menuBtn.addEventListener('click', () => {
     menuBtn.classList.toggle('open');
     navMenu.classList.toggle('responsive');
   });
-  navMenu.querySelectorAll('[data-nav-link]').forEach((a) =>
-    a.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        menuBtn.classList.remove('open');
-        navMenu.classList.remove('responsive');
-      }
-    })
-  );
+  navMenu.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('[data-nav-link]') && window.innerWidth <= 768) {
+      menuBtn.classList.remove('open');
+      navMenu.classList.remove('responsive');
+    }
+  });
 
   // Contact modal trigger.
   contactBtn.addEventListener('click', () =>
@@ -104,6 +109,18 @@ const isActive = (path: string) =>
     if ((e as CustomEvent).detail?.type === 'contact') contactIcon.className = 'fa fa-envelope-open';
   });
   document.addEventListener('modal:closed', () => (contactIcon.className = 'fa fa-envelope'));
+
+  // Active-link highlight must update on each navigation (navbar persists).
+  const norm = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
+  const updateActive = () => {
+    const cur = norm(location.pathname);
+    navMenu.querySelectorAll<HTMLAnchorElement>('a[data-nav-link]').forEach((a) => {
+      const path = norm(new URL(a.href).pathname);
+      const active = path === '/' ? cur === '/' : cur === path || cur.startsWith(path + '/');
+      a.classList.toggle('activeLink', active);
+    });
+  };
+  document.addEventListener('astro:page-load', updateActive);
 </script>
 
 <style lang="scss">
@@ -115,7 +132,31 @@ const isActive = (path: string) =>
     background-color: var(--background);
     transition: background 0.3s;
     margin-bottom: 0;
+    animation: navbar-drop 0.5s ease-in-out both;
   }
+
+  // Entrance animations (replace the framer-motion navbar/link/button variants).
+  // Links share a start time but each has a LONGER duration (0.5 + i*0.075) — they
+  // all drop together and settle in sequence (framer's per-item duration, not delay).
+  @keyframes navbar-drop { from { transform: translateY(-100px); } to { transform: translateY(0); } }
+  @keyframes nav-item-in { from { opacity: 0; transform: translateY(-100px); } to { opacity: 1; transform: translateY(0); } }
+
+  .navMenu .linkWrapper a { opacity: 0; animation: nav-item-in 0.5s ease-in-out forwards; }
+  .navMenu .linkWrapper a:nth-child(1) { animation-duration: 0.5s; }
+  .navMenu .linkWrapper a:nth-child(2) { animation-duration: 0.575s; }
+  .navMenu .linkWrapper a:nth-child(3) { animation-duration: 0.65s; }
+  .navMenu .linkWrapper a:nth-child(4) { animation-duration: 0.725s; }
+  .navMenu .linkWrapper a:nth-child(5) { animation-duration: 0.8s; }
+  .navMenu .linkWrapper a:nth-child(6) { animation-duration: 0.875s; }
+
+  .navContainer .icon { opacity: 0; animation: nav-item-in 0.7s ease-in-out forwards; }
+  .navContainer .themeToggleContainer .icon { animation-duration: 0.75s; }
+
+  // After the first page of a session, skip the entrance (no replay per navigation).
+  // :global() so Astro doesn't scope the <html> flag class.
+  :global(html.nav-seen) .navbar { animation: none; }
+  :global(html.nav-seen) .navMenu .linkWrapper a,
+  :global(html.nav-seen) .navContainer .icon { animation: none; opacity: 1; }
 
   .navbar.sticky {
     position: fixed;
