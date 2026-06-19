@@ -24,11 +24,11 @@ const imageSrc = image?.startsWith('http') ? image : `${cdn}/${image}`;
   <div class="projectDetail">
     <div class="container section mvh-100">
       <div class="card">
-        <h1>{title}</h1>
+        <h1 class="anim-proj-title">{title}</h1>
 
-        <small>
-          {tech.map((t) => (
-            <span class="techLogoContainer"><img src={logo(t)} alt={t} width="20" height="20" class="techLogo" /> {t}</span>
+        <small class="anim-proj-meta">
+          {tech.map((t, i) => (
+            <span class="techLogoContainer anim-pill" style={`animation-delay: ${(0.1 + i * 0.05).toFixed(2)}s`}><img src={logo(t)} alt={t} width="20" height="20" class="techLogo" /> {t}</span>
           ))}
         </small>
 
@@ -63,6 +63,15 @@ const imageSrc = image?.startsWith('http') ? image : `${cdn}/${image}`;
 </Layout>
 
 <style is:global lang="scss">
+  // Entrance animations (framer-motion parity): title slides x:-100 / 0.5s easeOut;
+  // the tech-bubble row fades in after 0.1s.
+  @keyframes proj-title-in { from { opacity: 0; transform: translateX(-100px); } to { opacity: 1; transform: none; } }
+  @keyframes proj-meta-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pill-in { from { opacity: 0; } to { opacity: 1; } }
+  .projectDetail .anim-proj-title { animation: proj-title-in 0.5s ease-out both; }
+  .projectDetail .anim-proj-meta { animation: proj-meta-in 0.5s ease-out 0.1s both; }
+  .projectDetail .anim-pill { animation: pill-in 0.3s ease-in-out both; }
+
   .projectDetail h1,
   .projectDetail h2 { color: var(--text-secondary); }
   .projectDetail h1 { margin-bottom: 0; font-size: 2.1rem; font-weight: 700; }
@@ -256,6 +265,6 @@ const imageSrc = image?.startsWith('http') ? image : `${cdn}/${image}`;
     opacity: 0.6;
     user-select: none;
   }
-  [data-theme='dark'] .projectDetail pre.astro-code { background-color: var(--shiki-dark-bg) !important; }
-  [data-theme='dark'] .projectDetail pre.astro-code span { color: var(--shiki-dark) !important; background-color: transparent !important; }
+  .projectDetail pre.astro-code { background-color: var(--code-block-bg) !important; }
+  [data-theme='dark'] .projectDetail pre.astro-code span { color: var(--shiki-dark) !important; }
 </style>
