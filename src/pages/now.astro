@@ -18,9 +18,9 @@ const wordCount = entry!.body!.split(/\s+/).filter(Boolean).length;
   <div class="now">
     <div class="container section mvh-100">
       <div class="card">
-        <h1 class="title">Here and Now</h1>
+        <h1 class="title anim-header">Here and Now</h1>
         <div class="metaInfo">
-          <span class="inlineMeta">
+          <span class="inlineMeta anim-now-meta">
             <span class="inlineItem">
               <i class="fa-regular fa-calendar-lines-pen"></i> {nowDate} &nbsp;•&nbsp;
               <i class="fa-regular fa-font"></i> {wordCount} words
@@ -38,6 +38,10 @@ const wordCount = entry!.body!.split(/\s+/).filter(Boolean).length;
 </Layout>
 
 <style is:global lang="scss">
+  // Entrance animation (framer-motion parity): meta row fades up (y:20) after 0.2s.
+  @keyframes now-meta-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .now .anim-now-meta { display: block; animation: now-meta-in 0.3s ease-in-out 0.2s both; }
+
   // Global (scoped by the .now wrapper) so the rules also reach the rendered
   // markdown from <Content />, which doesn't carry Astro's scope attribute.
   .now {
