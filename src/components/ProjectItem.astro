@@ -22,7 +22,7 @@ const logo = (t: string) => `${cdn}/logos/${encodeURIComponent(t)}.svg`;
       <h4>{title}</h4>
       {image ? (
         <div class="image">
-          <img src={imageSrc} width="320" height="220" alt={`Visual representation of the project titled "${title}"`} fetchpriority="high" style="object-fit: contain;" />
+          <img src={imageSrc} width="320" height="220" alt={`Visual representation of the project titled "${title}"`} fetchpriority="high" />
         </div>
       ) : (
         <div class="placeholderContainer"><div class="placeholder">.</div></div>
@@ -58,6 +58,7 @@ const logo = (t: string) => `${cdn}/logos/${encodeURIComponent(t)}.svg`;
     margin-bottom: 25px;
     display: flex;
     flex-direction: column;
+    width: 100%; // Fill the grid cell explicitly (don't rely on auto-track stretch).
     height: 100%;
     text-align: center;
     box-sizing: border-box;
@@ -65,31 +66,49 @@ const logo = (t: string) => `${cdn}/logos/${encodeURIComponent(t)}.svg`;
 
   .card h4 { color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 0.7rem; }
 
+  // Uniform image frame: every card gets an identical-size box (full card width
+  // at a fixed aspect ratio), so all images render at the same size regardless of
+  // their native dimensions. object-fit: contain keeps the whole screenshot
+  // visible (no cropping); the frame background fills any letterbox so it reads as
+  // an intentional, consistent frame rather than a small floating image.
   .card .image {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 320px;
-    height: 220px;
-    max-height: 220px;
-    margin: 0 auto 0.75rem auto;
+    aspect-ratio: 5 / 3; // ~1.667, matches the screenshots' actual ratio (~1.66), so
+                         // with object-fit: cover they fill the frame with no bars and
+                         // ~no crop. Uniform frame → every card's image is one size.
+    margin: 0 0 0.75rem;
     overflow: hidden;
     border-radius: 4px;
+    background: var(--background);
     transition: transform var(--transition-speed) ease, filter var(--transition-speed) ease;
   }
   .card:hover .image { transform: scale(1.05); filter: brightness(1); }
   .card .image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    max-width: 320px;
-    max-height: 220px;
+    object-fit: cover; // fill the frame (no letterbox bars), matching Production's
+                       // `.gallery img { object-fit: cover }`. Frame is a uniform
+                       // 16:10, so every card's image is the same size.
     filter: brightness(0.85);
     transition: filter var(--transition-speed) ease;
   }
 
-  .card .techLogos { display: flex; justify-content: center; align-items: center; margin-top: 0.75rem; margin-bottom: 0.4rem; }
+  // No-image fallback occupies the same frame so card heights stay uniform.
+  .card .placeholderContainer {
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    margin: 0 0 0.75rem;
+    border-radius: 4px;
+    background: var(--background);
+  }
+
+  // flex-wrap so cards with many techs (e.g. Journalistic's 8) wrap to a second
+  // row instead of forcing one ~350px-wide unbreakable row that overflows / blows
+  // out the card. row-gap spaces wrapped rows.
+  .card .techLogos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; row-gap: 10px; margin-top: 0.75rem; margin-bottom: 0.4rem; }
   .card .techLogos .techLogo { width: 24px; height: 24px; margin: 0 10px; border-radius: 50%; overflow: hidden; }
   .card .techLogos .techLogo img { width: 100%; height: 100%; object-fit: contain; }
 
