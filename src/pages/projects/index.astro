@@ -52,7 +52,7 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
       <div class="galleryWrap">
         <div class="gallery" id="gallery">
           {ordered.map((p) => (
-            <div class="projectCard" data-tech={p.data.tech.join('|')} data-aos="card-pop" data-aos-duration="300" data-aos-easing="ease-in-out">
+            <div class="projectCard reveal" data-tech={p.data.tech.join('|')}>
               <ProjectItem
                 title={p.data.title}
                 tech={p.data.tech}
@@ -82,7 +82,12 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
   document.addEventListener('astro:page-load', () => {
     const buttons = document.querySelectorAll<HTMLButtonElement>('#filterButtons button');
     const items = document.querySelectorAll<HTMLElement>('#gallery .projectCard');
-    if (!buttons.length) return;
+    // This document-level listener fires on every navigation; #filterButtons is shared
+    // with /certs and /blog, so gate on a page-unique element (the project cards).
+    if (!buttons.length || !items.length) return;
+
+    // Card entrance is pure CSS (.fx fx-fade-up) — fires on element insertion, so it
+    // works on every client-side navigation with no JS reveal needed.
     buttons.forEach((btn) =>
       btn.addEventListener('click', () => {
         const tech = btn.dataset.tech!;
@@ -138,11 +143,15 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
   // Round tech-filter buttons sized by their logo + the .btn.sm padding (parity
   // with Production); scoped to projects so the blog/cert text chips are unaffected.
   .projectsGallery .filterButtons button {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
   }
+  // Lift the hovered button above its siblings so its tooltip (which drops below
+  // the icon) isn't painted over by the wrapped second row of filter buttons.
+  .projectsGallery .filterButtons button:hover { z-index: 5; }
   .projectsGallery .filterButtons button img { width: 32px; height: 32px; border-radius: 50%; object-fit: contain; }
   .projectsGallery .filterButtons button .fa-asterisk { font-size: 32px; color: currentColor; }
   .projectsGallery .techLogoContainer { position: relative; display: flex; align-items: center; justify-content: center; text-align: center; }
@@ -164,22 +173,35 @@ const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
   .projectsGallery .techLogoContainer:hover .techLogoName { display: block; }
 
   .projectsGallery .galleryWrap { margin-top: 50px; }
+  // minmax(0, 1fr) instead of the default `1fr` (= minmax(auto, 1fr)) so every
+  // column is exactly equal width. With the implicit `auto` minimum, the track
+  // holding the widest-min-content card refuses to shrink and steals width from
+  // the others — that's why one column rendered larger, worst at narrow desktop
+  // widths. min-width: 0 lets each card shrink to its (now equal) track.
   .projectsGallery .gallery { display: grid; grid-template-columns: 1fr; gap: 25px; }
-  .projectsGallery .projectCard { display: grid; }
+
+  // Layout only — the fade-up entrance comes from the global `.fx fx-fade-up`
+  // classes (pure CSS, fires on insertion → works on every client-side nav).
+  .projectsGallery .projectCard { display: grid; min-width: 0; }
 
   @media (min-width: 768px) {
     .projectsGallery { padding: 150px 25px; min-height: 100vh; margin-bottom: 0; }
     .projectsGallery .container { max-width: 1200px; margin: auto; }
     .projectsGallery h1 { font-size: 3.8rem; margin-top: -40px; }
     .projectsGallery .filter { margin-top: -30px; }
-    .projectsGallery .gallery { grid-template-columns: repeat(2, 1fr); }
+    .projectsGallery .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
   @media (min-width: 1080px) {
-    .projectsGallery .gallery { grid-template-columns: repeat(3, 1fr); }
+    .projectsGallery .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 
-  // :global() so Astro doesn't scope the theme selector onto an element that
-  // also needs the page scope-id (data-theme lives on #app, no scope-id).
-  :global([data-theme='dark']) .projectsGallery .techLogoName { background: var(--button-border); color: var(--text-primary); }
+  // :global() so Astro doesn't scope the theme selector onto <html> (the theme
+  // host), which carries no page scope-id. Opaque --background-card (not the ~38%
+  // alpha --button-border) so the tooltip is readable, not see-through.
+  :global([data-theme='dark']) .projectsGallery .techLogoName {
+    background: var(--background-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-card);
+  }
 </style>

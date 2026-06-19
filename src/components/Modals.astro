@@ -249,6 +249,12 @@ const LINKEDIN = 'https://www.linkedin.com/in/iamdavelevine';
     .contactModal { min-height: 500px; top: 45%; transform: translate(-50%, -45%); }
   }
 
+  // Keep the two icons on one line. They are inline <a>s; inside the flex .action
+  // row the min-content width can resolve to a single icon, so some engines (Chromium/
+  // Brave) wrap the second icon onto its own line while others (Firefox) keep them
+  // inline. nowrap forbids the wrap and stays consistent across browsers — and unlike
+  // display:flex it preserves the text-align:center used by the confirmation view.
+  .contactLinks { white-space: nowrap; }
   .contactLinks a { margin-right: 20px; }
   .contactLinks a i { font-size: 3rem; }
 

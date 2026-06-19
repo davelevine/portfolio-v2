@@ -17,21 +17,21 @@ const social = [
   <div class="container">
     <div class="row">
       <div class="columnLeft">
-        <h2 data-aos="fade-left">Hey, I&apos;m <span class="name">Dave</span>! </h2>
-        <h1 data-aos="fade-right">Solutions Engineer</h1>
-        <h3 data-aos="fade-left" data-aos-delay="100">I design and implement systems<span class="punctuation"><b>.</b></span></h3>
+        <h2 class="fx fx-fade-left">Hey, I&apos;m <span class="name">Dave</span>! </h2>
+        <h1 class="fx fx-fade-right">Solutions Engineer</h1>
+        <h3 class="fx fx-fade-left" style="--fx-delay: 100ms">I design and implement systems<span class="punctuation"><b>.</b></span></h3>
 
         <div class="socialMedia">
           {social.map((s) => (
             <a href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}>
-              <i class={s.icon} data-aos="flip-up" data-aos-delay={s.delay} style={s.style}></i>
+              <i class={`${s.icon} fx fx-flip-up`} style={`--fx-delay: ${s.delay}ms;${s.style ? ' ' + s.style : ''}`}></i>
             </a>
           ))}
         </div>
 
         <div class="ctaButtons">
-          <button class="btn btn-filled" id="heroResumeBtn" data-aos="fade-up" data-aos-delay="100" aria-label="My Resume">MY RESUME</button>
-          <button class="btn btn-outlined" id="heroContactBtn" data-aos="fade-down" data-aos-delay="100" aria-label="Contact Me">CONTACT</button>
+          <button class="btn btn-filled fx fx-fade-up" id="heroResumeBtn" style="--fx-delay: 100ms" aria-label="My Resume">MY RESUME</button>
+          <button class="btn btn-outlined fx fx-fade-down" id="heroContactBtn" style="--fx-delay: 100ms" aria-label="Contact Me">CONTACT</button>
         </div>
       </div>
 
@@ -42,10 +42,9 @@ const social = [
             width="640"
             height="640"
             alt="Dave Levine - Solutions Engineer"
-            data-aos="fade-left"
-            data-aos-delay="50"
+            class="fx fx-fade-left"
             fetchpriority="high"
-            style="max-width: 100%; height: auto; border-radius: 50%; object-fit: contain;"
+            style="--fx-delay: 50ms; max-width: 100%; height: auto; border-radius: 50%; object-fit: contain;"
           />
         </div>
       </div>

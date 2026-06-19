@@ -16,22 +16,22 @@ const isNever = expirationDate === 'Never';
 const expired = !isNever && new Date(expirationDate) < new Date();
 ---
 
-<div class="card" data-aos="zoom-in-up">
+<div class="card">
   <div class="cardContent">
     <h4 class="cert-title">{title}</h4>
     <p>{excerpt}</p>
   </div>
   <div class="dates">
     <time>
-      <span class="achieved"><strong><i class="fa-regular fa-medal"></i> {fmt(achievedDate)}</strong></span>
+      <span class="achieved"><strong><i class="fa-regular fa-medal"></i>{fmt(achievedDate)}</strong></span>
     </time>
     <time>
       {isNever ? (
         <span class="never"><strong><i class="fa-solid fa-infinity"></i> Never</strong></span>
       ) : expired ? (
-        <span class="expired"><strong><i class="fa-regular fa-calendar-xmark"></i> {fmt(expirationDate)}</strong></span>
+        <span class="expired"><strong><i class="fa-regular fa-calendar-xmark"></i>{fmt(expirationDate)}</strong></span>
       ) : (
-        <span class="expires"><strong><i class="fa-regular fa-calendar-check"></i> {fmt(expirationDate)}</strong></span>
+        <span class="expires"><strong><i class="fa-regular fa-calendar-check"></i>{fmt(expirationDate)}</strong></span>
       )}
     </time>
   </div>

@@ -21,7 +21,7 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -39,6 +39,21 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
       else sessionStorage.setItem('nav-seen', '1');
     </script>
 
+    {/* No-FOUC / no-flash: own the theme on <html> so the ROOT background follows
+        the theme. Theme vars are scoped to [data-theme='dark']; since custom
+        properties only cascade downward, putting data-theme on a <body> descendant
+        leaves html/body resolving the light :root --background, which flashes
+        through during the View Transition root snapshot. Set it before first paint. */}
+    <script is:inline>
+      (function () {
+        var saved = sessionStorage.getItem('theme');
+        var dark = saved ? saved === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        var m = document.getElementById('theme-color-meta');
+        if (m) m.setAttribute('content', dark ? '#121212' : '#ffffff');
+      })();
+    </script>
+
     <link rel="manifest" href="/manifest.json" />
     <link rel="icon" type="image/x-icon" href={`${cdn}/images/favicon/favicon.ico`} />
     <link rel="shortcut icon" href={`${cdn}/images/favicon/favicon.ico`} />
@@ -49,8 +64,10 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
     <link rel="preconnect" href="https://stats.levine.io" />
     <link rel="dns-prefetch" href="https://stats.levine.io" />
 
-    <link rel="preload" href={`${cdn}/fonts/googlefonts/google-fonts.css`} as="style" />
-    <link rel="preload" href={`${cdn}/fonts/webfonts/custom-fontawesome.css`} as="style" />
+    {/* Render-blocking stylesheets load at high priority already; a `preload as=style`
+        of the same URL right before them gives no head start and trips Chrome's
+        "preloaded but not used" warning, so the <link rel="stylesheet"> stands alone.
+        Connection is warmed by the preconnect to cdn.levine.io above. */}
     <link rel="stylesheet" href={`${cdn}/fonts/googlefonts/google-fonts.css`} />
     <link rel="stylesheet" href={`${cdn}/fonts/webfonts/custom-fontawesome.css`} />
 
@@ -78,50 +95,59 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
       data-website-id="6c39846d-da66-4f2d-91b8-79f01360682d"></script>
   </head>
   <body>
-    <div class="app" data-theme="dark" id="app">
-      {/* No-FOUC: apply the saved (session) theme or system preference before
-          paint, on the initial load (parity with _app.js — not long-term persisted). */}
-      <script is:inline>
-        (function () {
-          var saved = sessionStorage.getItem('theme');
-          var dark = saved ? saved === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches;
-          document.getElementById('app').setAttribute('data-theme', dark ? 'dark' : 'light');
-          var m = document.getElementById('theme-color-meta');
-          if (m) m.setAttribute('content', dark ? '#121212' : '#ffffff');
-        })();
-      </script>
-      <Navbar />
+    {/* Navbar/Modals are direct children of <body>, NOT inside #app (the region
+        swapped on navigation). The Navbar is re-rendered per navigation (it is not
+        transition:persist'd — persisting it corrupts its layout through a View
+        Transition once the mobile menu has been opened, spilling the links across the
+        bar). Modals stay persisted to keep an open modal mounted across navigations. */}
+    <Navbar />
+    <div class="app" id="app">
       <main><slot /></main>
-      <Modals />
     </div>
+    <Modals />
 
     <script>
-      import AOS from 'aos';
-      import 'aos/dist/aos.css';
-
-      // Re-apply the theme to the freshly-swapped #app before paint (no flash).
-      function applyTheme() {
-        const app = document.getElementById('app');
-        if (!app) return;
+      // Astro resets <html> attributes/classes to the incoming page's on every
+      // swap, so re-apply two things before the swapped frame paints:
+      //  1. the saved theme (otherwise <html> snaps to the server default → flash);
+      //  2. the `nav-seen` class — it suppresses the navbar's one-time entrance
+      //     animation. Astro resets it to the incoming page's (unset) value, so
+      //     without re-adding it the re-rendered navbar replays its drop-in entrance
+      //     on every navigation.
+      document.addEventListener('astro:after-swap', () => {
         const saved = sessionStorage.getItem('theme');
         const dark = saved ? saved === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches;
-        app.setAttribute('data-theme', dark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
         const meta = document.getElementById('theme-color-meta');
         if (meta) meta.setAttribute('content', dark ? '#121212' : '#ffffff');
-      }
-      document.addEventListener('astro:after-swap', applyTheme);
+        document.documentElement.classList.add('nav-seen');
+      });
 
-      // AOS: init on first page; on later navigations re-scan AFTER paint
-      // (astro:page-load) so the entrance transitions actually play instead of
-      // being applied in the same frame as the swap.
-      let aosReady = false;
+      // Reveal for grid cards (.reveal). Re-created on every astro:page-load so it
+      // works after client-side nav (unlike AOS's scroll listener). Cards already in
+      // the viewport on load are revealed immediately (so every above-the-fold card
+      // shows — no blank slots); cards below the fold are observed and reveal as they
+      // scroll into view.
       document.addEventListener('astro:page-load', () => {
-        if (!aosReady) {
-          AOS.init({ duration: 500, once: true });
-          aosReady = true;
-        } else {
-          AOS.refreshHard();
-        }
+        const els = document.querySelectorAll('.reveal:not(.revealed)');
+        if (!els.length) return;
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('revealed');
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        const vh = window.innerHeight;
+        els.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.top < vh && r.bottom > 0) el.classList.add('revealed'); // in viewport now
+          else io.observe(el); // below the fold → reveal on scroll
+        });
       });
     </script>
   </body>

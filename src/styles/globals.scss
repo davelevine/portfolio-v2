@@ -79,13 +79,52 @@ body::-webkit-scrollbar {
 .anim-subheader { animation: filter-slide-right 0.3s ease-in-out both; }
 .anim-filter-btn { animation: filter-btn-in 0.3s ease-in-out both; }
 
-// Card scroll-in (custom AOS animation) matching the framer-motion item variant
-// on the blog/project grids: opacity 0 + translateY(100) + scale(0.5) -> settled.
-[data-aos='card-pop'] {
+// Scroll-triggered card reveal for the project/blog/cert grids. Cards start
+// hidden, dropped down, and scaled to half; the Layout's IntersectionObserver adds
+// `.revealed` as each card enters the viewport so it grows + rises into place. This
+// matches Production exactly (framer-motion `initial: opacity 0, y 100, scale 0.5`
+// on projects/blog; AOS `zoom-in-up` on certs) — the scale (grow-in) is the key.
+.reveal {
   opacity: 0;
   transform: translateY(100px) scale(0.5);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
-[data-aos='card-pop'].aos-animate {
+.reveal.revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: none;
 }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+// Entrance animations (`.fx ...`) — pure-CSS replacement for AOS on the Hero and
+// About sections. CSS animations auto-play whenever the element is inserted into
+// the DOM, so they fire on every Astro client-side navigation (AOS's JS reveal did
+// not re-trigger reliably after a view-transition swap). Distances/feel mirror the
+// AOS defaults. Per-element delay via the --fx-delay custom property.
+@keyframes fx-fade-up    { from { opacity: 0; transform: translateY(100px); }  to { opacity: 1; transform: none; } }
+@keyframes fx-fade-down  { from { opacity: 0; transform: translateY(-100px); } to { opacity: 1; transform: none; } }
+@keyframes fx-fade-left  { from { opacity: 0; transform: translateX(100px); }  to { opacity: 1; transform: none; } }
+@keyframes fx-fade-right { from { opacity: 0; transform: translateX(-100px); } to { opacity: 1; transform: none; } }
+@keyframes fx-flip-up    { from { opacity: 0; transform: perspective(2500px) rotateX(-100deg); } to { opacity: 1; transform: perspective(2500px) rotateX(0); } }
+@keyframes fx-slide-right { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+
+.fx {
+  animation-duration: var(--fx-dur, 0.5s);
+  animation-timing-function: ease;
+  animation-fill-mode: both; // hold the `from` state during the delay (no flash)
+  animation-delay: var(--fx-delay, 0s);
+}
+.fx-fade-up { animation-name: fx-fade-up; }
+.fx-fade-down { animation-name: fx-fade-down; }
+.fx-fade-left { animation-name: fx-fade-left; }
+.fx-fade-right { animation-name: fx-fade-right; }
+.fx-flip-up { animation-name: fx-flip-up; }
+.fx-slide-right { animation-name: fx-slide-right; }
+
+// NOTE: `.fx` intentionally does NOT honor prefers-reduced-motion. These hero/about
+// entrance animations are treated as part of the brand and play regardless, matching
+// the `.anim-*` page-header animations (which also ignore the setting). Without this,
+// devices with Reduce Motion enabled saw home/about render with no entrance motion at
+// all while other pages still animated their headers — an inconsistency. (The grid
+// `.reveal` card animations below still respect the setting.)
