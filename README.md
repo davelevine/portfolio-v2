@@ -39,63 +39,48 @@ and are referenced by URL — the repo stays free of large binaries.
 
 <div align="center">
 
-| Page | Description |
-|---|---|
-| [`/`](./src/pages/index.astro) | Landing hero |
-| [`/about`](./src/pages/about.astro) | Bio, skills, and downloadable résumé |
-| [`/projects`](./src/pages/projects/index.astro) | Project gallery with detail pages |
-| [`/certs`](./src/pages/certs/index.astro) | Certifications with detail pages |
-| [`/blog`](./src/pages/blog/index.astro) | Long-form writing with detail pages |
-| [`/now`](./src/pages/now.astro) | What I'm focused on right now ([nownownow.com](https://nownownow.com/about)) |
+| Page | Source | Description |
+|---|---|---|
+| [`/`](./src/pages/index.astro) | static page | Landing hero |
+| [`/about`](./src/pages/about.astro) | static page | Bio, skills, and downloadable résumé |
+| [`/projects`](./src/pages/projects/index.astro) | [`content/projects/`](./src/content/projects/) | Project gallery + detail pages |
+| [`/certs`](./src/pages/certs/index.astro) | [`content/certs/`](./src/content/certs/) | Certifications + detail pages |
+| [`/blog`](./src/pages/blog/index.astro) | [`content/blog/`](./src/content/blog/) | Long-form writing + detail pages |
+| [`/now`](./src/pages/now.astro) | [`content/now.md`](./src/content/now.md) | Current focus ([nownownow.com](https://nownownow.com/about)) |
 
 </div>
 
-Each section's content is a folder of markdown files under
-[`src/content/`](./src/content/), validated against a typed schema in
-[`src/content.config.ts`](./src/content.config.ts).
-
 ## 🏗️ How It's Built
 
-Markdown content collections drive the site. Astro reads them at build
-time, validates frontmatter against the Zod schemas, renders pages, and
-emits a static bundle:
+Astro reads the markdown collections at build time, validates each file's
+frontmatter against its [Zod schema](./src/content.config.ts), renders
+every page, and emits a static bundle:
 
 ```
-src/content/  →  content collections  →  Astro build  →  dist/
-   markdown        (typed schemas)         + SCSS         static output
-                                           + Shiki        → Cloudflare Pages
+src/content/*.md  →  astro build  →  dist/  →  Cloudflare Pages
+markdown             SCSS + Shiki    static    dave.levine.io
 ```
 
-**Content collections** ([`src/content.config.ts`](./src/content.config.ts)):
+| Concern | How it works |
+|---|---|
+| [Theme](./src/layouts/Layout.astro) | Light/dark is owned on `<html>` and set before first paint, then re-applied across View Transitions so navigation never flashes. |
+| [Code blocks](./astro.config.mjs) | [Shiki](https://shiki.style/) with custom dual light/dark themes that reproduce the original Prism colours. |
+| Images | Served from `cdn.levine.io` by URL; root-relative `/images/*` paths in cert markdown are rewritten to the CDN by a rehype plugin at build time. |
+| Lightbox | Blog-post images open in a [Fancybox](https://fancyapps.com/fancybox/) gallery (`@fancyapps/ui`) with zoom, pan, and a counter. |
+| [Feeds](./src/pages/rss.xml.js) | An RSS feed and a sitemap (`@astrojs/sitemap`) are generated on every build. |
+| Analytics | Self-hosted [Umami](https://umami.is/) at `stats.levine.io`. |
 
-| Collection | Source | Notable frontmatter |
+<details>
+<summary><strong>Collection frontmatter</strong></summary>
+
+| Collection | Source | Frontmatter |
 |---|---|---|
 | `blog` | `src/content/blog/*.md` | `title`, `date`, `description`, `categories`, `isFeatured` |
 | `projects` | `src/content/projects/*.md` | `title`, `tech[]`, `liveLink`, `githubLink`, `image`, `isFeatured` |
 | `certs` | `src/content/certs/*.md` | `title`, `achievedDate`, `expirationDate`, `image`, `tech[]` |
 | `now` | `src/content/now.md` | `date` |
 
-**Notable details:**
-
-- **Theme** — Light/dark is owned on `<html>` and set before first paint
-  to avoid a flash; it's re-applied across View Transition navigations so
-  there's no white snap. ([`src/layouts/Layout.astro`](./src/layouts/Layout.astro))
-- **Code blocks** — [Shiki](https://shiki.style/) with custom dual
-  light/dark themes that reproduce the original Prism colours.
-  ([`astro.config.mjs`](./astro.config.mjs))
-- **Images** — Referenced from `cdn.levine.io` by URL; root-relative
-  `/images/*` paths in cert markdown are rewritten to the CDN at build
-  time by a small rehype plugin.
-- **Lightbox** — Images inside blog posts open in a
-  [Fancybox](https://fancyapps.com/fancybox/) gallery (`@fancyapps/ui`)
-  with zoom, pan, and a counter.
-- **Feeds** — An [RSS feed](./src/pages/rss.xml.js) and a sitemap
-  (`@astrojs/sitemap`) are generated on every build.
-- **Analytics** — Self-hosted [Umami](https://umami.is/) at
-  `stats.levine.io`.
-
-**Hosting:** [Cloudflare Pages](https://pages.cloudflare.com/), built
-from `dist/` and served at [dave.levine.io](https://dave.levine.io).
+</details>
 
 ## 🧑‍💻 Quick Start
 
