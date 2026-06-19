@@ -16,7 +16,7 @@ const isActive = (path: string) =>
   path === '/' ? current === '/' : current === path || current.startsWith(path + '/');
 ---
 
-<div class="navbar" id="navbar" transition:persist="navbar">
+<div class="navbar" id="navbar">
   <div class="container">
     <a href="/" class="logo"><span class="name">&lt;</span>/DAVE LEVINE<span class="name">&gt;</span></a>
 
@@ -51,68 +51,28 @@ const isActive = (path: string) =>
 </div>
 
 <script>
-  const navbar = document.getElementById('navbar')!;
-  const menuBtn = document.getElementById('menuBtn')!;
-  const navMenu = document.getElementById('navMenu')!;
-  const themeBtn = document.getElementById('themeBtn')!;
-  const themeIcon = document.getElementById('theme-icon')!;
-  const contactBtn = document.getElementById('contactBtn')!;
-  const contactIcon = document.getElementById('contact-icon')!;
-  // The navbar persists across View Transitions, so this script runs once; #app
-  // (theme host) is swapped on navigation, so query it fresh each time.
-  const getApp = () => document.getElementById('app');
+  // The navbar is NOT transition:persist'd. Persisting it corrupts its layout when it
+  // is carried through a View Transition after the mobile menu has been opened: the
+  // menu links spill across the bar (a bare desktop-looking navbar) on the next page.
+  // Re-rendering it per navigation avoids that, but Astro runs this module only once
+  // per session — so (re)bind element-scoped listeners on every astro:page-load, and
+  // register the document/window listeners a single time (they re-query live elements).
+  // The theme is owned by <html> (so the root background follows it — no flash) and
+  // <html> survives navigations, so it is safe to read live each time.
+  const root = document.documentElement;
+  const norm = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
 
-  // Sticky on scroll (>= 100px), debounced.
-  let t: number | undefined;
-  const onScroll = () => {
-    window.clearTimeout(t);
-    t = window.setTimeout(() => navbar.classList.toggle('sticky', window.scrollY >= 100), 100);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  // Theme toggle — flips #app[data-theme]; remembered in sessionStorage so it
-  // survives client-side navigations (re-applied in Layout on after-swap).
   const syncThemeIcon = () => {
-    const app = getApp();
-    const dark = !app || app.getAttribute('data-theme') !== 'light';
-    themeIcon.className = `fa ${dark ? 'fa-moon' : 'fa-sun'}`;
+    const dark = root.getAttribute('data-theme') !== 'light';
+    const themeIcon = document.getElementById('theme-icon');
+    if (themeIcon) themeIcon.className = `fa ${dark ? 'fa-moon' : 'fa-sun'}`;
     const meta = document.getElementById('theme-color-meta');
     if (meta) meta.setAttribute('content', dark ? '#121212' : '#ffffff');
   };
-  syncThemeIcon();
-  themeBtn.addEventListener('click', () => {
-    const app = getApp();
-    if (!app) return;
-    const next = app.getAttribute('data-theme') !== 'light' ? 'light' : 'dark';
-    app.setAttribute('data-theme', next);
-    sessionStorage.setItem('theme', next);
-    syncThemeIcon();
-  });
 
-  // Mobile menu (delegated so it survives independent of link identity).
-  menuBtn.addEventListener('click', () => {
-    menuBtn.classList.toggle('open');
-    navMenu.classList.toggle('responsive');
-  });
-  navMenu.addEventListener('click', (e) => {
-    if ((e.target as HTMLElement).closest('[data-nav-link]') && window.innerWidth <= 768) {
-      menuBtn.classList.remove('open');
-      navMenu.classList.remove('responsive');
-    }
-  });
-
-  // Contact modal trigger.
-  contactBtn.addEventListener('click', () =>
-    document.dispatchEvent(new CustomEvent('modal:open', { detail: { type: 'contact' } }))
-  );
-  document.addEventListener('modal:open', (e) => {
-    if ((e as CustomEvent).detail?.type === 'contact') contactIcon.className = 'fa fa-envelope-open';
-  });
-  document.addEventListener('modal:closed', () => (contactIcon.className = 'fa fa-envelope'));
-
-  // Active-link highlight must update on each navigation (navbar persists).
-  const norm = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
   const updateActive = () => {
+    const navMenu = document.getElementById('navMenu');
+    if (!navMenu) return;
     const cur = norm(location.pathname);
     navMenu.querySelectorAll<HTMLAnchorElement>('a[data-nav-link]').forEach((a) => {
       const path = norm(new URL(a.href).pathname);
@@ -120,7 +80,70 @@ const isActive = (path: string) =>
       a.classList.toggle('activeLink', active);
     });
   };
-  document.addEventListener('astro:page-load', updateActive);
+
+  // Re-bind the freshly-rendered navbar on every page load (initial + each navigation).
+  const bind = () => {
+    const menuBtn = document.getElementById('menuBtn');
+    const navMenu = document.getElementById('navMenu');
+    const themeBtn = document.getElementById('themeBtn');
+    const contactBtn = document.getElementById('contactBtn');
+    if (!menuBtn || !navMenu || !themeBtn || !contactBtn) return;
+
+    syncThemeIcon();
+
+    // Theme toggle — flips <html>[data-theme]; remembered in sessionStorage so it
+    // survives client-side navigations (re-applied in Layout on after-swap).
+    themeBtn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') !== 'light' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      sessionStorage.setItem('theme', next);
+      syncThemeIcon();
+    });
+
+    // Mobile menu (delegated so it survives independent of link identity).
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      navMenu.classList.toggle('responsive');
+    });
+    navMenu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('[data-nav-link]') && window.innerWidth <= 768) {
+        menuBtn.classList.remove('open');
+        navMenu.classList.remove('responsive');
+      }
+    });
+
+    // Contact modal trigger.
+    contactBtn.addEventListener('click', () =>
+      document.dispatchEvent(new CustomEvent('modal:open', { detail: { type: 'contact' } }))
+    );
+
+    updateActive();
+  };
+
+  // Document/window listeners — registered once; they re-query the live navbar.
+  let t: number | undefined;
+  window.addEventListener(
+    'scroll',
+    () => {
+      window.clearTimeout(t);
+      t = window.setTimeout(() => {
+        const navbar = document.getElementById('navbar');
+        if (navbar) navbar.classList.toggle('sticky', window.scrollY >= 100);
+      }, 100);
+    },
+    { passive: true }
+  );
+  document.addEventListener('modal:open', (e) => {
+    if ((e as CustomEvent).detail?.type !== 'contact') return;
+    const ci = document.getElementById('contact-icon');
+    if (ci) ci.className = 'fa fa-envelope-open';
+  });
+  document.addEventListener('modal:closed', () => {
+    const ci = document.getElementById('contact-icon');
+    if (ci) ci.className = 'fa fa-envelope';
+  });
+
+  document.addEventListener('astro:page-load', bind);
 </script>
 
 <style lang="scss">
