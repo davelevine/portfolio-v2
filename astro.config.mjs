@@ -69,6 +69,14 @@ export default defineConfig({
   // Imagery lives on cdn.levine.io and is referenced by URL via plain <img>
   // (parity with the old `unoptimized` Next images) — no Astro optimization,
   // so markdown CDN images pass through to the CDN untouched.
+  server: {
+    host: true,
+    port: 4321,
+    allowedHosts: [
+      'davesmbp.fluffy-python.ts.net',
+      'localhost',
+    ],
+  },
   markdown: {
     gfm: true,
     // External links open in a new tab (parity with the now/blog renderers).
