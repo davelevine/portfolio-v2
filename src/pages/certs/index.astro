@@ -38,7 +38,7 @@ const topics = [...new Set(certs.flatMap((c) => c.data.tech ?? []))].sort();
       <div class="galleryWrap">
         <div class="gallery" id="gallery">
           {certs.map((c) => (
-            <div class="certCard" data-topic={(c.data.tech ?? []).join('|')}>
+            <div class="certCard reveal" data-topic={(c.data.tech ?? []).join('|')}>
               <CertItem
                 title={c.data.title}
                 excerpt={c.data.excerpt}
@@ -81,8 +81,11 @@ const topics = [...new Set(certs.flatMap((c) => c.data.tech ?? []))].sort();
 
   document.addEventListener('astro:page-load', () => {
     const buttons = document.querySelectorAll<HTMLButtonElement>('#filterButtons button');
-    if (!buttons.length) return;
     const items = document.querySelectorAll<HTMLElement>('#gallery .certCard');
+    // This document-level listener fires on every navigation; #filterButtons is shared
+    // with /projects and /blog, so gate on a page-unique element (the cert cards) —
+    // otherwise this runs on those pages and crashes on the cert-only #certOverlay.
+    if (!buttons.length || !items.length) return;
     buttons.forEach((btn) =>
       btn.addEventListener('click', () => {
         const topic = btn.dataset.topic!;

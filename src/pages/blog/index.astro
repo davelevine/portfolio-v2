@@ -36,7 +36,7 @@ const categories = [...new Set(posts.flatMap((p) => p.data.categories ?? []))].s
       <div class="galleryWrap">
         <div class="gallery" id="gallery">
           {ordered.map((p) => (
-            <div class="blogItemContainer" data-categories={(p.data.categories ?? []).join('|')} data-aos="card-pop" data-aos-duration="300" data-aos-easing="ease-in-out">
+            <div class="blogItemContainer reveal" data-categories={(p.data.categories ?? []).join('|')}>
               <BlogItem
                 title={p.data.title}
                 description={p.data.description}
@@ -64,7 +64,9 @@ const categories = [...new Set(posts.flatMap((p) => p.data.categories ?? []))].s
   document.addEventListener('astro:page-load', () => {
     const buttons = document.querySelectorAll<HTMLButtonElement>('#filterButtons button');
     const items = document.querySelectorAll<HTMLElement>('#gallery .blogItemContainer');
-    if (!buttons.length) return;
+    // This document-level listener fires on every navigation; #filterButtons is shared
+    // with /projects and /certs, so gate on a page-unique element (the blog items).
+    if (!buttons.length || !items.length) return;
     buttons.forEach((btn) =>
       btn.addEventListener('click', () => {
         const cat = btn.dataset.category!;
