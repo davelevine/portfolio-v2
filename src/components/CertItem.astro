@@ -36,9 +36,9 @@ const expired = !isNever && new Date(expirationDate) < new Date();
     </time>
   </div>
   <div class="cardAction">
-    <a class="glightbox view-cert" href={cdnImg} aria-label={`View certificate for ${title}`}>
+    <button class="view-cert" type="button" data-cert-img={cdnImg} data-cert-title={title} aria-label={`View certificate for ${title}`}>
       <i class="fa-regular fa-arrow-up-right-from-square"></i> View Certificate
-    </a>
+    </button>
   </div>
 </div>
 
@@ -74,11 +74,12 @@ const expired = !isNever && new Date(expirationDate) < new Date();
   .cardContent p { color: var(--text-primary); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; }
 
   .cardAction { display: flex; justify-content: center; margin-top: 10px; }
-  .cardAction a {
+  .cardAction button {
     color: var(--text-primary);
     background: none;
     border: none;
     cursor: pointer;
+    font-size: inherit;
     font-weight: bold;
     text-decoration: none;
     padding: 0;

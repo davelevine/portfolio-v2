@@ -23,8 +23,8 @@ const categories = post.data.categories ?? [];
   <div class="blogDetail">
     <div class="container section mvh-100">
       <div class="card">
-        <h1>{post.data.title}</h1>
-        <small>
+        <h1 class="anim-header">{post.data.title}</h1>
+        <small class="anim-meta">
           <span><i class="fa-regular fa-calendar-lines-pen"></i> {formattedDate}</span>
           <span class="dot"> • </span>
           <span><i class="fa-regular fa-clock"></i> {readingTime} min read</span>
@@ -48,50 +48,65 @@ const categories = post.data.categories ?? [];
 </Layout>
 
 <script>
-  import GLightbox from 'glightbox';
-  import 'glightbox/dist/css/glightbox.min.css';
+  import { Fancybox } from '@fancyapps/ui';
+  import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
   const COPY =
     '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
   const CHECK =
     '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
-  // Wrap each code block with a hover copy button (parity with blogContent.js).
-  document.querySelectorAll<HTMLPreElement>('.blogDetail pre.astro-code').forEach((pre) => {
-    const container = document.createElement('div');
-    container.className = 'codeBlockContainer';
-    pre.parentNode!.insertBefore(container, pre);
-    const header = document.createElement('div');
-    header.className = 'codeHeader';
-    const btn = document.createElement('button');
-    btn.className = 'copyButton';
-    btn.innerHTML = COPY;
-    btn.title = 'Copy code to clipboard';
-    btn.setAttribute('aria-label', 'Copy code to clipboard');
-    header.appendChild(btn);
-    container.appendChild(header);
-    container.appendChild(pre);
-    btn.addEventListener('click', () => {
-      navigator.clipboard.writeText(pre.innerText).then(() => {
-        btn.innerHTML = CHECK;
-        setTimeout(() => (btn.innerHTML = COPY), 2000);
+  // Re-run on every page load (bundled scripts don't re-run on client-side nav).
+  document.addEventListener('astro:page-load', () => {
+    if (!document.querySelector('.blogDetail')) return;
+
+    // Wrap each code block with a hover copy button (parity with blogContent.js).
+    document.querySelectorAll<HTMLPreElement>('.blogDetail pre.astro-code:not([data-cb])').forEach((pre) => {
+      pre.setAttribute('data-cb', '');
+      const container = document.createElement('div');
+      container.className = 'codeBlockContainer';
+      pre.parentNode!.insertBefore(container, pre);
+      const header = document.createElement('div');
+      header.className = 'codeHeader';
+      const btn = document.createElement('button');
+      btn.className = 'copyButton';
+      btn.innerHTML = COPY;
+      btn.title = 'Copy code to clipboard';
+      btn.setAttribute('aria-label', 'Copy code to clipboard');
+      header.appendChild(btn);
+      container.appendChild(header);
+      container.appendChild(pre);
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(pre.innerText).then(() => {
+          btn.innerHTML = CHECK;
+          setTimeout(() => (btn.innerHTML = COPY), 2000);
+        });
       });
     });
-  });
 
-  // Image lightbox gallery.
-  document.querySelectorAll<HTMLImageElement>('.blogDetail img').forEach((img) => {
-    const a = document.createElement('a');
-    a.href = img.src;
-    a.className = 'glightbox';
-    a.dataset.gallery = 'post';
-    img.parentNode!.insertBefore(a, img);
-    a.appendChild(img);
+    // Image lightbox gallery (Fancybox: thumbnails, zoom/pan, fullscreen, counter).
+    document.querySelectorAll<HTMLImageElement>('.blogDetail img:not([data-fb])').forEach((img) => {
+      img.setAttribute('data-fb', '');
+      const a = document.createElement('a');
+      a.href = img.src;
+      a.dataset.fancybox = 'post';
+      if (img.getAttribute('alt')) a.dataset.caption = img.getAttribute('alt')!;
+      img.parentNode!.insertBefore(a, img);
+      a.appendChild(img);
+    });
+    Fancybox.unbind('[data-fancybox="post"]');
+    Fancybox.bind('[data-fancybox="post"]', {
+      Toolbar: { display: { left: ['infobar'], middle: [], right: ['zoomIn', 'fullscreen', 'download', 'close'] } },
+    });
   });
-  GLightbox({ selector: '.glightbox', touchNavigation: true, loop: false });
 </script>
 
 <style is:global lang="scss">
+  // Entrance animations (framer-motion parity): title slides in (anim-header),
+  // meta row fades up (y:20) after 0.2s.
+  @keyframes blog-meta-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .blogDetail small.anim-meta { animation: blog-meta-in 0.3s ease-in-out 0.2s both; }
+
   .blogDetail h1,
   .blogDetail h2,
   .blogDetail h3 { color: var(--text-secondary); }
@@ -256,7 +271,6 @@ const categories = post.data.categories ?? [];
     opacity: 0.6;
     user-select: none;
   }
-  [data-theme='dark'] .blogDetail pre.astro-code,
-  [data-theme='dark'] .blogDetail pre.astro-code span { background-color: var(--shiki-dark-bg) !important; }
-  [data-theme='dark'] .blogDetail pre.astro-code span { color: var(--shiki-dark) !important; background-color: transparent !important; }
+  .blogDetail pre.astro-code { background-color: var(--code-block-bg) !important; }
+  [data-theme='dark'] .blogDetail pre.astro-code span { color: var(--shiki-dark) !important; }
 </style>
