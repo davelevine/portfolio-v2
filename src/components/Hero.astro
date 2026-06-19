@@ -56,8 +56,11 @@ const social = [
 <script>
   const fire = (type: string) =>
     document.dispatchEvent(new CustomEvent('modal:open', { detail: { type } }));
-  document.getElementById('heroResumeBtn')?.addEventListener('click', () => fire('resume'));
-  document.getElementById('heroContactBtn')?.addEventListener('click', () => fire('contact'));
+  // Re-wire on every page load (bundled scripts don't re-run on client-side nav).
+  document.addEventListener('astro:page-load', () => {
+    document.getElementById('heroResumeBtn')?.addEventListener('click', () => fire('resume'));
+    document.getElementById('heroContactBtn')?.addEventListener('click', () => fire('contact'));
+  });
 </script>
 
 <style lang="scss">

@@ -1,6 +1,7 @@
 ---
 // Base layout — ports pages/_app.js + pages/_document.js (head, theme, analytics).
 import '../styles/globals.scss';
+import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import Modals from '../components/Modals.astro';
 
@@ -28,6 +29,15 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
     <meta name="description" content={description} />
     <meta name="author" content="Dave Levine" />
     <meta name="theme-color" content="#121212" id="theme-color-meta" />
+
+    {/* SPA-style client-side navigation (no full reload / white flash). */}
+    <ClientRouter />
+
+    {/* Play the navbar entrance once per session, not on every page load. */}
+    <script is:inline>
+      if (sessionStorage.getItem('nav-seen')) document.documentElement.classList.add('nav-seen');
+      else sessionStorage.setItem('nav-seen', '1');
+    </script>
 
     <link rel="manifest" href="/manifest.json" />
     <link rel="icon" type="image/x-icon" href={`${cdn}/images/favicon/favicon.ico`} />
@@ -69,15 +79,15 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
   </head>
   <body>
     <div class="app" data-theme="dark" id="app">
-      {/* No-FOUC: match system preference before paint (parity with _app.js,
-          which starts dark then follows prefers-color-scheme; not persisted). */}
+      {/* No-FOUC: apply the saved (session) theme or system preference before
+          paint, on the initial load (parity with _app.js — not long-term persisted). */}
       <script is:inline>
         (function () {
-          var light = window.matchMedia('(prefers-color-scheme: light)').matches;
-          var theme = light ? 'light' : 'dark';
-          document.getElementById('app').setAttribute('data-theme', theme);
+          var saved = sessionStorage.getItem('theme');
+          var dark = saved ? saved === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches;
+          document.getElementById('app').setAttribute('data-theme', dark ? 'dark' : 'light');
           var m = document.getElementById('theme-color-meta');
-          if (m) m.setAttribute('content', light ? '#ffffff' : '#121212');
+          if (m) m.setAttribute('content', dark ? '#121212' : '#ffffff');
         })();
       </script>
       <Navbar />
@@ -88,7 +98,31 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
     <script>
       import AOS from 'aos';
       import 'aos/dist/aos.css';
-      AOS.init({ duration: 500, once: true });
+
+      // Re-apply the theme to the freshly-swapped #app before paint (no flash).
+      function applyTheme() {
+        const app = document.getElementById('app');
+        if (!app) return;
+        const saved = sessionStorage.getItem('theme');
+        const dark = saved ? saved === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches;
+        app.setAttribute('data-theme', dark ? 'dark' : 'light');
+        const meta = document.getElementById('theme-color-meta');
+        if (meta) meta.setAttribute('content', dark ? '#121212' : '#ffffff');
+      }
+      document.addEventListener('astro:after-swap', applyTheme);
+
+      // AOS: init on first page; on later navigations re-scan AFTER paint
+      // (astro:page-load) so the entrance transitions actually play instead of
+      // being applied in the same frame as the swap.
+      let aosReady = false;
+      document.addEventListener('astro:page-load', () => {
+        if (!aosReady) {
+          AOS.init({ duration: 500, once: true });
+          aosReady = true;
+        } else {
+          AOS.refreshHard();
+        }
+      });
     </script>
   </body>
 </html>
