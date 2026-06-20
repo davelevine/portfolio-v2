@@ -9,19 +9,63 @@
   "rebaseWhen": "behind-base-branch",
   "automerge": true,
   "packageRules": [
-    { "matchUpdateTypes": ["patch"], "minimumReleaseAge": "5 days", "automerge": true },
-    { "matchUpdateTypes": ["minor"], "minimumReleaseAge": "7 days", "automerge": true },
-    { "matchUpdateTypes": ["digest"], "minimumReleaseAge": null, "automerge": true },
-    { "matchUpdateTypes": ["major"], "automerge": false },
-    { "matchUpdateTypes": ["pin", "rollback", "bump"], "enabled": false },
     {
+      "description": "Label npm dependency updates",
+      "matchManagers": ["npm"],
+      "addLabels": ["renovate/npm", "area/dependencies"]
+    },
+    {
+      "description": "Label GitHub Actions updates",
+      "matchManagers": ["github-actions"],
+      "addLabels": ["renovate/github-actions", "area/github-actions"]
+    },
+    {
+      "description": "Patch updates: supply-chain cooldown then automerge",
+      "matchUpdateTypes": ["patch"],
+      "minimumReleaseAge": "5 days",
+      "automerge": true,
+      "addLabels": ["type/patch"]
+    },
+    {
+      "description": "Minor updates: supply-chain cooldown then automerge",
+      "matchUpdateTypes": ["minor"],
+      "minimumReleaseAge": "7 days",
+      "automerge": true,
+      "addLabels": ["type/minor"]
+    },
+    {
+      "description": "Digest updates: skip age gate, automerge",
+      "matchUpdateTypes": ["digest"],
+      "minimumReleaseAge": null,
+      "automerge": true,
+      "addLabels": ["type/digest"]
+    },
+    {
+      "description": "Major updates must be reviewed and labeled",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "addLabels": ["type/major"]
+    },
+    {
+      "description": "Never automerge special update types",
+      "matchUpdateTypes": ["pin", "rollback", "bump"],
+      "enabled": false
+    },
+    {
+      "description": "GitHub Actions patch/minor: shorter cooldown",
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["patch", "minor"],
       "minimumReleaseAge": "3 days",
       "automerge": true
     },
-    { "matchManagers": ["github-actions"], "matchUpdateTypes": ["major"], "automerge": false },
     {
+      "description": "Major GitHub Actions updates require manual review",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    },
+    {
+      "description": "Group Astro core and integrations together",
       "matchManagers": ["npm"],
       "matchPackageNames": ["astro", "@astrojs/**"],
       "groupName": "astro"
