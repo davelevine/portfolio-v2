@@ -64,12 +64,24 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
     <link rel="preconnect" href="https://stats.levine.io" />
     <link rel="dns-prefetch" href="https://stats.levine.io" />
 
-    {/* Render-blocking stylesheets load at high priority already; a `preload as=style`
-        of the same URL right before them gives no head start and trips Chrome's
-        "preloaded but not used" warning, so the <link rel="stylesheet"> stands alone.
-        Connection is warmed by the preconnect to cdn.levine.io above. */}
+    {/* Google fonts (Poppins/IBM Plex) drive body text, so they stay render-blocking
+        at high priority; a `preload as=style` of the same URL gives no head start and
+        trips Chrome's "preloaded but not used" warning. Connection is warmed by the
+        preconnect to cdn.levine.io above. */}
     <link rel="stylesheet" href={`${cdn}/fonts/googlefonts/google-fonts.css`} />
-    <link rel="stylesheet" href={`${cdn}/fonts/webfonts/custom-fontawesome.css`} />
+
+    {/* FontAwesome is decorative (hero social icons) and must not block first paint.
+        Load it non-render-blocking via the media=print → onload swap trick; the
+        <noscript> keeps icons working when JS is disabled. */}
+    <link
+      rel="stylesheet"
+      href={`${cdn}/fonts/webfonts/custom-fontawesome.css`}
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href={`${cdn}/fonts/webfonts/custom-fontawesome.css`} />
+    </noscript>
 
     <link
       rel="alternate"

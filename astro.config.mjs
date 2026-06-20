@@ -66,6 +66,10 @@ export default defineConfig({
   site: 'https://dave.levine.io',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
+  // Inline the small per-page component stylesheets (about/index ~2-5 KiB each)
+  // into <head> instead of emitting render-blocking <link>s, removing them from
+  // the critical request path.
+  build: { inlineStylesheets: 'always' },
   // Imagery lives on cdn.levine.io and is referenced by URL via plain <img>
   // (parity with the old `unoptimized` Next images) — no Astro optimization,
   // so markdown CDN images pass through to the CDN untouched.
