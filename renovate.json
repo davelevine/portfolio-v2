@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "semanticCommits": "enabled",
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "deps",
+  "dependencyDashboard": true,
+  "prHourlyLimit": 0,
+  "rebaseWhen": "behind-base-branch",
+  "automerge": true,
+  "packageRules": [
+    { "matchUpdateTypes": ["patch"], "minimumReleaseAge": "5 days", "automerge": true },
+    { "matchUpdateTypes": ["minor"], "minimumReleaseAge": "7 days", "automerge": true },
+    { "matchUpdateTypes": ["digest"], "minimumReleaseAge": null, "automerge": true },
+    { "matchUpdateTypes": ["major"], "automerge": false },
+    { "matchUpdateTypes": ["pin", "rollback", "bump"], "enabled": false },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "minimumReleaseAge": "3 days",
+      "automerge": true
+    },
+    { "matchManagers": ["github-actions"], "matchUpdateTypes": ["major"], "automerge": false },
+    {
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["astro", "@astrojs/**"],
+      "groupName": "astro"
+    }
+  ]
+}
