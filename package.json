@@ -14,7 +14,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@fancyapps/ui": "^5.0.36",
     "astro": "^5.7.0",
-    "marked": "^15.0.12",
+    "marked": "^18.0.0",
     "rehype-external-links": "^3.0.0",
     "sass": "^1.83.0"
   }
