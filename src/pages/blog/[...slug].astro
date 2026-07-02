@@ -96,7 +96,9 @@ const categories = post.data.categories ?? [];
     });
     Fancybox.unbind('[data-fancybox="post"]');
     Fancybox.bind('[data-fancybox="post"]', {
-      Toolbar: { display: { left: ['infobar'], middle: [], right: ['zoomIn', 'fullscreen', 'download', 'close'] } },
+      // v6 renamed the counter item (`infobar` -> `counter`) and renders its own
+      // close button, so `close` is no longer a toolbar item.
+      Toolbar: { display: { left: ['counter'], middle: [], right: ['zoomIn', 'fullscreen', 'download'] } },
     });
   });
 </script>
