@@ -10,10 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^7.2.0",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
     "@fancyapps/ui": "^6.0.0",
-    "astro": "^5.7.0",
+    "astro": "^7.0.5",
     "marked": "^18.0.0",
     "rehype-external-links": "^3.0.0",
     "sass": "^1.83.0"
