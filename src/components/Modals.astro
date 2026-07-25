@@ -1,5 +1,5 @@
 ---
-// Contact + resume modals — ports components/layout/modal/{modal,contactModal}.js.
+// Contact modal — ports components/layout/modal/{modal,contactModal}.js.
 // Formspree React hook replaced with a vanilla fetch submit.
 const PGP = 'https://cdn.levine.io/uploads/portfolio/public/assets/dave.levine.io-pgp-key-pub.asc';
 const LINKEDIN = 'https://www.linkedin.com/in/iamdavelevine';
@@ -52,21 +52,12 @@ const LINKEDIN = 'https://www.linkedin.com/in/iamdavelevine';
         </div>
       </div>
     </div>
-
-    {/* Resume */}
-    <div class="modal" id="resume-modal" hidden>
-      <div class="resumeModal">
-        <button class="close" data-modal-close aria-label="Close"><i class="fa-regular fa-xmark"></i></button>
-        <iframe src="/davelevine-resume.pdf" class="iframe" title="Resume"></iframe>
-      </div>
-    </div>
   </div>
 </div>
 
 <script>
   const backdrop = document.getElementById('modal-backdrop')!;
   const contactModal = document.getElementById('contact-modal')!;
-  const resumeModal = document.getElementById('resume-modal')!;
   const formView = document.getElementById('contact-form-view')!;
   const confirmView = document.getElementById('contact-confirm-view')!;
   const confirmTitle = document.getElementById('confirm-title')!;
@@ -76,10 +67,10 @@ const LINKEDIN = 'https://www.linkedin.com/in/iamdavelevine';
   const form = document.getElementById('contactForm') as HTMLFormElement;
 
   const open = (type: string) => {
+    if (type !== 'contact') return;
     backdrop.hidden = false;
-    contactModal.hidden = type !== 'contact';
-    resumeModal.hidden = type !== 'resume';
-    if (type === 'contact') resetContact();
+    contactModal.hidden = false;
+    resetContact();
     document.body.classList.add('modal-open');
   };
   const close = () => {
@@ -151,21 +142,6 @@ const LINKEDIN = 'https://www.linkedin.com/in/iamdavelevine';
   .modal { display: flex; align-items: center; justify-content: center; }
   .modal[hidden] { display: none; }
 
-  .resumeModal {
-    position: relative;
-    width: 90vw;
-    height: 90vh;
-    max-width: 1200px;
-    max-height: 90vh;
-    background: var(--modal-background, #2c2c2c);
-    border: 1px solid var(--modal-border, #555);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  }
-  @media (max-width: 767px) { .resumeModal { height: 70vh; } }
-
-  .resumeModal .close,
   .contactModal .close {
     background: var(--background-card);
     border: none;
@@ -183,14 +159,11 @@ const LINKEDIN = 'https://www.linkedin.com/in/iamdavelevine';
     border-radius: 50%;
     transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
   }
-  .resumeModal .close { z-index: 1001; }
-  .resumeModal .close:hover,
   .contactModal .close:hover {
     background-color: var(--background-secondary);
     color: var(--transparent-primary);
     transform: scale(1.1);
   }
-  .resumeModal .iframe { width: 100%; height: 100%; border: none; }
 
   // contactModal.module.scss
   .contactModal {

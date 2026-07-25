@@ -13,6 +13,8 @@ button {
 // General button styles
 .btn {
   width: 100%;
+  // inline-block so anchors styled as buttons honour padding/width like <button> does
+  display: inline-block;
   text-align: center;
   border-radius: 25px;
   padding: 13px 25px;

@@ -30,7 +30,7 @@ const social = [
         </div>
 
         <div class="ctaButtons">
-          <button class="btn btn-filled fx fx-fade-up" id="heroResumeBtn" style="--fx-delay: 100ms" aria-label="My Resume">MY RESUME</button>
+          <a class="btn btn-filled fx fx-fade-up" href="/davelevine-resume.pdf" target="_blank" rel="noopener noreferrer" style="--fx-delay: 100ms" aria-label="My Resume">MY RESUME</a>
           <button class="btn btn-outlined fx fx-fade-down" id="heroContactBtn" style="--fx-delay: 100ms" aria-label="Contact Me">CONTACT</button>
         </div>
       </div>
@@ -56,8 +56,9 @@ const social = [
   const fire = (type: string) =>
     document.dispatchEvent(new CustomEvent('modal:open', { detail: { type } }));
   // Re-wire on every page load (bundled scripts don't re-run on client-side nav).
+  // The resume is a plain link — PDFs can't be framed (the zone sets
+  // X-Frame-Options: DENY) and iOS Safari won't render them in an iframe either.
   document.addEventListener('astro:page-load', () => {
-    document.getElementById('heroResumeBtn')?.addEventListener('click', () => fire('resume'));
     document.getElementById('heroContactBtn')?.addEventListener('click', () => fire('contact'));
   });
 </script>
@@ -116,9 +117,9 @@ const social = [
   .greetings .columnLeft .socialMedia i:hover { color: var(--background-secondary); }
 
   .greetings .columnLeft .ctaButtons { margin-top: 25px; display: flex; }
-  .greetings .columnLeft .ctaButtons button { font-size: 18px; padding: 10px 20px; transition: all 0.3s ease; }
-  .greetings .columnLeft .ctaButtons button:hover { transform: scale(1.05); background-color: var(--background-secondary); }
-  .greetings .columnLeft .ctaButtons button + button { margin-left: 15px; }
+  .greetings .columnLeft .ctaButtons .btn { font-size: 18px; padding: 10px 20px; transition: all 0.3s ease; }
+  .greetings .columnLeft .ctaButtons .btn:hover { transform: scale(1.05); background-color: var(--background-secondary); }
+  .greetings .columnLeft .ctaButtons .btn + .btn { margin-left: 15px; }
 
   .greetings .columnRight { order: 1; }
   .greetings .columnRight.profilePic {
