@@ -1,9 +1,11 @@
 ---
+category: Personal
 title: An Introduction
 categories:
     - Productivity
 date: "2020-03-24T22:49:00Z"
 description: I'm not entirely sure what I plan on writing in this, or if I even plan on keeping it.
+ail: 0
 ---
 
 First and foremost, I'm Dave. Rather than a formal introduction, [click here](/about) instead to learn about me.

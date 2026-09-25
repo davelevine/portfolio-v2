@@ -10,6 +10,6 @@ tech: ['Cybersecurity', 'Network Security', 'Risk Management']
 
 ![comptia-sec-plus](/images/certs/comptia-securityplus.webp)
 
-## Certificate
+## Verification
 
-To view my certificate, you can find it [here](https://www.credly.com/badges/868e2b93-05ba-48e5-9ede-6c570721573a/public_url).
+Verify this certification on [Credly](https://www.credly.com/badges/868e2b93-05ba-48e5-9ede-6c570721573a/public_url).

@@ -1,177 +1,43 @@
 ---
-// Hero — ports components/home/hero.js. framer-motion → CSS; AOS kept.
-const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
-const profilePic = `${cdn}/images/profile-pic-1.webp`;
-const pgp = `${cdn}/assets/dave.levine.io-pgp-key-pub.asc`;
+// Hero — intro + "now" panel (Heap-style home header). Copy lives in src/content/home.md.
+import { getEntry } from 'astro:content';
+import { marked } from 'marked';
 
-const social = [
-  { href: 'https://github.com/davelevine', icon: 'fab fa-github', label: 'GitHub Profile', delay: 100 },
-  { href: 'https://www.linkedin.com/in/iamdavelevine', icon: 'fab fa-linkedin', label: 'LinkedIn Profile', delay: 150 },
-  { href: 'https://kb.levine.io', icon: 'fa fa-globe', label: 'Knowledge Base', delay: 200 },
-  { href: '/rss.xml', icon: 'fa fa-square-rss', label: 'RSS Feed', delay: 250, style: 'font-size: 2.02em; vertical-align: baseline;' },
-  { href: pgp, icon: 'fa fa-key', label: 'PGP Key', delay: 300 },
-];
+const { greeting, tagline, intro, now } = (await getEntry('home', 'home'))!.data;
+const avatar = 'https://cdn.levine.io/uploads/portfolio/public/images/profile-pic-1.webp';
 ---
 
-<section class="greetings">
-  <div class="container">
-    <div class="row">
-      <div class="columnLeft">
-        <h2 class="fx fx-fade-left">Hey, I&apos;m <span class="name">Dave</span>! </h2>
-        <h1 class="fx fx-fade-right">Solutions Engineer</h1>
-        <h3 class="fx fx-fade-left" style="--fx-delay: 100ms">I design and implement systems<span class="punctuation"><b>.</b></span></h3>
+<header class="hero">
+  <div class="hero-grid">
+    <div class="hero-intro">
+      <img class="avatar" src={avatar} alt="Dave Levine" width="80" height="80" />
+      <h1>{greeting}</h1>
+      <p class="tagline">{tagline}</p>
+      <p class="intro">{intro}</p>
 
-        <div class="socialMedia">
-          {social.map((s) => (
-            <a href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}>
-              <i class={`${s.icon} fx fx-flip-up`} style={`--fx-delay: ${s.delay}ms;${s.style ? ' ' + s.style : ''}`}></i>
-            </a>
-          ))}
-        </div>
-
-        <div class="ctaButtons">
-          <button class="btn btn-filled fx fx-fade-up" id="heroResumeBtn" style="--fx-delay: 100ms" aria-label="My Resume">MY RESUME</button>
-          <button class="btn btn-outlined fx fx-fade-down" id="heroContactBtn" style="--fx-delay: 100ms" aria-label="Contact Me">CONTACT</button>
-        </div>
-      </div>
-
-      <div class="columnRight profilePic">
-        <div class="imageContainer">
-          <img
-            src={profilePic}
-            width="640"
-            height="640"
-            alt="Dave Levine - Solutions Engineer"
-            class="fx fx-fade-left"
-            fetchpriority="high"
-            style="--fx-delay: 50ms; max-width: 100%; height: auto; border-radius: 50%; object-fit: contain;"
-          />
-        </div>
+      <div class="social">
+        <a href="https://github.com/davelevine" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.1-4.55-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 012.5-.34c.85.01 1.7.11 2.5.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.21 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.94.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/iamdavelevine" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg class="icon-linkedin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="/rss.xml" aria-label="RSS" title="RSS">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.18 15.64A2.18 2.18 0 0 1 8.36 17.82C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z"/></svg>
+        </a>
+        <a href="https://cdn.levine.io/uploads/portfolio/public/assets/dave.levine.io-pgp-key-pub.asc" aria-label="PGP Key" title="PGP Key">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/></svg>
+        </a>
       </div>
     </div>
+
+    <div class="def-list" id="now">
+      {now.map((item) => (
+        <div class="def-item">
+          <div class="def-label">{item.label}</div>
+          <div class="def-value" set:html={marked.parseInline(item.text)} />
+        </div>
+      ))}
+    </div>
   </div>
-</section>
-
-<script>
-  const fire = (type: string) =>
-    document.dispatchEvent(new CustomEvent('modal:open', { detail: { type } }));
-  // Re-wire on every page load (bundled scripts don't re-run on client-side nav).
-  document.addEventListener('astro:page-load', () => {
-    document.getElementById('heroResumeBtn')?.addEventListener('click', () => fire('resume'));
-    document.getElementById('heroContactBtn')?.addEventListener('click', () => fire('contact'));
-  });
-</script>
-
-<style lang="scss">
-  .greetings { padding: 30px 15px 50px; height: 100vh; }
-
-  .greetings .row {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-  }
-
-  @media only screen and (max-width: 767px) {
-    .greetings .columnLeft { margin-top: 20px; }
-    .greetings .columnRight.profilePic { max-width: 450px; max-height: 450px; margin: 0 auto 5px; }
-    .greetings .columnLeft h3 { font-size: 1.15rem !important; line-height: 2 !important; }
-  }
-
-  @media (orientation: landscape) {
-    .greetings .columnLeft { margin-top: 10px; }
-    .greetings .columnRight.profilePic { max-width: 200px; max-height: 200px; margin: 0 auto 5px; }
-  }
-
-  .greetings .columnLeft { order: 2; }
-  .greetings .columnLeft h1,
-  .greetings .columnLeft h2,
-  .greetings .columnLeft h3,
-  .greetings .columnLeft h4 { margin: 0; }
-  .greetings .columnLeft h1 { font-size: 3.9rem; color: var(--navbar-primary); line-height: 0.95; }
-  .greetings .columnLeft h2 { color: var(--navbar-primary); font-size: 1.45rem; margin: 0 2px; text-align: left; }
-  .greetings .columnLeft h3 {
-    color: var(--text-secondary);
-    font-size: 1.2rem;
-    font-weight: 400;
-    margin: 2px;
-    text-align: left;
-    line-height: 2.5;
-  }
-  .greetings .columnLeft h4 { color: var(--text-secondary); font-size: 1.5rem; margin: 0; text-align: left; }
-  .greetings .columnLeft .name { color: var(--background-secondary); }
-  .greetings .columnLeft .punctuation { color: var(--navbar-primary); }
-  .greetings .columnLeft .subtitle { font-size: 0.9rem; color: var(--text-tertiary); margin: 0; }
-  .greetings .columnLeft span { position: relative; top: 1px; }
-
-  .greetings .columnLeft .socialMedia { display: flex; margin-top: 14px; }
-  .greetings .columnLeft .socialMedia i {
-    font-size: 2rem;
-    margin: 0 5px;
-    color: var(--navbar-primary);
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.14));
-    align-self: center;
-  }
-  .greetings .columnLeft .socialMedia i:hover { color: var(--background-secondary); }
-
-  .greetings .columnLeft .ctaButtons { margin-top: 25px; display: flex; }
-  .greetings .columnLeft .ctaButtons button { font-size: 18px; padding: 10px 20px; transition: all 0.3s ease; }
-  .greetings .columnLeft .ctaButtons button:hover { transform: scale(1.05); background-color: var(--background-secondary); }
-  .greetings .columnLeft .ctaButtons button + button { margin-left: 15px; }
-
-  .greetings .columnRight { order: 1; }
-  .greetings .columnRight.profilePic {
-    text-align: center;
-    margin: 50px auto 0;
-    max-width: 230px;
-    max-height: 230px;
-    border-radius: 50%;
-  }
-  .greetings .columnRight.profilePic img { border-radius: 50%; }
-
-  @media only screen and (min-width: 480px) {
-    .greetings .columnRight.profilePic { max-width: 350px; max-height: 350px; margin: 0 auto 50px; }
-  }
-
-  @media only screen and (min-width: 768px) {
-    .greetings { padding: 120px 25px 55px; height: 100vh; }
-    .greetings .container {
-      height: 100%;
-      max-width: 1140px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .greetings .row { display: flex; flex-direction: row; align-items: center; justify-content: space-between; height: 100%; }
-    .greetings .columnLeft { order: 1; align-self: center; display: flex; flex-direction: column; width: 45%; margin-left: auto; }
-    .greetings .columnLeft h1 { font-size: 4.5rem; margin: 0; text-align: left; line-height: 0.9; }
-    .greetings .columnLeft h2 { font-size: 2.3rem; margin: -5px 0; text-align: left; }
-    .greetings .columnLeft h3,
-    .greetings .columnLeft p { font-size: 1.5rem; margin: -10px 0; text-align: left; }
-    .greetings .columnRight { order: 2; width: 35%; margin: auto; margin-right: auto; }
-    .greetings .columnRight.profilePic { max-width: 440px; max-height: 440px; margin: 0 auto 20px; }
-    .greetings .columnRight.profilePic img { max-width: 100%; height: auto; }
-  }
-
-  @media only screen and (min-width: 1080px) {
-    .greetings .columnLeft h1 { font-size: 6.5rem; line-height: 0.85; margin: 0 0 20px -4px; }
-    .greetings .columnLeft { width: 45%; margin-left: auto; }
-    .greetings .columnRight { width: 45%; margin-right: auto; }
-  }
-
-  @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    .greetings .columnLeft h1 { font-size: 4rem; line-height: 1.1; }
-    .greetings .columnLeft h2 { font-size: 1.8rem; }
-    .greetings .columnLeft h3,
-    .greetings .columnLeft p { font-size: 1.2rem; }
-  }
-
-  @media only screen and (min-width: 1080px) and (max-width: 1440px) {
-    .greetings .columnLeft h1 { font-size: 6.5rem; line-height: 0.9; }
-    .greetings .columnLeft h2 { font-size: 2.1rem; }
-    .greetings .columnLeft h3,
-    .greetings .columnLeft p { font-size: 1.3rem; }
-  }
-</style>
+</header>

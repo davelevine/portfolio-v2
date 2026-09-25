@@ -28,6 +28,6 @@ Here's why I consider this a meaningful achievement:
 
 This certification represents my ongoing journey in mastering cloud technology and applying it to real-world solutions. It's not about knowing all there is to know about AWS; it's about continuing to challenge myself to learn and grow while building practical, meaningful solutions.
 
-## Certificate
+## Verification
 
-To view my certificate, you can find it [here](https://www.credly.com/badges/15634ffe-7069-4bc5-a820-4edcf854c18f).
+Verify this certification on [Credly](https://www.credly.com/badges/15634ffe-7069-4bc5-a820-4edcf854c18f).

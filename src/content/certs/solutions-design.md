@@ -12,4 +12,4 @@ tech: ['System Architecture', 'Risk Management']
 
 ## Certificate
 
-To view my certificate, you can find it [here](https://raw.githubusercontent.com/davelevine/davelevine/main/eCornell/DaveLevine_SystemsDesign.pdf).
+Download the [certificate (PDF)](https://raw.githubusercontent.com/davelevine/davelevine/main/eCornell/DaveLevine_SystemsDesign.pdf).

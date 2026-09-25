@@ -1,7 +1,6 @@
 ---
 date: "2026-04-21T16:37:00Z"
 ---
-#
 
 This is my [Now Page]: a brief update on what's currently happening in my life, inspired by [Derek Sivers].
 

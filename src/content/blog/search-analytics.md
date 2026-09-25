@@ -1,10 +1,11 @@
 ---
+category: Homelab
 title: Search Analytics
 categories:
-    - Knowledge
     - Tools
 date: "2021-08-19T14:13:00Z"
 description: Searx has built-in statistics but doesn't support external analytics, prompting my curiosity about traffic to my instance beyond my own visits.
+ail: 0
 ---
 
 ## Summary

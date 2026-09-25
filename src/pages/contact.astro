@@ -1,0 +1,79 @@
+---
+// Contact — Formspree form (plain POST without JS, inline status with JS) + other channels.
+import Layout from '../layouts/Layout.astro';
+
+const endpoint = 'https://formspree.io/f/xzbloaed';
+---
+
+<Layout title="Contact | Dave Levine" description="Get in touch with Dave Levine.">
+  <main class="wrap">
+    <header class="page-header">
+      <h1>Contact</h1>
+      <p class="lede">Questions, ideas, or just want to compare homelab notes? Send a message and I'll get back to you.</p>
+    </header>
+
+    <form class="contact-form" id="contact-form" action={endpoint} method="POST">
+      <label for="email">Your email</label>
+      <input id="email" type="email" name="email" required autocomplete="email" placeholder="Where can I send a response?" />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required rows="7" placeholder="What would you like to talk about?"></textarea>
+
+      {/* Formspree honeypot: bots fill it, people never see it. */}
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
+
+      <div class="form-actions">
+        <button type="submit" class="btn">Send message</button>
+        <p class="form-status" id="form-status" role="status"></p>
+      </div>
+    </form>
+
+    <h2 class="section-rule"><span>Elsewhere</span></h2>
+    <div class="post-row">
+      <a class="post-title" href="https://www.linkedin.com/in/iamdavelevine" target="_blank" rel="noreferrer">LinkedIn</a>
+      <span class="post-meta-group"><span class="post-category">Message me</span></span>
+    </div>
+    <div class="post-row">
+      <a class="post-title" href="https://cdn.levine.io/uploads/portfolio/public/assets/dave.levine.io-pgp-key-pub.asc">PGP key</a>
+      <span class="post-meta-group"><span class="post-category">Encrypt to me</span></span>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Bound per astro:page-load (bundled scripts run once under ClientRouter).
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const status = document.getElementById('form-status');
+    if (!form || !status) return;
+    const button = form.querySelector('button')!;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      button.disabled = true;
+      status.className = 'form-status';
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          form.reset();
+          status.classList.add('ok');
+          status.textContent = "Thanks for reaching out! I'll get back to you soon.";
+        } else {
+          const data = await res.json().catch(() => ({}));
+          status.classList.add('error');
+          status.textContent = data?.errors?.[0]?.message || 'Something went wrong. Please try again.';
+        }
+      } catch {
+        status.classList.add('error');
+        status.textContent = 'Could not send your message. Please try again.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>

@@ -1,0 +1,30 @@
+---
+// Decisions — selected ADRs from the homelab, grouped by year.
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const adrs = (await getCollection('adr')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const years = [...new Set(adrs.map((a) => a.data.date.getUTCFullYear()))];
+const num = (n: number) => String(n).padStart(4, '0');
+---
+
+<Layout title="Decisions | Dave Levine" description="Selected architecture decision records from Dave Levine's homelab.">
+  <main class="wrap">
+    <header class="page-header">
+      <h1>Decisions</h1>
+      <p class="lede">Selected decision records from my homelab, lightly edited for publishing. Each one explains what I chose, what I passed on, and why.</p>
+    </header>
+
+    {years.map((y) => (
+      <>
+        <h2 class="section-rule"><span>{y}</span></h2>
+        {adrs.filter((a) => a.data.date.getUTCFullYear() === y).map((a) => (
+          <div class="post-row">
+            <a class="post-title" href={`/decisions/${a.id}/`}>{a.data.title}</a>
+            <span class="post-date">ADR {num(a.data.number)}</span>
+          </div>
+        ))}
+      </>
+    ))}
+  </main>
+</Layout>

@@ -25,3 +25,5 @@ Disallow: /
 # Multi-purpose, commercial uses; including LLMs
 User-agent: Omgilibot
 Disallow: /
+
+Sitemap: https://dave.levine.io/sitemap-index.xml

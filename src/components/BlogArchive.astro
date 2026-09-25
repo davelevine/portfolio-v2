@@ -1,0 +1,64 @@
+---
+// Blog archive — category pills (real routes), year-grouped rows, year sidebar.
+// Used by /blog/, /blog/favorites/ and /blog/category/<cat>/.
+import type { CollectionEntry } from 'astro:content';
+import { CATEGORIES, categoryHref, type Category } from '../lib/blog';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  active: 'all' | 'favorites' | Category;
+}
+
+const { posts, active } = Astro.props;
+const sorted = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const years = [...new Set(sorted.map((p) => p.data.date.getUTCFullYear()))];
+const pills = [
+  { key: 'favorites', label: '❤️', href: '/blog/favorites/', title: 'Favorites' },
+  { key: 'all', label: 'All', href: '/blog/' },
+  ...CATEGORIES.map((c) => ({ key: c, label: c, href: categoryHref(c) })),
+];
+---
+
+<nav class="category-switcher" aria-label="Categories">
+  {pills.map((p) => (
+    <a href={p.href} class:list={{ active: p.key === active }} title={p.title} aria-label={p.title} aria-current={p.key === active ? 'page' : undefined}>{p.label}</a>
+  ))}
+</nav>
+
+<nav class="year-sidebar" aria-label="Jump to year">
+  {years.map((y, i) => <a href={`#year-${y}`} class:list={{ active: i === 0 }}>{y}</a>)}
+</nav>
+
+{years.map((y) => (
+  <>
+    <h2 class="section-rule" id={`year-${y}`}><span>{y}</span></h2>
+    {sorted.filter((p) => p.data.date.getUTCFullYear() === y).map((p) => (
+      <div class="post-row">
+        <span class="post-fav-slot">{p.data.isFeatured && <span role="img" aria-label="Favorite">&#10084;</span>}</span>
+        <a class="post-title" href={`/blog/${p.id}/`}>{p.data.title}</a>
+        <span class="post-meta-group">
+          <a class="post-category" href={categoryHref(p.data.category)}>{p.data.category}</a>
+        </span>
+      </div>
+    ))}
+  </>
+))}
+
+<script>
+  // Year sidebar scroll-spy. Bound per astro:page-load: bundled scripts run once
+  // under ClientRouter, so top-level code would not re-run on a revisit.
+  document.addEventListener('astro:page-load', () => {
+    const links = document.querySelectorAll<HTMLAnchorElement>('.year-sidebar a');
+    if (!links.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          links.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px' }
+    );
+    document.querySelectorAll('.section-rule[id^="year-"]').forEach((el) => io.observe(el));
+  });
+</script>

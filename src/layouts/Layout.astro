@@ -1,9 +1,9 @@
 ---
-// Base layout — ports pages/_app.js + pages/_document.js (head, theme, analytics).
+// Base layout — head, theme, analytics, and the nav / main / footer shell.
 import '../styles/globals.scss';
 import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
-import Modals from '../components/Modals.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
@@ -21,36 +21,33 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Dave Levine" />
-    <meta name="theme-color" content="#121212" id="theme-color-meta" />
+    <meta name="theme-color" content="#faf6ef" id="theme-color-meta" />
 
     {/* SPA-style client-side navigation (no full reload / white flash). */}
     <ClientRouter />
 
-    {/* Play the navbar entrance once per session, not on every page load. */}
-    <script is:inline>
-      if (sessionStorage.getItem('nav-seen')) document.documentElement.classList.add('nav-seen');
-      else sessionStorage.setItem('nav-seen', '1');
-    </script>
-
-    {/* No-FOUC / no-flash: own the theme on <html> so the ROOT background follows
-        the theme. Theme vars are scoped to [data-theme='dark']; since custom
-        properties only cascade downward, putting data-theme on a <body> descendant
-        leaves html/body resolving the light :root --background, which flashes
-        through during the View Transition root snapshot. Set it before first paint. */}
+    {/* Theme before first paint: saved choice (localStorage), else the OS preference.
+        Astro resets <html> attributes on every View Transition swap, so re-apply on
+        astro:after-swap too. This head script is kept (not re-run) across swaps, so
+        the listener is registered once. */}
     <script is:inline>
       (function () {
-        var saved = sessionStorage.getItem('theme');
-        var dark = saved ? saved === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches;
-        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-        var m = document.getElementById('theme-color-meta');
-        if (m) m.setAttribute('content', dark ? '#121212' : '#ffffff');
+        function applyTheme() {
+          var saved = localStorage.getItem('theme');
+          var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+          var m = document.getElementById('theme-color-meta');
+          if (m) m.setAttribute('content', dark ? '#202122' : '#faf6ef');
+        }
+        applyTheme();
+        document.addEventListener('astro:after-swap', applyTheme);
       })();
     </script>
 
@@ -64,25 +61,6 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
     <link rel="preconnect" href="https://stats.levine.io" />
     <link rel="dns-prefetch" href="https://stats.levine.io" />
 
-    {/* Google fonts (Poppins/IBM Plex) drive body text, so they stay render-blocking
-        at high priority; a `preload as=style` of the same URL gives no head start and
-        trips Chrome's "preloaded but not used" warning. Connection is warmed by the
-        preconnect to cdn.levine.io above. */}
-    <link rel="stylesheet" href={`${cdn}/fonts/googlefonts/google-fonts.css`} />
-
-    {/* FontAwesome is decorative (hero social icons) and must not block first paint.
-        Load it non-render-blocking via the media=print → onload swap trick; the
-        <noscript> keeps icons working when JS is disabled. */}
-    <link
-      rel="stylesheet"
-      href={`${cdn}/fonts/webfonts/custom-fontawesome.css`}
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link rel="stylesheet" href={`${cdn}/fonts/webfonts/custom-fontawesome.css`} />
-    </noscript>
-
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -95,11 +73,6 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
       <link rel="preload" href={src} as="image" fetchpriority="high" />
     ))}
 
-    {/* next/font shipped Fira Code; define the variable globals.scss expects. */}
-    <style is:global>
-      :root { --font-fira-code: 'Fira Code', Menlo, monospace; }
-    </style>
-
     {/* Umami analytics (self-hosted) */}
     <script
       defer
@@ -107,60 +80,14 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
       data-website-id="6c39846d-da66-4f2d-91b8-79f01360682d"></script>
   </head>
   <body>
-    {/* Navbar/Modals are direct children of <body>, NOT inside #app (the region
-        swapped on navigation). The Navbar is re-rendered per navigation (it is not
-        transition:persist'd — persisting it corrupts its layout through a View
-        Transition once the mobile menu has been opened, spilling the links across the
-        bar). Modals stay persisted to keep an open modal mounted across navigations. */}
+    <a class="skip-link" href="#content">Skip to content</a>
+    {/* The Navbar is re-rendered per navigation, NOT transition:persist'd — persisting
+        it corrupts its layout through a View Transition once the mobile menu has been
+        opened (see tasks/lessons.md). */}
     <Navbar />
-    <div class="app" id="app">
-      <main><slot /></main>
+    <div class="app" id="content" tabindex="-1">
+      <slot />
     </div>
-    <Modals />
-
-    <script>
-      // Astro resets <html> attributes/classes to the incoming page's on every
-      // swap, so re-apply two things before the swapped frame paints:
-      //  1. the saved theme (otherwise <html> snaps to the server default → flash);
-      //  2. the `nav-seen` class — it suppresses the navbar's one-time entrance
-      //     animation. Astro resets it to the incoming page's (unset) value, so
-      //     without re-adding it the re-rendered navbar replays its drop-in entrance
-      //     on every navigation.
-      document.addEventListener('astro:after-swap', () => {
-        const saved = sessionStorage.getItem('theme');
-        const dark = saved ? saved === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches;
-        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-        const meta = document.getElementById('theme-color-meta');
-        if (meta) meta.setAttribute('content', dark ? '#121212' : '#ffffff');
-        document.documentElement.classList.add('nav-seen');
-      });
-
-      // Reveal for grid cards (.reveal). Re-created on every astro:page-load so it
-      // works after client-side nav (unlike AOS's scroll listener). Cards already in
-      // the viewport on load are revealed immediately (so every above-the-fold card
-      // shows — no blank slots); cards below the fold are observed and reveal as they
-      // scroll into view.
-      document.addEventListener('astro:page-load', () => {
-        const els = document.querySelectorAll('.reveal:not(.revealed)');
-        if (!els.length) return;
-        const io = new IntersectionObserver(
-          (entries, obs) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                e.target.classList.add('revealed');
-                obs.unobserve(e.target);
-              }
-            });
-          },
-          { threshold: 0.15 }
-        );
-        const vh = window.innerHeight;
-        els.forEach((el) => {
-          const r = el.getBoundingClientRect();
-          if (r.top < vh && r.bottom > 0) el.classList.add('revealed'); // in viewport now
-          else io.observe(el); // below the fold → reveal on scroll
-        });
-      });
-    </script>
+    <Footer />
   </body>
 </html>

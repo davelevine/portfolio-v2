@@ -6,6 +6,7 @@ tech:
   - Tailwind CSS
   - Vue
 description: A proof of concept for a URL shortener run entirely on Cloudflare, demonstrating the ability to create a fully functional URL shortening service using serverless architecture.
+summary: "A URL shortener running entirely on Cloudflare, using serverless architecture."
 
 liveLink: https://dl.is
 githubLink: https://github.com/davelevine/atomic-url

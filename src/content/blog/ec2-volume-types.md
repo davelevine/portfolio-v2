@@ -1,10 +1,11 @@
 ---
+category: AWS
 title: EC2 Volume Types
 categories:
     - AWS
-    - Knowledge
 date: "2020-03-25T11:36:00Z"
 description: A simple breakdown of the different types of storage options available for EC2 instances, helping to clarify when to use each one.
+ail: 0
 ---
 
 

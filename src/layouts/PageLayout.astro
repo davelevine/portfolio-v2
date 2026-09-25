@@ -1,0 +1,18 @@
+---
+// Layout for Markdown pages in src/pages (about.md, uses.md): page header + prose body.
+import Layout from './Layout.astro';
+
+const { title, description, heading, lede } = Astro.props.frontmatter;
+---
+
+<Layout title={title} description={description}>
+  <main class="wrap">
+    <header class="page-header">
+      <h1>{heading}</h1>
+      {lede && <p class="lede">{lede}</p>}
+    </header>
+    <article class="prose">
+      <slot />
+    </article>
+  </main>
+</Layout>

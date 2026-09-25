@@ -1,0 +1,52 @@
+---
+// Decision record — edited copy of an ADR from the private homelab-iac repo.
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import { formatDate } from '../../lib/format';
+import AilBadge from '../../components/AilBadge.astro';
+
+export async function getStaticPaths() {
+  const adrs = await getCollection('adr');
+  return adrs.map((adr) => ({ params: { slug: adr.id }, props: { adr } }));
+}
+
+const { adr } = Astro.props;
+const { Content } = await render(adr);
+const { title, number, date, status, summary, supersedes = [], supersededBy, ail, ailImages } = adr.data;
+const pad = (n: number) => String(n).padStart(4, '0');
+const num = pad(number);
+// Link related ADRs when published; otherwise show the number as plain text.
+const published = new Map((await getCollection('adr')).map((a) => [a.data.number, a.id]));
+const ref = (n: number) => ({ label: `ADR ${pad(n)}`, href: published.has(n) ? `/decisions/${published.get(n)}/` : undefined });
+const related = [
+  ...(supersededBy ? [{ text: 'Superseded by', ...ref(supersededBy) }] : []),
+  ...supersedes.map((n) => ({ text: 'Supersedes', ...ref(n) })),
+];
+---
+
+<Layout title={`ADR ${num}: ${title} | Dave Levine`} description={summary}>
+  <main class="wrap">
+    <article>
+      <header class="post-header">
+        <div class="post-tags">
+          <span class="meta-tag">ADR {num}</span>
+          <span class="meta-tag">{status}</span>
+          <AilBadge ail={ail} ailImages={ailImages} />
+        </div>
+        <h1>{title}</h1>
+        <p class="post-meta">
+          Decided {formatDate(date)}
+          {related.map((r) => (
+            <> · {r.text} {r.href ? <a href={r.href}>{r.label}</a> : r.label}</>
+          ))}
+        </p>
+      </header>
+
+      <div class="prose">
+        <Content />
+      </div>
+      <div class="end-mark" aria-hidden="true"></div>
+      <a class="more-link" href="/decisions/">&larr; All decisions</a>
+    </article>
+  </main>
+</Layout>
