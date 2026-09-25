@@ -87,5 +87,10 @@ Dave's running `astro dev` did not. The dev server keeps the schema it started w
 strips unknown frontmatter fields. Touching the config did not reload it.
 
 **How to apply next time:** Whenever a change adds or changes collection fields, tell the user to
-restart the dev server. Verify against a fresh `astro dev --background` (then `astro dev stop`),
-not just `astro build`. Astro 7 refuses a second dev server while one is running.
+stop the dev server, clear the content cache, and start it again:
+`rm -rf .astro node_modules/.astro && npm run dev`. A plain restart is NOT always enough: when
+`imageDark` was added, a dev server started after the schema edit still served entries parsed
+under the old schema from the persisted data store. Diagnose with a temporary endpoint that
+returns `Object.keys(entry.data)`. Confirm the code works using a fresh dev server in a clean
+worktree on another port (it has its own caches, so Astro allows it). Astro 7 refuses a second
+dev server in the same folder.
