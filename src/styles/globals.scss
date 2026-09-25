@@ -502,6 +502,21 @@ a.tag-text:hover { color: var(--accent); }
   &:hover { border-color: var(--muted); color: var(--fg); }
 }
 
+// ---- /uses rows: name (+ muted detail) left, role label right ----
+.uses-name { flex: 1; min-width: 0; }
+.uses-name .post-title { display: inline; }
+span.post-title:hover { color: inherit; }
+.uses-detail { color: var(--muted); font-size: var(--text-sm); line-height: 20px; margin-top: 2px; }
+.uses-role {
+  margin-left: 16px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 16px;
+  color: var(--muted);
+  white-space: nowrap;
+  text-align: right;
+}
+
 // ---- /ail page ----
 .ail-example .ail-badge { margin-left: 4px; }
 .ail-example { margin-bottom: 8px; }
