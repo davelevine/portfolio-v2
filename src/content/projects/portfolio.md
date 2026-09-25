@@ -11,7 +11,8 @@ summary: "This site."
 
 liveLink: https://dave.levine.io
 githubLink: https://github.com/davelevine/portfolio
-image: hero.webp
+image: portfolio/portfolio-astro-light.webp
+imageDark: portfolio/portfolio-astro-dark.webp
 isFeatured: true
 
 ---

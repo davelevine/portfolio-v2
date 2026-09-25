@@ -32,6 +32,8 @@ const projects = defineCollection({
     githubLink: z.string().optional(),
     githubComingSoon: z.boolean().optional().default(false),
     image: z.string().optional(),
+    // Optional dark-theme variant of `image`, shown when the site is in dark mode.
+    imageDark: z.string().optional(),
     isFeatured: z.boolean().optional().default(false),
     date: z.coerce.date().optional(),
   }),

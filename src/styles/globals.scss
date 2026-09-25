@@ -684,6 +684,11 @@ span.post-title:hover { color: inherit; }
   border-radius: 6px;
 }
 
+// Theme-specific images (e.g. a project screenshot per theme).
+.theme-dark-only { display: none; }
+[data-theme="dark"] .theme-dark-only { display: block; }
+[data-theme="dark"] .theme-light-only { display: none; }
+
 .end-mark {
   display: flex;
   justify-content: center;
