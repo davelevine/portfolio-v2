@@ -1,9 +1,9 @@
 ---
 category: Work
-title: Working With Agile
 categories:
-    - Methodologies
-    - Productivity
+    - Agile
+    - Management
+title: Working With Agile
 date: "2020-03-30T14:13:00Z"
 description: An overview of my experiences with Agile methodologies in software development and project management.
 ail: 0

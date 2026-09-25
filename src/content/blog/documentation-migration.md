@@ -1,8 +1,8 @@
 ---
 category: Homelab
-title: Documentation Migration
 categories:
-    - Tools
+    - Documentation
+title: Documentation Migration
 date: "2021-03-09T00:31:00Z"
 # Start of Selection
 description: Migrating my documentation to Markdown has proven to be more challenging than I thought.

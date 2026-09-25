@@ -1,9 +1,9 @@
 ---
 category: Personal
-title: AWS Certified Solutions Architect
 categories:
-    - AWS
-    - DevOps
+    - Certification
+    - Career
+title: AWS Certified Solutions Architect
 date: "2020-08-01T17:21:00Z"
 description: After ~6 months of studying, I finally took the AWS Certified Solutions Architect Associate exam today and I PASSED!
 ail: 0

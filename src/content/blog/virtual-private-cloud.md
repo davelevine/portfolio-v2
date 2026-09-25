@@ -1,8 +1,8 @@
 ---
 category: AWS
-title: Virtual Private Cloud (VPC)
 categories:
-    - AWS
+    - Networking
+title: Virtual Private Cloud (VPC)
 date: "2020-04-19T17:21:00Z"
 description: A summary of my experience and insights gained from the Virtual Private Cloud (VPC) section of the AWS Certified Solutions Architect course.
 ail: 0

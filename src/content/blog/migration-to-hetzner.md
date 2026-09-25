@@ -1,8 +1,10 @@
 ---
 category: Homelab
-title: DigitalOcean to Hetzner Migration
 categories:
-    - Cloud
+    - VPS
+    - Migration
+    - Docker
+title: DigitalOcean to Hetzner Migration
 date: "2023-06-08T17:31:00Z"
 description: I've been happy with DigitalOcean as my VPS provider since 2019, but their recent price increases have become too much for me.
 ail: 0

@@ -1,9 +1,9 @@
 ---
 category: AWS
-title: Choosing a Routing Policy
 categories:
-    - AWS
-    - DevOps
+    - DNS
+    - Networking
+title: Choosing a Routing Policy
 date: "2020-04-29T00:02:00Z"  # Changed date format to use hyphens instead of periods
 description: A high-level overview of DNS and the various routing policies available in AWS Route 53.
 ail: 0
