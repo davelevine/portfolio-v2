@@ -16,23 +16,12 @@
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --font-mono: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --transition-fast: 0.15s ease;
   // Small text steps; one notch larger on phones for legibility.
   --text-xs: 13px;
   --text-sm: 15px;
 
-  // Shiki `css-variables` theme tokens.
-  --astro-code-foreground: #2b2624;
-  --astro-code-background: var(--surface);
-  --astro-code-token-constant: #b44716;
-  --astro-code-token-string: #a75235;
-  --astro-code-token-comment: #736862;
-  --astro-code-token-keyword: #9b2e2e;
-  --astro-code-token-parameter: #3d3530;
-  --astro-code-token-function: #7a3555;
-  --astro-code-token-string-expression: #955868;
-  --astro-code-token-punctuation: #716760;
-  --astro-code-token-link: #9b2e2e99;
 }
 
 [data-theme="dark"] {
@@ -46,20 +35,22 @@
   --on-accent: #202122;
   --border-strong: #757677;
 
-  --astro-code-foreground: #e3ddd0;
-  --astro-code-token-constant: #e88a50;
-  --astro-code-token-string: #e09070;
-  --astro-code-token-comment: #9a928b;
-  --astro-code-token-keyword: #ea6b6b;
-  --astro-code-token-parameter: #d8d2c4;
-  --astro-code-token-function: #d080a0;
-  --astro-code-token-string-expression: #c8909a;
-  --astro-code-token-punctuation: #9a9285;
-  --astro-code-token-link: #e8606099;
 }
 
 @media (min-width: 640px) {
   :root { --text-xs: 12px; --text-sm: 14px; }
+}
+
+// Brand font: JetBrains Mono SemiBold (instanced from the v2.304 variable font),
+// subset to the glyphs in "</Dave Levine>" (~1 KB) and embedded so the brand looks
+// identical everywhere, including Android, whose system mono has no bold.
+// SIL Open Font License 1.1, see src/styles/fonts/OFL-JetBrainsMono.txt.
+// If the brand text changes, re-subset it (see the note in that folder's README).
+@font-face {
+  font-family: "Brand Mono";
+  font-weight: 600;
+  font-display: block;
+  src: url("data:font/woff2;base64,d09GMgABAAAAAAP4ABAAAAAAByAAAAOdAAJN0wAAAAAAAAAAAAAAAAAAAAAAAAAAGhwbIBwqBmA/U1RBVEQAgQQRCAqFfIRFATYCJAM4Cx4ABCAFgQIHIAwHGzUFUdQkwagA5IsDu+HzQ0SssXI4CKvOzysQRn7GT3qRuEkDETy/Rjrv7x7Q5gLEoAhkhENQ7Cpbxa5so7D/yxoL/59dztx5/m0k7IXsDozRgZtyNxBaqNLroXNTp08e8kZngvq/T3+q5mVzOJYLTrEgrtk1wYotNaQVLNCnrgHYC3eR9gpYoJq7ykK0spjdtZ+nuwpUA5IklAhlyoVApRZaiQmTZixQLofvAIbSSRdpuWLH2gO7NOEBKU9L0hIlpIuejOmrY5V+MYZEBbOHjdPG4a02DmVfvpnQXvRgVSV1Sj+jjVIhlEtoIKGDdHjzlgOR8wGmsqgRcrUCojItQSakKECAFB/TAPW9Xym3B03UypRro7cRRplghrU22mqXQ9+h3ys9Dl/ePXlw4tCebSsMwe4X4jt1EArQAnXxA1GDAtUgk4QkfSeqRNw+z7L1MiIKBj9CvCgBRcmAEsqMvYIWIQVC4MxmlGZMJqICzor5jIWQ+FUCCilZC2asVgDMfBD2zYfcUo5dIpjEz7yaVH0OE/YLnblZneqJn65FFiwD9+kPJpMer+2sCVEDBj7BFA8QCPdeDCNjPvOTxkHeuwG028e+u6f+ejAox2FEjVsvH703HqJacDMabMGtqOnszmP9PrK5h33GzAtwT2gm3ZnjrPwynpYX0vIENN/xVtWdRbeW+ZfS7d1ZVY2NTfLyMrk/fbxQE5py9I4UtaA/ipaG+ozkenUcvRWT3JiZshrcIygfVjd1DDapR3o63VxjxqqCPTT5FXRa5VJ8SEzcEIpX2paZ1VI6W5bV7L59aVlrRlZDcasqkf7PTrwy9JJyu4fmtRrfbsSIccOGjhw3sskn5q57s+7uusYfH62zoNP2rc1ejZ0zbcK8tVuW7tqxauidfv0fDFvur9cd9+1Z/eD//um/Xt29et+rjsbvbJTd2zOJ5gzf1O3qkOFnb8xoMqe3PP9pr9LhzZF0I0CNoKYTrul+of3t1m1uty9v06b1baWdlKJMTdpCDnNJPbLi868CaeaPbZ/zfHWdEZ/Ks+xv+OPvTUfhz1/uzv7m+03+oVEolUDw2JppCS7qsUCwSZGWWDYwH6cwCjO5uViAnphQh3wQ3wgUusk0kjIHEWuJcTKRV6Dwb5rIVSvUSrWapTXCdfvTCpUGmWejzQ7aYa19Fttoq822OGC+jXbaapzddthgqgPW2mGr9ebZbae1dsmA7+mHYLOvwh7lBwA=") format("woff2");
 }
 
 // ---- base ----
@@ -93,6 +84,9 @@ body {
 
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, h4, p { margin: 0; }
+// Headings are serif; weight 700 and ~12% smaller than the old sans sizes,
+// since serif faces read larger (taller x-height). Section-rule labels stay mono.
+h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 700; letter-spacing: -0.01em; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .wrap {
@@ -133,23 +127,29 @@ h1, h2, h3, h4, p { margin: 0; }
   margin: 0 auto;
   padding: 16px 24px;
   display: flex;
-  // Baseline, not center: the mono brand and sans links have different font
-  // metrics, so centered boxes leave the brand text sitting ~1px high.
-  align-items: baseline;
+  // Mobile: only the brand and the hamburger, so center them. From 640px the
+  // row aligns on the text baseline instead (see the media query below).
+  align-items: center;
   justify-content: space-between;
 }
 
 .brand {
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  line-height: 20px;
+  font-family: "Brand Mono", var(--font-mono);
+  // Fixed size on every device: the brand is the site's identity, so it sits a
+  // step above the 14px nav links instead of shrinking with the small-text scale.
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 600;
   letter-spacing: -0.025em;
   color: var(--fg);
-  // Optical nudge: with baselines matched, the taller mono caps and brackets
-  // still read as sitting high next to the sans links.
-  transform: translateY(1px);
-  .bracket { color: var(--accent); }
+  .bracket {
+    color: var(--accent);
+    display: inline-block; // needed for transform on an inline span
+    transition: transform var(--transition-fast);
+  }
+  // Hover/focus: the tag "opens", brackets easing outward from the name.
+  &:hover .bracket:first-child, &:focus-visible .bracket:first-child { transform: translateX(-2px); }
+  &:hover .bracket:last-child, &:focus-visible .bracket:last-child { transform: translateX(2px); }
 }
 
 .nav-desktop { display: none; align-items: center; gap: 20px; }
@@ -227,7 +227,11 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 
 @media (min-width: 640px) {
-  .nav-inner { padding: 16px 32px; }
+  // Baseline, not center: the mono brand and sans links have different font
+  // metrics, so centered boxes leave the brand text sitting high. The 1px nudge
+  // offsets the taller mono caps and brackets.
+  .nav-inner { padding: 16px 32px; align-items: baseline; }
+  .brand { transform: translateY(1px); }
   .nav-desktop { display: flex; }
   .menu-toggle, .mobile-menu, .mobile-menu.open { display: none; }
 }
@@ -277,10 +281,8 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 
 .hero h1 {
-  font-size: 36px;
-  line-height: 40px;
-  font-weight: 800;
-  letter-spacing: -0.025em;
+  font-size: 32px;
+  line-height: 38px;
   margin-bottom: 12px;
 }
 
@@ -318,7 +320,7 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 
 .def-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-xs);
   line-height: 16px;
   font-weight: 500;
@@ -331,7 +333,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .def-value { font-size: 16px; line-height: 24px; }
 
 @media (min-width: 640px) {
-  .hero h1 { font-size: 48px; line-height: 1; }
+  .hero h1 { font-size: 42px; line-height: 1.1; }
 }
 
 @media (min-width: 1024px) {
@@ -381,11 +383,13 @@ h1, h2, h3, h4, p { margin: 0; }
   margin: 40px 0 16px;
   &::before, &::after { content: ""; flex: 1; height: 1px; background: var(--border); }
   span {
-    color: var(--muted);
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    line-height: 20px;
-    font-weight: 500;
+    // Serif like the other headings, sized so the label holds its own between
+    // the rules (sans at 14px read too small once it left mono).
+    color: var(--fg);
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 600;
     white-space: nowrap;
   }
 }
@@ -436,8 +440,9 @@ a.post-category:hover { color: var(--accent); }
 }
 
 .post-date {
+  font-variant-numeric: tabular-nums;
   margin-left: 16px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-xs);
   line-height: 16px;
   color: var(--muted);
@@ -509,12 +514,11 @@ a.tag-text:hover { color: var(--accent); }
   align-items: center;
   gap: 16px;
   margin: 40px 0 16px;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
-  letter-spacing: normal;
-  color: var(--muted);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  color: var(--fg);
   &::before, &::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 }
 
@@ -525,7 +529,7 @@ span.post-title:hover { color: inherit; }
 .uses-detail { color: var(--muted); font-size: var(--text-sm); line-height: 20px; margin-top: 2px; }
 .uses-role {
   margin-left: 16px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-xs);
   line-height: 16px;
   color: var(--muted);
@@ -548,8 +552,6 @@ span.post-title:hover { color: inherit; }
 .ail-heading {
   font-size: 20px;
   line-height: 28px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
   margin: 40px 0 16px;
 }
 
@@ -614,7 +616,8 @@ span.post-title:hover { color: inherit; }
     z-index: 40;
 
     a {
-      font-family: var(--font-mono);
+      font-family: var(--font-sans);
+      font-variant-numeric: tabular-nums;
       font-size: var(--text-xs);
       line-height: 16px;
       color: var(--muted);
@@ -629,32 +632,28 @@ span.post-title:hover { color: inherit; }
 .page-header {
   margin-bottom: 24px;
   h1 {
-    font-size: 30px;
-    line-height: 36px;
-    font-weight: 800;
-    letter-spacing: -0.025em;
+    font-size: 28px;
+    line-height: 34px;
     margin-bottom: 8px;
   }
   .lede { color: var(--muted); font-size: 18px; line-height: 28px; }
 }
 
 @media (min-width: 640px) {
-  .page-header h1 { font-size: 36px; line-height: 40px; }
+  .page-header h1 { font-size: 32px; line-height: 38px; }
 }
 
 .post-header {
   margin-bottom: 32px;
   h1 {
-    font-size: 30px;
-    line-height: 36px;
-    font-weight: 800;
-    letter-spacing: -0.025em;
+    font-size: 28px;
+    line-height: 34px;
     margin-bottom: 16px;
   }
 }
 
 @media (min-width: 1024px) {
-  .post-header h1 { font-size: 48px; line-height: 1; }
+  .post-header h1 { font-size: 42px; line-height: 1.1; }
 }
 
 .post-tags {
@@ -666,8 +665,9 @@ span.post-title:hover { color: inherit; }
 }
 
 .post-meta {
+  font-variant-numeric: tabular-nums;
   color: var(--muted);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-sm);
   line-height: 20px;
   // Underlined always: accent vs muted text alone is not distinguishable (WCAG 1.4.1).
@@ -710,9 +710,9 @@ span.post-title:hover { color: inherit; }
   p { font-size: 18px; line-height: 28px; margin-bottom: 16px; }
 
   h2, h3, h4 { color: var(--fg); margin: 32px 0 16px; }
-  h2 { font-size: 30px; line-height: 36px; font-weight: 700; letter-spacing: -0.025em; }
-  h3 { font-size: 24px; line-height: 32px; font-weight: 600; }
-  h4 { font-size: 20px; line-height: 28px; font-weight: 600; margin: 24px 0 8px; }
+  h2 { font-size: 26px; line-height: 32px; }
+  h3 { font-size: 21px; line-height: 28px; }
+  h4 { font-size: 18px; line-height: 26px; margin: 24px 0 8px; }
 
   ul, ol { margin: 16px 0; padding-left: 20px; list-style-position: outside; }
   ul { list-style-type: disc; }
@@ -768,6 +768,11 @@ span.post-title:hover { color: inherit; }
   .prose ul, .prose ol { margin-left: 24px; }
 }
 
+// Code blocks: Shiki renders the light theme inline; switch to the dark theme's
+// values when the site is dark (the standard Astro dual-theme pattern).
+[data-theme="dark"] .astro-code { color: var(--shiki-dark) !important; background-color: var(--shiki-dark-bg) !important; }
+[data-theme="dark"] .astro-code span { color: var(--shiki-dark) !important; }
+
 // Copy-code button (added by the blog post script).
 .code-block {
   position: relative;
@@ -816,7 +821,7 @@ span.post-title:hover { color: inherit; }
 .uses-row-meta {
   margin-top: 8px;
   color: var(--muted);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-xs);
   line-height: 16px;
   .meta-tag { margin-left: 8px; }
@@ -829,7 +834,7 @@ span.post-title:hover { color: inherit; }
   max-width: 640px;
 
   label {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: var(--text-xs);
     line-height: 16px;
     font-weight: 500;

@@ -1,10 +1,10 @@
 ---
 category: Personal
+categories:
+    - Productivity
+    - Opinion
 isFeatured: true
 title: The Chase is Better Than the Catch
-categories:
-    - Methodologies
-    - Opinion
 date: "2020-09-07T14:13:00Z"
 description: A reflection on my preference for setting up and configuring projects over using them, and whether that time is well spent.
 ail: 0

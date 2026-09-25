@@ -1,8 +1,8 @@
 ---
 category: Personal
-title: An Introduction
 categories:
-    - Productivity
+    - Career
+title: An Introduction
 date: "2020-03-24T22:49:00Z"
 description: I'm not entirely sure what I plan on writing in this, or if I even plan on keeping it.
 ail: 0

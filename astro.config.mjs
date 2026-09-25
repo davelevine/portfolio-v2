@@ -2,6 +2,42 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import rehypeExternalLinks from 'rehype-external-links';
+import githubLight from '@shikijs/themes/github-light';
+import githubDark from '@shikijs/themes/github-dark-dimmed';
+
+// Code theme: GitHub Light / Dark Dimmed (red keywords echo the site accent), fitted to the site palette. Backgrounds become the site's
+// code surfaces, and any token colour below WCAG AA (4.5:1) against its surface is
+// nudged toward black (light) or white (dark) until it passes, keeping its hue.
+const luminance = (hex) =>
+  [1, 3, 5]
+    .map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+    .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4))
+    .reduce((sum, c, i) => sum + c * [0.2126, 0.7152, 0.0722][i], 0);
+const contrast = (a, b) => {
+  const [x, y] = [luminance(a), luminance(b)];
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+};
+const mix = (hex, target, t) =>
+  '#' + [1, 3, 5].map((i) => {
+    const [c, d] = [parseInt(hex.slice(i, i + 2), 16), parseInt(target.slice(i, i + 2), 16)];
+    return Math.round(c + (d - c) * t).toString(16).padStart(2, '0');
+  }).join('');
+const fit = (hex, bg, toward) => {
+  let c = hex.slice(0, 7).toLowerCase();
+  for (let t = 0; contrast(c, bg) < 4.5 && t <= 1; t += 0.01) c = mix(hex.slice(0, 7), toward, t);
+  return c;
+};
+function fitTheme(theme, name, bg, toward) {
+  const color = (v) => (typeof v === 'string' && /^#[0-9a-f]{6}/i.test(v) ? fit(v, bg, toward) : v);
+  return {
+    ...theme,
+    name,
+    colors: { ...theme.colors, 'editor.background': bg, 'editor.foreground': color(theme.colors['editor.foreground']) },
+    tokenColors: theme.tokenColors.map((t) => ({ ...t, settings: { ...t.settings, foreground: color(t.settings?.foreground) } })),
+  };
+}
+const codeLight = fitTheme(githubLight, 'site-github-light', '#f3ede0', '#000000');
+const codeDark = fitTheme(githubDark, 'site-github-dark', '#2a2b2c', '#ffffff');
 
 // Rewrite root-relative /images/* references (used in cert markdown bodies) to
 // the CDN, where the imagery actually lives.
@@ -46,10 +82,9 @@ export default defineConfig({
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
       rehypeCdnImages,
     ],
-    // Token colours are CSS variables (--astro-code-*) defined per theme in
-    // globals.scss, so code follows [data-theme] with no second Shiki theme.
+    // Dual themes; globals.scss switches to the --shiki-dark values under [data-theme="dark"].
     shikiConfig: {
-      theme: 'css-variables',
+      themes: { light: codeLight, dark: codeDark },
       // Normalize language tags used in the posts to Shiki's identifiers.
       langAlias: { YAML: 'yaml', crontab: 'shellscript' },
       wrap: false,

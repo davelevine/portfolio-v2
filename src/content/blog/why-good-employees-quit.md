@@ -1,10 +1,10 @@
 ---
 category: Work
+categories:
+    - Management
+    - Career
 isFeatured: true
 title: Why Good Employees Quit
-categories:
-    - Methodologies
-    - Opinion
 date: "2021-03-16T14:13:00Z"
 description: An exploration of the key reasons why good employees leave their jobs, beyond just salary.
 ail: 0

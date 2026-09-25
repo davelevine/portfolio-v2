@@ -1,9 +1,9 @@
 ---
 category: Homelab
-title: Automating MinIO File Cleanup
 categories:
-    - Security
-    - Tools
+    - Storage
+    - Automation
+title: Automating MinIO File Cleanup
 date: "2025-04-05T15:47:00Z"
 description: This guide explains how to set up automated file cleanup for MinIO object storage on Ubuntu Server.
 ail: 0

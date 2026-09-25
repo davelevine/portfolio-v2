@@ -1,5 +1,9 @@
 ---
 category: Homelab
+categories:
+    - IaC
+    - Ansible
+    - Automation
 isFeatured: true
 title: Infrastructure as Code (IaC)
 date: "2026-05-01T17:29:00Z"

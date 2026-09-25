@@ -1,5 +1,8 @@
 ---
 category: Homelab
+categories:
+    - Cloudflare
+    - Static-Sites
 isFeatured: true
 title: Jamstack
 date: "2021-03-14T14:13:00Z"
