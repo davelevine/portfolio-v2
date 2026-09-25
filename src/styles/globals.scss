@@ -133,9 +133,9 @@ h1, h2, h3, h4, p { margin: 0; }
   margin: 0 auto;
   padding: 16px 24px;
   display: flex;
-  // Baseline, not center: the mono brand and sans links have different font
-  // metrics, so centered boxes leave the brand text sitting ~1px high.
-  align-items: baseline;
+  // Mobile: only the brand and the hamburger, so center them. From 640px the
+  // row aligns on the text baseline instead (see the media query below).
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -146,9 +146,6 @@ h1, h2, h3, h4, p { margin: 0; }
   font-weight: 600;
   letter-spacing: -0.025em;
   color: var(--fg);
-  // Optical nudge: with baselines matched, the taller mono caps and brackets
-  // still read as sitting high next to the sans links.
-  transform: translateY(1px);
   .bracket { color: var(--accent); }
 }
 
@@ -227,7 +224,11 @@ h1, h2, h3, h4, p { margin: 0; }
 }
 
 @media (min-width: 640px) {
-  .nav-inner { padding: 16px 32px; }
+  // Baseline, not center: the mono brand and sans links have different font
+  // metrics, so centered boxes leave the brand text sitting high. The 1px nudge
+  // offsets the taller mono caps and brackets.
+  .nav-inner { padding: 16px 32px; align-items: baseline; }
+  .brand { transform: translateY(1px); }
   .nav-desktop { display: flex; }
   .menu-toggle, .mobile-menu, .mobile-menu.open { display: none; }
 }
