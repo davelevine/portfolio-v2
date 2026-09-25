@@ -2,7 +2,7 @@
 
 The brand (`</Dave Levine>`) uses an embedded subset of **JetBrains Mono SemiBold**
 (v2.304, SIL Open Font License 1.1; license in `OFL-JetBrainsMono.txt`). It is
-inlined as a base64 WOFF2 `@font-face` ("Brand Mono") in `src/styles/globals.scss`
+inlined as a base64 WOFF2 `@font-face` ("Brand Mono") in `src/styles/globals.css`
 and contains only the glyphs ` /<>DLaeinv`.
 
 If the brand text changes, regenerate it (Python with `fonttools` and `brotli`):

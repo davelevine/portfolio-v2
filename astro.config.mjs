@@ -82,7 +82,7 @@ export default defineConfig({
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
       rehypeCdnImages,
     ],
-    // Dual themes; globals.scss switches to the --shiki-dark values under [data-theme="dark"].
+    // Dual themes; globals.css switches to the --shiki-dark values under [data-theme="dark"].
     shikiConfig: {
       themes: { light: codeLight, dark: codeDark },
       // Normalize language tags used in the posts to Shiki's identifiers.
