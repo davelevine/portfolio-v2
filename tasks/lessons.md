@@ -118,3 +118,33 @@ your job."
 **How to apply next time:**
 1. Approving a change does not mean "commit it". Leave edits uncommitted for review until he says to commit or ship.
 2. "Ship" means commit, push, and open or update the PR. Merging is Dave's job, always, even when checks are green.
+
+## A failed build can hide behind a stale dist/
+
+**Context:** To check that removing `@astrojs/markdown-remark` was safe, I rebuilt and compared the
+HTML against a baseline. It reported "identical on 90/90", but the build had actually failed
+(Astro 7 needs that package to run `markdown.rehypePlugins`). The comparison read the previous
+build's `dist/`. My grep filter hid the error. A fresh-worktree build for the PR caught it.
+
+**How to apply next time:** before any before/after comparison, `rm -rf dist`, capture the build's
+exit code and page count, and refuse to compare unless both builds succeeded. "Nothing imports it"
+doesn't prove a dependency is unused; the framework may load it implicitly.
+
+## "Like Heap's" means borrow the named parts, not replace the page
+
+**Context:** Asked to flesh out /uses "in a similar way" to michaelheap.com, I rebuilt it as
+Heap's heading-plus-paragraph page and deleted the name + role rows. Dave wanted to keep his rows,
+add the writeups underneath, and borrow only Heap's bordered boxes.
+
+**How to apply next time:** when a reference site is cited, change only what was named (content,
+a visual treatment) and keep the existing structure. If the ask could mean a restructure, say what
+would be removed before removing it.
+
+## Don't infer style rules from a small sample
+
+**Context:** During a voice pass on /uses, I counted semicolons in six posts, found almost none, and
+removed Dave's semicolons as "not his voice." He uses them often.
+
+**How to apply next time:** a handful of posts isn't enough to call a habit. Keep punctuation and
+phrasing as he wrote it, and only flag something as off-voice when it's clearly generic filler or
+jargon. When unsure, ask instead of editing.
