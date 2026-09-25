@@ -10,7 +10,6 @@ I got this idea from [Daniel Miessler](https://web.archive.org/web/2023032900150
 
 ## This Website
 
-- Documentation is stored on [GitHub](https://github.com/davelevine/docs).
 - Generated with [Astro](https://astro.build).
 - Hosted with [Cloudflare Pages](https://pages.cloudflare.com).
 - Site analytics by [Umami](https://stats.levine.io/share/jcjtY60wzyLPBgAI/dave.levine.io).
@@ -31,7 +30,7 @@ I got this idea from [Daniel Miessler](https://web.archive.org/web/2023032900150
 ## Devices
 
 - Desktop: 2024 Mac mini with an M4 Pro 14-core CPU, 20-core GPU, 64 GB of unified memory, and a 1 TB SSD.
-- Laptop: 2021 MacBook Pro with an M1 Max 10-core CPU and 32 GB of unified memory.
+- Laptop: 2021 MacBook Pro with an M1 Max 10-core CPU, 32 GB of unified memory, and a 500 GB SSD.
 - Homelab: System76 Meerkat with a 12-core i7 and 64 GB of memory.
 - Security Gateway: pfSense XG-7100 Desktop.
 
