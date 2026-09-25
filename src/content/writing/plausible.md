@@ -38,7 +38,7 @@ When looking at the other alternatives and the amount of work to get Fathom setu
 
 ### Matomo
 
-Matomo literally bills itself as “Google Analytics alternative that protects your data and your customers' privacy”. On it's face, this is a pretty good draw. If you're looking for a slightly less complicated solution than Google Analytics, but still want a slick interface and the increased privacy, it's a great solution.
+Matomo literally bills itself as "Google Analytics alternative that protects your data and your customers' privacy". On it's face, this is a pretty good draw. If you're looking for a slightly less complicated solution than Google Analytics, but still want a slick interface and the increased privacy, it's a great solution.
 
 Since I run nearly all my self-hosted apps in Docker containers, this would be no exception. The problem was that for some reason, I couldn't figure out how to get it running with an external MySQL database. It's possible I just didn't stick with it long enough, but frankly, I don't want to spend hours on a service to get it to work, especially one like this that's purely just satisfying my own curiosity.
 

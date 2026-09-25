@@ -78,7 +78,7 @@ Allows for private instances to gain access to the public Internet and/or other 
 
 From the [AWS Documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html):
 
-> The following diagram illustrates the architecture of a VPC with a NAT gateway. The main route table sends Internet traffic from the instances in the private subnet to the NAT gateway. The NAT gateway sends the traffic to the Internet gateway using the NAT gateway’s Elastic IP address as the source IP address.
+> The following diagram illustrates the architecture of a VPC with a NAT gateway. The main route table sends Internet traffic from the instances in the private subnet to the NAT gateway. The NAT gateway sends the traffic to the Internet gateway using the NAT gateway's Elastic IP address as the source IP address.
 
 ![NAT gateway diagram](https://cdn.levine.io/uploads/images/gallery/2022-09//04/nat-gateway-diagram.png)
 

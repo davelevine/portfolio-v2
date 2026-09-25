@@ -77,7 +77,10 @@ export default defineConfig({
   },
   markdown: {
     gfm: true,
-    // External links open in a new tab (parity with the now/blog renderers).
+    // Straight quotes site-wide (frontmatter and hand-written copy can't be curled);
+    // dashes and ellipses are still converted.
+    smartypants: { quotes: false },
+    // External links open in a new tab (parity with the now/writing renderers).
     rehypePlugins: [
       [rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }],
       rehypeCdnImages,

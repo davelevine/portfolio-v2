@@ -20,7 +20,7 @@ It basically amounts to having all your eggs in one basket, and amounts to havin
 
 ## Rclone
 
-Rclone has been an unbelievably reliable tool for backing up my Google Photos account. It just works. I have a number of cron jobs setup that run when they're supposed to, and the whole setup has amounted to “set it and forget it”. So it really shocked me when I got a notification from healthchecks.io that backup jobs for my account started failing on 2/6/21.
+Rclone has been an unbelievably reliable tool for backing up my Google Photos account. It just works. I have a number of cron jobs setup that run when they're supposed to, and the whole setup has amounted to "set it and forget it". So it really shocked me when I got a notification from healthchecks.io that backup jobs for my account started failing on 2/6/21.
 
 ## Workflow
 

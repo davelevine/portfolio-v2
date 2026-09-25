@@ -8,7 +8,7 @@ isFeatured: true
 tech: ['System Administration']
 ---
 
-![MCITP](/images/certs/mcsa.png)
+![MCSA](/images/certs/mcsa.png)
 
 ## Verification
 

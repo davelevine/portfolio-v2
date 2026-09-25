@@ -11,7 +11,7 @@ ail: 0
 
 ## Baseline
 
-I'll start by saying I have a very general understanding of DNS. I know it's often dubbed the “*internet phone book*” and that it translates IP addresses into URLs. I know some of the various DNS record types off the top of my head — A, AAAA, CNAME, MX, TXT — along with how each of them is used, but mostly at a high level.
+I'll start by saying I have a very general understanding of DNS. I know it's often dubbed the "*internet phone book*" and that it translates IP addresses into URLs. I know some of the various DNS record types off the top of my head — A, AAAA, CNAME, MX, TXT — along with how each of them is used, but mostly at a high level.
 
 As a baseline...
 

@@ -170,9 +170,7 @@ h1, h2, h3, h4 {
   display: inline-block; /* needed for transform on an inline span */
   transition: transform var(--transition-fast);
 }
-.brand {
-  /* Hover/focus: the tag "opens", brackets easing outward from the name. */
-}
+/* Hover/focus: the tag "opens", brackets easing outward from the name. */
 .brand:hover .bracket:first-child, .brand:focus-visible .bracket:first-child {
   transform: translateX(-2px);
 }
@@ -195,9 +193,7 @@ h1, h2, h3, h4 {
 .nav-link:hover {
   color: var(--fg);
 }
-.nav-link {
-  /* Current page: normal text with an accent underline, like body links. */
-}
+/* Current page: normal text with an accent underline, like body links. */
 .nav-link.active {
   color: var(--fg);
   text-decoration: underline;
@@ -229,9 +225,7 @@ h1, h2, h3, h4 {
   width: 16px;
   height: 16px;
 }
-.nav-icons {
-  /* Solid square logo reads heavier than open glyphs; optically size it down. */
-}
+/* Solid square logo reads heavier than open glyphs; optically size it down. */
 .nav-icons svg.icon-linkedin {
   width: 14px;
   height: 14px;
@@ -289,9 +283,7 @@ h1, h2, h3, h4 {
 .mobile-menu.open {
   display: flex;
 }
-.mobile-menu {
-  /* Whole row is the tap target, not just the word. */
-}
+/* Whole row is the tap target, not just the word. */
 .mobile-menu > .nav-link {
   display: block;
   padding: 10px 0;
@@ -545,7 +537,7 @@ h1, h2, h3, h4 {
   white-space: nowrap;
 }
 
-/* ---- list rows (home favorites, blog archive, docs) ---- */
+/* ---- list rows (home favorites, writing archive, decisions, certs) ---- */
 .post-row {
   display: flex;
   align-items: baseline;
@@ -1090,7 +1082,7 @@ span.uses-row-title:hover {
   color: var(--fg);
 }
 
-/* ---- bordered row lists (projects, certs) ---- */
+/* ---- bordered row lists (projects, uses) ---- */
 .uses-group {
   border: 1px solid var(--border);
 }

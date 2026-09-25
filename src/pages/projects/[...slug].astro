@@ -20,7 +20,7 @@ const src = (img?: string) => (img?.startsWith('http') ? img : `${cdn}/${img}`);
     <article>
       <header class="post-header">
         <div class="post-tags">
-          {tech.map((t) => <span class="meta-tag">{t}</span>)}
+          {tech.map((t) => <span class="chip">{t}</span>)}
         </div>
         <h1>{title}</h1>
         <p class="post-meta">

@@ -3,6 +3,7 @@ layout: ../layouts/PageLayout.astro
 title: About | Dave Levine
 description: About Dave Levine — Solutions Engineer.
 heading: About
+lede: Husband, father, engineer, minimalist, technical writer, musician, and lifter of weights.
 ---
 
 I'm a Solutions Engineer at Weill Cornell Medicine, fifteen years into a career in IT. The last several have been spent where infrastructure, security, and documentation overlap. Most of what I do comes down to one thing: figuring out how a sprawling set of systems actually fits together, then turning that into something a team can act on.

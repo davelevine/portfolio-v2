@@ -67,7 +67,7 @@ I tried running the script manually to fetch the latest version. This is where I
 
 I used Xen Orchestra to access the GUI for the Plex VM to check for anything unusual. I disconnected and reconnected the network interface; no change. I went for broke and tried to download the .deb package manually through the browser, only to find that the page wouldn't resolve for <https://plex.tv>.
 
-I checked on both my MacBook Pro and my Manjaro box, and both were able to resolve the site without an issue. I tried <https://bitwarden.com>, just because it was in my “top sites”; same issue. The Plex site is hosted on AWS, but running a traceroute on <https://downloads.plex.tv> shows it resolving to — you guessed it — a Cloudflare IP. It's very likely their whole infrastructure is on AWS, but they use Cloudflare CDN.
+I checked on both my MacBook Pro and my Manjaro box, and both were able to resolve the site without an issue. I tried <https://bitwarden.com>, just because it was in my "top sites"; same issue. The Plex site is hosted on AWS, but running a traceroute on <https://downloads.plex.tv> shows it resolving to — you guessed it — a Cloudflare IP. It's very likely their whole infrastructure is on AWS, but they use Cloudflare CDN.
 
 ## How I Resolved It
 

@@ -42,6 +42,6 @@ I've never been a good test taker, and that hasn't really changed. This exam was
 
 I needed to do this because I'm hopeful it will help me in my career. I also needed to do this for me, as a validation of the skill set I know that I have. It's one thing to work on my homelab and do things here and there, but it's another to learn all about cloud architecture.
 
-I won't stop with just this exam. I plan on fulfilling the entire “Junior AWS Cloud Engineer — Entry Level” learning path on Linux Academy. As of the time of this writing, I'm 32% of the way through it.
+I won't stop with just this exam. I plan on fulfilling the entire "Junior AWS Cloud Engineer — Entry Level" learning path on Linux Academy. As of the time of this writing, I'm 32% of the way through it.
 
 I can do this, but for now, I feel good.
