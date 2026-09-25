@@ -22,18 +22,6 @@
   --text-xs: 13px;
   --text-sm: 15px;
 
-  // Shiki `css-variables` theme tokens.
-  --astro-code-foreground: #2b2624;
-  --astro-code-background: var(--surface);
-  --astro-code-token-constant: #b44716;
-  --astro-code-token-string: #a75235;
-  --astro-code-token-comment: #736862;
-  --astro-code-token-keyword: #9b2e2e;
-  --astro-code-token-parameter: #3d3530;
-  --astro-code-token-function: #7a3555;
-  --astro-code-token-string-expression: #955868;
-  --astro-code-token-punctuation: #716760;
-  --astro-code-token-link: #9b2e2e99;
 }
 
 [data-theme="dark"] {
@@ -47,16 +35,6 @@
   --on-accent: #202122;
   --border-strong: #757677;
 
-  --astro-code-foreground: #e3ddd0;
-  --astro-code-token-constant: #e88a50;
-  --astro-code-token-string: #e09070;
-  --astro-code-token-comment: #9a928b;
-  --astro-code-token-keyword: #ea6b6b;
-  --astro-code-token-parameter: #d8d2c4;
-  --astro-code-token-function: #d080a0;
-  --astro-code-token-string-expression: #c8909a;
-  --astro-code-token-punctuation: #9a9285;
-  --astro-code-token-link: #e8606099;
 }
 
 @media (min-width: 640px) {
@@ -781,6 +759,11 @@ span.post-title:hover { color: inherit; }
 @media (min-width: 640px) {
   .prose ul, .prose ol { margin-left: 24px; }
 }
+
+// Code blocks: Shiki renders the light theme inline; switch to the dark theme's
+// values when the site is dark (the standard Astro dual-theme pattern).
+[data-theme="dark"] .astro-code { color: var(--shiki-dark) !important; background-color: var(--shiki-dark-bg) !important; }
+[data-theme="dark"] .astro-code span { color: var(--shiki-dark) !important; }
 
 // Copy-code button (added by the blog post script).
 .code-block {
