@@ -1,5 +1,5 @@
 ---
-// Certs — index; each row links to its detail page.
+// Certs — index, grouped by status like /decisions groups by year; each row links to its detail page.
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { formatMonth, certStatus } from '../../lib/format';
@@ -7,7 +7,14 @@ import { formatMonth, certStatus } from '../../lib/format';
 const certs = (await getCollection('certs')).sort(
   (a, b) => new Date(b.data.achievedDate).valueOf() - new Date(a.data.achievedDate).valueOf()
 );
-const expiry = (e: string) => (e === 'Never' ? 'no expiry' : formatMonth(new Date(e)));
+const groups = [
+  { title: 'Current', certs: certs.filter((c) => certStatus(c.data.expirationDate) !== 'Expired') },
+  { title: 'Expired', certs: certs.filter((c) => certStatus(c.data.expirationDate) === 'Expired') },
+];
+const range = (earned: string, expires: string) =>
+  expires === 'Never'
+    ? `${formatMonth(new Date(earned))}, no expiry`
+    : `${formatMonth(new Date(earned))} – ${formatMonth(new Date(expires))}`;
 ---
 
 <Layout title="Certs | Dave Levine" description="Certifications Dave Levine holds.">
@@ -17,17 +24,16 @@ const expiry = (e: string) => (e === 'Never' ? 'no expiry' : formatMonth(new Dat
       <p class="lede">Certifications I've earned over the years.</p>
     </header>
 
-    <div class="uses-group">
-      {certs.map((c) => (
-        <div class="uses-row">
-          <a class="uses-row-title" href={`/certs/${c.id}/`}>{c.data.title}</a>
-          <p class="uses-row-desc">{c.data.excerpt}</p>
-          <p class="uses-row-meta">
-            {formatMonth(new Date(c.data.achievedDate))} – {expiry(c.data.expirationDate)}
-            <span class="meta-tag">{certStatus(c.data.expirationDate)}</span>
-          </p>
-        </div>
-      ))}
-    </div>
+    {groups.filter((g) => g.certs.length).map((g) => (
+      <>
+        <h2 class="section-rule"><span>{g.title}</span></h2>
+        {g.certs.map((c) => (
+          <div class="post-row">
+            <a class="post-title" href={`/certs/${c.id}/`}>{c.data.title}</a>
+            <span class="post-date">{range(c.data.achievedDate, c.data.expirationDate)}</span>
+          </div>
+        ))}
+      </>
+    ))}
   </main>
 </Layout>

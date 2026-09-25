@@ -1,0 +1,24 @@
+---
+// Writing archive — one category.
+import Layout from '../../../layouts/Layout.astro';
+import WritingArchive from '../../../components/WritingArchive.astro';
+import { CATEGORIES, CATEGORY_LEDES } from '../../../lib/writing';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((category) => ({ params: { category: category.toLowerCase() }, props: { category } }));
+}
+
+const { category } = Astro.props;
+const posts = await getCollection('writing', (p) => p.data.category === category);
+---
+
+<Layout title={`${category} | Dave Levine`} description={`Dave Levine's ${category} posts.`}>
+  <main class="wrap">
+    <header class="page-header">
+      <h1>{category}</h1>
+      <p class="lede">{CATEGORY_LEDES[category]}</p>
+    </header>
+    <WritingArchive posts={posts} active={category} />
+  </main>
+</Layout>

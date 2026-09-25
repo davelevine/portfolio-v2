@@ -1,13 +1,13 @@
 ---
-// Blog post — Heap-style article: tags row, title, mono meta, prose, end mark.
+// Writing post — Heap-style article: tags row, title, mono meta, prose, end mark.
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 import { formatDate, readingTime } from '../../lib/format';
-import { categoryHref } from '../../lib/blog';
+import { categoryHref } from '../../lib/writing';
 import AilBadge from '../../components/AilBadge.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('writing');
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
@@ -23,7 +23,7 @@ const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
       <header class="post-header">
         {(isFeatured || topics.length > 0 || ail !== undefined) && (
           <div class="post-tags">
-            {isFeatured && <a class="tag-text" href="/blog/favorites/" title="Favorite post" aria-label="Favorite post">&#10084;&#65039;</a>}
+            {isFeatured && <a class="tag-text" href="/writing/favorites/" title="Favorite post" aria-label="Favorite post">&#10084;&#65039;</a>}
             {topics.map((t) => <span class="tag-text">#{t}</span>)}
             <AilBadge ail={ail} ailImages={ailImages} />
           </div>
@@ -34,10 +34,11 @@ const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
         </p>
       </header>
 
-      <div class="prose blog-post">
+      <div class="prose writing-post">
         <Content />
       </div>
       <div class="end-mark" aria-hidden="true"></div>
+      <a class="more-link" href="/writing/">&larr; All writing</a>
     </article>
   </main>
 </Layout>
@@ -53,9 +54,9 @@ const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
     '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
   document.addEventListener('astro:page-load', () => {
-    if (!document.querySelector('.blog-post')) return;
+    if (!document.querySelector('.writing-post')) return;
 
-    document.querySelectorAll('.blog-post pre.astro-code:not([data-cb])').forEach((pre) => {
+    document.querySelectorAll('.writing-post pre.astro-code:not([data-cb])').forEach((pre) => {
       pre.setAttribute('data-cb', '');
       const container = document.createElement('div');
       container.className = 'code-block';
@@ -75,7 +76,7 @@ const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
       });
     });
 
-    document.querySelectorAll('.blog-post img:not([data-fb])').forEach((img) => {
+    document.querySelectorAll('.writing-post img:not([data-fb])').forEach((img) => {
       img.setAttribute('data-fb', '');
       const a = document.createElement('a');
       a.href = (img as HTMLImageElement).src;

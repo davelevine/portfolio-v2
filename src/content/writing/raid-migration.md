@@ -12,7 +12,7 @@ ail: 0
 
 ## Analysis
 
-Of all the systems I maintain in my homelab, the one I generally look at the least is my NAS. I'm not sure if that would come as a surprise to anyone, but it's become one of my most trusted “set it and forget it” systems.
+Of all the systems I maintain in my homelab, the one I generally look at the least is my NAS. I'm not sure if that would come as a surprise to anyone, but it's become one of my most trusted "set it and forget it" systems.
 
 This has been great for me because the less I have to think about, the better, especially when it comes to systems. The problem lately is that although everything is working as well as it should, I've been getting email notifications from it lately that it's beginning to run low on space.
 

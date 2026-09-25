@@ -28,7 +28,7 @@ Something I didn't account for was the sheer amount of time it would take me to 
 
 My wife gets annoyed at me about this, and I don't think she's necessarily wrong. From the outside looking in, the only thing it looks like is obsession. I'm by no means a workaholic, but when I get into these projects, you'd think I was. I find myself racing to finish something, but also to find a good balance of speed and efficiency. Efficiency is particularly important to me because there's not much I hate more than having to do something twice.
 
-It comes down to the old saying “do you want it fast, cheap or good?” because you can't have all three. At best, you can pick two. Steer clear of anyone who says they can provide you with all three.
+It comes down to the old saying "do you want it fast, cheap or good?" because you can't have all three. At best, you can pick two. Steer clear of anyone who says they can provide you with all three.
 
 In my case, I'm generally willing to pay a bit more to get good quality, so strike 'cheap' from the equation. Fast and good? Well, I can do both, but I sacrifice doing other things to make it happen.
 

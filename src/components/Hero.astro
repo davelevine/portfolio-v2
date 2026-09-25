@@ -1,7 +1,7 @@
 ---
 // Hero — intro + "now" panel (Heap-style home header). Copy lives in src/content/home.md.
 import { getEntry } from 'astro:content';
-import { marked } from 'marked';
+import { inlineMd } from '../lib/markdown';
 
 const { greeting, tagline, intro, now } = (await getEntry('home', 'home'))!.data;
 const avatar = 'https://cdn.levine.io/uploads/portfolio/public/images/profile-pic-1.webp';
@@ -38,7 +38,7 @@ const avatar = 'https://cdn.levine.io/uploads/portfolio/public/images/profile-pi
       {now.map((item) => (
         <div class="def-item">
           <div class="def-label">{item.label}</div>
-          <div class="def-value" set:html={marked.parseInline(item.text)} />
+          <div class="def-value" set:html={inlineMd(item.text)} />
         </div>
       ))}
     </div>

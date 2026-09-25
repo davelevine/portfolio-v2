@@ -1,10 +1,10 @@
 ---
-// Blog archive — all posts.
+// Writing archive — all posts.
 import Layout from '../../layouts/Layout.astro';
-import BlogArchive from '../../components/BlogArchive.astro';
+import WritingArchive from '../../components/WritingArchive.astro';
 import { getCollection } from 'astro:content';
 
-const posts = await getCollection('blog');
+const posts = await getCollection('writing');
 ---
 
 <Layout title="Writing | Dave Levine" description="Notes on infrastructure, security, and how work gets done.">
@@ -13,6 +13,6 @@ const posts = await getCollection('blog');
       <h1>Writing</h1>
       <p class="lede">Notes on infrastructure, security, and documentation, from work and the homelab.</p>
     </header>
-    <BlogArchive posts={posts} active="all" />
+    <WritingArchive posts={posts} active="all" />
   </main>
 </Layout>

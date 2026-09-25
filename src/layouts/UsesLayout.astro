@@ -1,8 +1,11 @@
 ---
-// Layout for /uses (src/pages/uses.md): intro body, then sections of name + role rows.
+// Layout for /uses (src/pages/uses.md): intro body, then boxed sections of rows:
+// a name with an optional writeup (inline Markdown; a blank line in the YAML folds to "\n"
+// and starts a new paragraph) underneath.
 import Layout from './Layout.astro';
+import { inlineMd } from '../lib/markdown';
 
-interface Item { name: string; role: string; url?: string; detail?: string }
+interface Item { name: string; text?: string }
 interface Section { title: string; items: Item[] }
 const { title, description, heading, lede, sections = [] } = Astro.props.frontmatter as {
   title: string; description: string; heading: string; lede?: string; sections?: Section[];
@@ -21,17 +24,14 @@ const { title, description, heading, lede, sections = [] } = Astro.props.frontma
     {sections.map((section) => (
       <section>
         <h2 class="section-rule"><span>{section.title}</span></h2>
-        {section.items.map((item) => (
-          <div class="post-row uses-item">
-            <div class="uses-name">
-              {item.url
-                ? <a class="post-title" href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
-                : <span class="post-title">{item.name}</span>}
-              {item.detail && <p class="uses-detail">{item.detail}</p>}
+        <div class="uses-group">
+          {section.items.map((item) => (
+            <div class="uses-row">
+              <span class="uses-row-title">{item.name}</span>
+              {item.text?.split('\n').map((para) => <p class="uses-row-desc" set:html={inlineMd(para)} />)}
             </div>
-            <span class="uses-role">{item.role}</span>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
     ))}
   </main>

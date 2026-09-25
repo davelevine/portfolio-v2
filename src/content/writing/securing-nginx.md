@@ -31,7 +31,7 @@ For example, I tried the following header that kept cropping up in my research, 
 
 The breakdown of the `proxy_hide_header` is as follows:
 
-> By default, nginx does not pass the header fields “Date”, “Server”, “X-Pad”, and “X-Accel-...” from the response of a proxied server to a client. The proxy_hide_header directive sets additional fields that will not be passed. If, on the contrary, the passing of fields needs to be permitted, the proxy_pass_header directive can be used.
+> By default, nginx does not pass the header fields "Date", "Server", "X-Pad", and "X-Accel-..." from the response of a proxied server to a client. The proxy_hide_header directive sets additional fields that will not be passed. If, on the contrary, the passing of fields needs to be permitted, the proxy_pass_header directive can be used.
 
 Because the header was effectively being bypassed, it was breaking multi-factor auth. To be clear, I have multi-factor auth enabled through [Cloudflare Access](https://www.cloudflare.com/teams-access/) using [Okta](https://www.okta.com/) as the IdP.
 
@@ -40,12 +40,12 @@ Because the header was effectively being bypassed, it was breaking multi-factor 
 The amount of trial and error that took place in all this was staggering, but I was finally able to narrow the new headers down to the following list:
 
 * add_header X-Frame-Options SAMEORIGIN;
-* add_header X-XSS-Protection “1; mode=block”;
+* add_header X-XSS-Protection "1; mode=block";
 * add_header X-Content-Type-Options nosniff;
-* add_header Referrer-Policy “no-referrer”;
+* add_header Referrer-Policy "no-referrer";
 * add_header Feature-Policy strict-origin-when-cross-origin;
 * add_header hide_server_tokens on;
-* add_header Content-Security-Policy “default-src * data: 'unsafe-eval' 'unsafe-inline'” always;
+* add_header Content-Security-Policy "default-src * data: 'unsafe-eval' 'unsafe-inline'" always;
 
 This gave me a nice balance between adding the additional security, while still retaining the performance benefits from the caching directives already put in place.
 

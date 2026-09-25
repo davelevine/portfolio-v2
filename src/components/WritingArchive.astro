@@ -1,11 +1,11 @@
 ---
-// Blog archive — category pills (real routes), year-grouped rows, year sidebar.
-// Used by /blog/, /blog/favorites/ and /blog/category/<cat>/.
+// Writing archive — category pills (real routes), year-grouped rows, year sidebar.
+// Used by /writing/, /writing/favorites/ and /writing/category/<cat>/.
 import type { CollectionEntry } from 'astro:content';
-import { CATEGORIES, categoryHref, type Category } from '../lib/blog';
+import { CATEGORIES, categoryHref, type Category } from '../lib/writing';
 
 interface Props {
-  posts: CollectionEntry<'blog'>[];
+  posts: CollectionEntry<'writing'>[];
   active: 'all' | 'favorites' | Category;
 }
 
@@ -13,8 +13,8 @@ const { posts, active } = Astro.props;
 const sorted = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const years = [...new Set(sorted.map((p) => p.data.date.getUTCFullYear()))];
 const pills = [
-  { key: 'favorites', label: '❤️', href: '/blog/favorites/', title: 'Favorites' },
-  { key: 'all', label: 'All', href: '/blog/' },
+  { key: 'favorites', label: '❤️', href: '/writing/favorites/', title: 'Favorites' },
+  { key: 'all', label: 'All', href: '/writing/' },
   ...CATEGORIES.map((c) => ({ key: c, label: c, href: categoryHref(c) })),
 ];
 ---
@@ -35,7 +35,7 @@ const pills = [
     {sorted.filter((p) => p.data.date.getUTCFullYear() === y).map((p) => (
       <div class="post-row">
         <span class="post-fav-slot">{p.data.isFeatured && <span role="img" aria-label="Favorite">&#10084;</span>}</span>
-        <a class="post-title" href={`/blog/${p.id}/`}>{p.data.title}</a>
+        <a class="post-title" href={`/writing/${p.id}/`}>{p.data.title}</a>
         <span class="post-meta-group">
           <a class="post-category" href={categoryHref(p.data.category)}>{p.data.category}</a>
         </span>

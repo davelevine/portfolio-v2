@@ -4,7 +4,7 @@
 
 # Portfolio
 
-My personal portfolio — projects, certifications, a blog, and a /now page.
+My personal portfolio — projects, certifications, writing, and a /now page.
 
 Live at [dave.levine.io](https://dave.levine.io).
 
@@ -46,12 +46,12 @@ and are referenced by URL — the repo stays free of large binaries.
 | [`/about`](./src/pages/about.md) | Markdown page | Bio |
 | [`/projects`](./src/pages/projects/index.astro) | [`content/projects/`](./src/content/projects/) | Project list + detail pages |
 | [`/certs`](./src/pages/certs/index.astro) | [`content/certs/`](./src/content/certs/) | Certifications + detail pages |
-| [`/blog`](./src/pages/blog/index.astro) | [`content/blog/`](./src/content/blog/) | Writing archive by year, category (`/blog/category/<cat>/`) and favorites (`/blog/favorites/`) + detail pages |
+| [`/writing`](./src/pages/writing/index.astro) | [`content/writing/`](./src/content/writing/) | Writing archive by year, category (`/writing/category/<cat>/`) and favorites (`/writing/favorites/`) + detail pages; old `/blog/*` URLs 301 here via [`public/_redirects`](./public/_redirects) |
 | [`/now`](./src/pages/now.astro) | [`content/now.md`](./src/content/now.md) | Current focus ([nownownow.com](https://nownownow.com/about)) |
 | [`/decisions`](./src/pages/decisions/index.astro) | [`content/adr/`](./src/content/adr/) | Selected ADRs from the homelab, edited for publishing, by year |
 | [`/ail`](./src/pages/ail.md) | Markdown page | AI Influence Level scale used on posts and decisions |
 | [`/contact`](./src/pages/contact.astro) | static page | Formspree contact form, LinkedIn, PGP key, résumé |
-| [`/uses`](./src/pages/uses.md) | Markdown page | Colophon: stack, devices, workspace |
+| [`/uses`](./src/pages/uses.md) | Markdown page | Colophon: code, writing, learning, planning, tools, gear, workspace |
 
 </div>
 
@@ -69,9 +69,9 @@ markdown             SCSS + Shiki    static    dave.levine.io
 | Concern | How it works |
 |---|---|
 | [Theme](./src/layouts/Layout.astro) | Light/dark is owned on `<html data-theme>`: the saved choice (`localStorage`) or the OS preference, set before first paint and re-applied across View Transitions so navigation never flashes. |
-| [Code blocks](./astro.config.mjs) | [Shiki](https://shiki.style/) with GitHub Light / Dark Dimmed, fitted to the site palette (site backgrounds, token colours nudged to WCAG AA) in `astro.config.mjs`; `globals.css` switches themes with `[data-theme]`. Blog posts get a copy button. |
+| [Code blocks](./astro.config.mjs) | [Shiki](https://shiki.style/) with GitHub Light / Dark Dimmed, fitted to the site palette (site backgrounds, token colours nudged to WCAG AA) in `astro.config.mjs`; `globals.css` switches themes with `[data-theme]`. Writing posts get a copy button. |
 | Images | Served from `cdn.levine.io` by URL; root-relative `/images/*` paths in cert markdown are rewritten to the CDN by a rehype plugin at build time. |
-| Lightbox | Blog-post images open in a [Fancybox](https://fancyapps.com/fancybox/) gallery (`@fancyapps/ui`) with zoom, pan, and a counter. |
+| Lightbox | Writing-post images open in a [Fancybox](https://fancyapps.com/fancybox/) gallery (`@fancyapps/ui`) with zoom, pan, and a counter. |
 | [Feeds](./src/pages/rss.xml.js) | An RSS feed and a sitemap (`@astrojs/sitemap`) are generated on every build. |
 | Analytics | Self-hosted [Umami](https://umami.is/) at `stats.levine.io`. |
 
@@ -80,7 +80,7 @@ markdown             SCSS + Shiki    static    dave.levine.io
 
 | Collection | Source | Frontmatter |
 |---|---|---|
-| `blog` | `src/content/blog/*.md` | `title`, `date`, `description`, `category` (required: Homelab / AWS / Work / Personal), `categories` (topic tags), `isFeatured` (heart + home favorites), `ail` / `ailImages` (AI Influence Level badge, see `/ail`) |
+| `writing` | `src/content/writing/*.md` | `title`, `date`, `description`, `category` (required: Homelab / AWS / Work / Personal), `categories` (topic tags), `isFeatured` (heart + home favorites), `ail` / `ailImages` (AI Influence Level badge, see `/ail`) |
 | `projects` | `src/content/projects/*.md` | `title`, `tech[]`, `liveLink`, `githubLink`, `image`, `isFeatured` |
 | `certs` | `src/content/certs/*.md` | `title`, `achievedDate`, `expirationDate`, `image`, `tech[]` |
 | `now` | `src/content/now.md` | `date` |
@@ -120,17 +120,17 @@ npm run preview  # serve the production build locally
 portfolio-v2/
 ├── src/
 │   ├── content/            # Markdown content collections
-│   │   ├── blog/           # Blog posts
+│   │   ├── writing/        # Writing posts
 │   │   ├── certs/          # Certifications
 │   │   ├── projects/       # Projects
 │   │   └── now.md          # /now page content
 │   ├── content.config.ts   # Typed collection schemas (Zod)
-│   ├── pages/              # File-based routes (index, about, now, uses, contact, decisions/, blog/, certs/, projects/, rss.xml.js)
+│   ├── pages/              # File-based routes (index, about, now, uses, contact, decisions/, writing/, certs/, projects/, rss.xml.js)
 │   ├── layouts/            # Base layout (head, theme, analytics) + PageLayout for Markdown pages
-│   ├── components/         # Astro components (Navbar, Footer, Hero, BlogArchive)
+│   ├── components/         # Astro components (Navbar, Footer, Hero, WritingArchive)
 │   └── styles/             # globals.css (plain CSS: tokens + all shared styles), fonts/ (brand font license)
-│   ├── lib/                # Date formatting, reading time, blog categories
-├── public/                 # Static assets served as-is (manifest, robots.txt, résumé)
+│   ├── lib/                # Date formatting, reading time, writing categories
+├── public/                 # Static assets served as-is (manifest, robots.txt, résumé, _redirects)
 ├── astro.config.mjs        # Astro config: site, Shiki, rehype plugins, sitemap
 └── tsconfig.json
 ```

@@ -170,9 +170,7 @@ h1, h2, h3, h4 {
   display: inline-block; /* needed for transform on an inline span */
   transition: transform var(--transition-fast);
 }
-.brand {
-  /* Hover/focus: the tag "opens", brackets easing outward from the name. */
-}
+/* Hover/focus: the tag "opens", brackets easing outward from the name. */
 .brand:hover .bracket:first-child, .brand:focus-visible .bracket:first-child {
   transform: translateX(-2px);
 }
@@ -195,9 +193,7 @@ h1, h2, h3, h4 {
 .nav-link:hover {
   color: var(--fg);
 }
-.nav-link {
-  /* Current page: normal text with an accent underline, like body links. */
-}
+/* Current page: normal text with an accent underline, like body links. */
 .nav-link.active {
   color: var(--fg);
   text-decoration: underline;
@@ -229,9 +225,7 @@ h1, h2, h3, h4 {
   width: 16px;
   height: 16px;
 }
-.nav-icons {
-  /* Solid square logo reads heavier than open glyphs; optically size it down. */
-}
+/* Solid square logo reads heavier than open glyphs; optically size it down. */
 .nav-icons svg.icon-linkedin {
   width: 14px;
   height: 14px;
@@ -289,9 +283,7 @@ h1, h2, h3, h4 {
 .mobile-menu.open {
   display: flex;
 }
-.mobile-menu {
-  /* Whole row is the tap target, not just the word. */
-}
+/* Whole row is the tap target, not just the word. */
 .mobile-menu > .nav-link {
   display: block;
   padding: 10px 0;
@@ -493,16 +485,23 @@ h1, h2, h3, h4 {
   color: var(--accent);
 }
 
-/* ---- underlined body links (prose, now panel) ---- */
+/* ---- underlined body links: full-contrast text, accent underline, everywhere ---- */
+/* (fg rather than inherit so links in grey ledes and intros still read as links) */
 .prose a,
-.def-value a {
-  color: inherit;
-  box-shadow: 0 3px 0 0 var(--accent);
+.def-value a,
+.page-header .lede a,
+.uses-row-desc a,
+.post-meta a {
+  color: var(--fg);
+  box-shadow: 0 2px 0 0 var(--accent);
   padding-bottom: 0.08em;
   transition: color var(--transition-fast), box-shadow var(--transition-fast);
 }
 .prose a:hover,
-.def-value a:hover {
+.def-value a:hover,
+.page-header .lede a:hover,
+.uses-row-desc a:hover,
+.post-meta a:hover {
   color: var(--accent);
 }
 
@@ -538,7 +537,7 @@ h1, h2, h3, h4 {
   white-space: nowrap;
 }
 
-/* ---- list rows (home favorites, blog archive, docs) ---- */
+/* ---- list rows (home favorites, writing archive, decisions, certs) ---- */
 .post-row {
   display: flex;
   align-items: baseline;
@@ -699,35 +698,16 @@ a.tag-text:hover {
   background: var(--border);
 }
 
-/* ---- /uses rows: name (+ muted detail) left, role label right ---- */
-.uses-name {
-  flex: 1;
-  min-width: 0;
+/* ---- /uses boxes: unlinked name, writeup below ---- */
+span.uses-row-title {
+  display: block;
 }
-
-.uses-name .post-title {
-  display: inline;
-}
-
-span.post-title:hover {
+span.uses-row-title:hover {
   color: inherit;
 }
 
-.uses-detail {
-  color: var(--muted);
-  font-size: var(--text-sm);
-  line-height: 20px;
-  margin-top: 2px;
-}
-
-.uses-role {
-  margin-left: 16px;
-  font-family: var(--font-sans);
-  font-size: var(--text-xs);
-  line-height: 16px;
-  color: var(--muted);
-  white-space: nowrap;
-  text-align: right;
+.uses-row-desc + .uses-row-desc {
+  margin-top: 12px;
 }
 
 /* ---- /ail page ---- */
@@ -822,7 +802,7 @@ span.post-title:hover {
     font-size: 20px;
   }
 }
-/* ---- blog year sidebar (wide screens only) ---- */
+/* ---- writing year sidebar (wide screens only) ---- */
 .year-sidebar {
   display: none;
 }
@@ -902,14 +882,6 @@ span.post-title:hover {
   font-size: var(--text-sm);
   line-height: 20px;
   /* Underlined always: accent vs muted text alone is not distinguishable (WCAG 1.4.1). */
-}
-.post-meta a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.post-meta a:hover {
-  text-decoration-thickness: 2px;
 }
 .post-meta .meta-tag {
   margin-left: 8px;
@@ -1072,7 +1044,7 @@ span.post-title:hover {
   color: var(--shiki-dark) !important;
 }
 
-/* Copy-code button (added by the blog post script). */
+/* Copy-code button (added by the writing post script). */
 .code-block {
   position: relative;
   margin: 24px 0;
@@ -1103,7 +1075,7 @@ span.post-title:hover {
   color: var(--fg);
 }
 
-/* ---- bordered row lists (projects, certs) ---- */
+/* ---- bordered row lists (projects, uses) ---- */
 .uses-group {
   border: 1px solid var(--border);
 }
@@ -1134,15 +1106,27 @@ span.post-title:hover {
   margin-top: 4px;
 }
 
-.uses-row-meta {
-  margin-top: 8px;
-  color: var(--muted);
+/* Chips: project tech. Outlined in border-strong so they still read against the
+   row's hover background. */
+.chip {
+  border: 1px solid var(--border-strong);
+  border-radius: 9999px;
+  color: var(--fg);
   font-family: var(--font-sans);
   font-size: var(--text-xs);
   line-height: 16px;
+  font-weight: 500;
+  padding: 1px 8px;
+  white-space: nowrap;
 }
-.uses-row-meta .meta-tag {
-  margin-left: 8px;
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  /* Bottom margin offsets the title's line-height leading so the row looks even. */
+  margin: 8px 0 6px;
+  padding: 0;
+  list-style: none;
 }
 
 /* ---- contact form ---- */
@@ -1175,8 +1159,12 @@ span.post-title:hover {
 .contact-form input::placeholder, .contact-form textarea::placeholder {
   color: var(--muted);
 }
+/* One focus frame, not two: the field's own border thickens to a 2px accent edge
+   (via an inset shadow, so nothing shifts) in place of the global outline ring. */
 .contact-form input:focus, .contact-form textarea:focus {
+  outline: none;
   border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
 }
 .contact-form textarea {
   resize: vertical;
@@ -1195,8 +1183,8 @@ span.post-title:hover {
   font-weight: 500;
   color: var(--fg);
   background: none;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: 1px solid var(--border-strong); /* same 3:1 boundary and corners as the fields */
+  border-radius: 4px;
   padding: 8px 16px;
   cursor: pointer;
   transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);

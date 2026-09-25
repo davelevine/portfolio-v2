@@ -20,7 +20,7 @@ const { title, excerpt, achievedDate, expirationDate, tech = [] } = cert.data;
       <header class="post-header">
         {tech.length > 0 && (
           <div class="post-tags">
-            {tech.map((t) => <span class="meta-tag">{t}</span>)}
+            {tech.map((t) => <span class="chip">{t}</span>)}
           </div>
         )}
         <h1>{title}</h1>

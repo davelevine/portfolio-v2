@@ -5,13 +5,13 @@ import Hero from '../components/Hero.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../lib/format';
 
-const favorites = (await getCollection('blog', (p) => p.data.isFeatured)).sort(
+const favorites = (await getCollection('writing', (p) => p.data.isFeatured)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 ---
 
 <Layout
-  title="Dave Levine - Solutions Engineer"
+  title="Dave Levine | Solutions Engineer"
   description="Dave Levine: husband, father, engineer, minimalist, technical writer, musician, and lifter of weights."
 >
   <main class="wrap">
@@ -24,12 +24,12 @@ const favorites = (await getCollection('blog', (p) => p.data.isFeatured)).sort(
       {favorites.map((p) => (
         <div class="post-row">
           <span class="post-fav-slot" role="img" aria-label="Favorite">&#10084;</span>
-          <a class="post-title" href={`/blog/${p.id}/`}>{p.data.title}</a>
+          <a class="post-title" href={`/writing/${p.id}/`}>{p.data.title}</a>
           <span class="post-date">{formatDate(p.data.date)}</span>
         </div>
       ))}
 
-      <a class="more-link" href="/blog/favorites/">All favorites &rarr;</a>
+      <a class="more-link" href="/writing/favorites/">All favorites &rarr;</a>
     </section>
   </main>
 </Layout>

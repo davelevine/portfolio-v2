@@ -3,7 +3,6 @@ layout: ../layouts/AilLayout.astro
 title: AI Influence Level | Dave Levine
 description: How Dave Levine labels AI involvement in what he publishes.
 heading: AI Influence Level
-lede: How I label the AI involvement in what I publish.
 # Optional: a highlighted commitment box above the levels.
 # commitment: Everything I write myself is AIL 2 or below. Anything higher is labelled.
 badges:

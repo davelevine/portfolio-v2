@@ -31,7 +31,7 @@ AWS defines API Gateway as follows:
 
 > *Amazon API Gateway is an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at any scale. API developers can create APIs that access AWS or other web services, as well as data stored in the AWS Cloud.
 >
-> API Gateway acts as a “front door” for applications to access data, business logic, or functionality from your backend services, such as workloads running on Amazon Elastic Compute Cloud (Amazon EC2), code running on AWS Lambda, any web application, or real-time communication applications.*
+> API Gateway acts as a "front door" for applications to access data, business logic, or functionality from your backend services, such as workloads running on Amazon Elastic Compute Cloud (Amazon EC2), code running on AWS Lambda, any web application, or real-time communication applications.*
 
 REST APIs are `HTTP-based` and `stateless`, whereas WebSocket APIs use the WebSocket protocol, which makes it `stateful` and allows for sending and receiving information.
 
