@@ -1130,15 +1130,27 @@ span.uses-row-title:hover {
   margin-top: 4px;
 }
 
-.uses-row-meta {
-  margin-top: 8px;
-  color: var(--muted);
+/* Chips: project tech. Outlined in border-strong so they still read against the
+   row's hover background. */
+.chip {
+  border: 1px solid var(--border-strong);
+  border-radius: 9999px;
+  color: var(--fg);
   font-family: var(--font-sans);
   font-size: var(--text-xs);
   line-height: 16px;
+  font-weight: 500;
+  padding: 1px 8px;
+  white-space: nowrap;
 }
-.uses-row-meta .meta-tag {
-  margin-left: 8px;
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  /* Bottom margin offsets the title's line-height leading so the row looks even. */
+  margin: 8px 0 6px;
+  padding: 0;
+  list-style: none;
 }
 
 /* ---- contact form ---- */

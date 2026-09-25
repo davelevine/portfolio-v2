@@ -20,7 +20,9 @@ const projects = (await getCollection('projects')).sort(
         <div class="uses-row">
           <a class="uses-row-title" href={`/projects/${p.id}/`}>{p.data.title}</a>
           <p class="uses-row-desc">{p.data.summary ?? p.data.description}</p>
-          <p class="uses-row-meta">{p.data.tech.join(' · ')}</p>
+          <ul class="chip-list" aria-label="Tech">
+            {p.data.tech.map((t) => <li class="chip">{t}</li>)}
+          </ul>
         </div>
       ))}
     </div>
