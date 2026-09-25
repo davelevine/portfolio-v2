@@ -11,26 +11,26 @@ I got this idea from [Daniel Miessler](https://web.archive.org/web/2023032900150
 ## This Website
 
 - Documentation is stored on [GitHub](https://github.com/davelevine/docs).
-- Generated with [MkDocs Material Insiders](https://github.com/squidfunk/mkdocs-material) and [Astro](https://astro.build).
+- Generated with [Astro](https://astro.build).
 - Hosted with [Cloudflare Pages](https://pages.cloudflare.com).
-- Site analytics by [Plausible](https://plausible.io/levine.io).
+- Site analytics by [Umami](https://stats.levine.io/share/jcjtY60wzyLPBgAI/dave.levine.io).
 - DNS by [Cloudflare](https://cloudflare.com).
-- Media content hosted on [Backblaze](https://www.backblaze.com) and served with Cloudflare.
-- Written in [Cursor](https://cursor.sh).
+- Media content hosted on [Cloudflare R2](https://www.cloudflare.com/developer-platform/products/r2/).
+- Written in [Paseo](https://paseo.sh/).
 
 ## Web Technology Stack
 
-- **Hosting:** Hetzner CPX21 instance
+- **Hosting:** Hetzner CX33 instance
 - **OS:** Ubuntu
-- **Web Server:** Nginx
-- **JAMStack:** Cloudflare Pages / Vercel
-- **Caching:** Nginx in-memory
+- **Web Server:** Caddy
+- **JAMStack:** Cloudflare Pages
 - **WAF/Proxy:** Cloudflare
 - **Source Code:** [Git](https://github.com/davelevine)
-- **Backups:** [B2](https://www.backblaze.com/b2/cloud-storage.html) / [S3](https://aws.amazon.com/s3/)
+- **Backups:** [R2](https://www.cloudflare.com/developer-platform/products/r2/)
 
 ## Devices
 
+- Desktop: 2024 Mac mini with an M4 Pro 14-core CPU, 20-core GPU, 64 GB of unified memory, and a 1 TB SSD.
 - Laptop: 2021 MacBook Pro with an M1 Max 10-core CPU and 32 GB of unified memory.
 - Homelab: System76 Meerkat with a 12-core i7 and 64 GB of memory.
 - Security Gateway: pfSense XG-7100 Desktop.

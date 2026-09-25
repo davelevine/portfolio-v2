@@ -35,7 +35,6 @@ its design-system, AOS, modal and card items are superseded by this section.
 - [ ] Test the contact form end-to-end once deployed (Formspree may need the new /contact origin allowed)
 - [ ] Visual review against michaelheap.com (screenshots from Dave)
 - [ ] Retire the resume X-Frame-Options exception in homelab-iac once this ships
-- [ ] Refresh /uses colophon copy (MkDocs Insiders, Plausible, Cursor are stale); optionally Heap `uses-group` layout
 - [ ] Open Graph / Twitter / canonical meta (Heap has them; production never did)
 - [ ] Optional: TOC on long posts, topic pages for `#tags`, 404 page
 - [ ] Portfolio project copy still describes the Next.js site
