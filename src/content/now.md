@@ -1,5 +1,5 @@
 ---
-date: "2026-04-21T16:37:00Z"
+date: "2026-09-24T12:00:00Z"
 ---
 
 This is my [Now Page]: a brief update on what's currently happening in my life, inspired by [Derek Sivers].
@@ -16,7 +16,7 @@ This is my [Now Page]: a brief update on what's currently happening in my life, 
 >
 > A wildly different trio, but each one stuck with me for its own reasons.
 
-I've officially been in my house for 9 years now. Between that, my wife, and two kids, I have no problem staying busy. It’s hard to believe I’ve been working remotely for nearly 5.5 years, which allows me to maintain a healthy work-life balance. Watching my kids grow up so quickly has been both wonderful and surreal.
+I've officially been in my house for 10 years now. Between that, my wife, and two kids, I have no problem staying busy. It’s hard to believe I’ve been working remotely for 6 years, which allows me to maintain a healthy work-life balance. Watching my kids grow up so quickly has been both wonderful and surreal.
 
 A lot of my time outside of work goes to them, which is exactly how I want it. We spend hours building with Legos, drawing together, and whatever else they’re into that week. I also love teaching them about things they're curious about, whether it's how something works, where rain comes from, or why leaves change color in the fall. They ask great questions, and I'm doing my best to keep up.
 

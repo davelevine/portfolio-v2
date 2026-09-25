@@ -16,11 +16,12 @@ const nowDate = entry!.data.date.toLocaleDateString('en-US', {
   <main class="wrap">
     <header class="page-header">
       <h1>Here and Now</h1>
-      <p class="lede">Updated {nowDate}</p>
+      <p class="post-meta">Updated {nowDate}</p>
     </header>
 
-    <article class="prose">
+    <article class="prose now-body">
       <Content />
     </article>
+    <div class="end-mark" aria-hidden="true"></div>
   </main>
 </Layout>

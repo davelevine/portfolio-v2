@@ -502,6 +502,21 @@ a.tag-text:hover { color: var(--accent); }
   &:hover { border-color: var(--muted); color: var(--fg); }
 }
 
+// ---- /now: Markdown h2s drawn as section rules ----
+.prose.now-body > h2 {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 40px 0 16px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: normal;
+  color: var(--muted);
+  &::before, &::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+}
+
 // ---- /uses rows: name (+ muted detail) left, role label right ----
 .uses-name { flex: 1; min-width: 0; }
 .uses-name .post-title { display: inline; }
