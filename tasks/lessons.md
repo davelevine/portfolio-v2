@@ -94,3 +94,16 @@ under the old schema from the persisted data store. Diagnose with a temporary en
 returns `Object.keys(entry.data)`. Confirm the code works using a fresh dev server in a clean
 worktree on another port (it has its own caches, so Astro allows it). Astro 7 refuses a second
 dev server in the same folder.
+
+## Don't switch branches under the user's running dev server
+
+**Context:** To start a fix branch, I ran `git switch -c … origin/main` while Dave's `astro dev` was
+running, assuming nothing changed because the trees were identical. Git still rewrote 106 of 107
+files under `src/`. The dev server's watcher then rebuilt its content store without the `home`
+entry, and the home page crashed with "Cannot read properties of undefined (reading 'data')".
+
+**How to apply next time:**
+1. If the user's dev server is running, do branch work in a separate `git worktree`, not in their
+   working directory. The same goes for `npm run build`, which shares Astro's cache directory.
+2. Never claim a checkout "doesn't touch files". Identical contents don't mean untouched files.
+3. If it happens anyway, the fix is: stop the dev server, `rm -rf .astro node_modules/.astro`, then restart.
