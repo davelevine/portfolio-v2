@@ -15,8 +15,18 @@ const num = (n: number) => String(n).padStart(4, '0');
   <main class="wrap">
     <header class="page-header">
       <h1>Decisions</h1>
-      <p class="lede">Selected Architecture Decision Records (ADRs) from my homelab, lightly edited for publishing, in the <a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions" target="_blank" rel="noopener noreferrer">Michael Nygard style</a>. Each one explains what I chose, what I passed on, and why. Numbers are sequential and never reused, so gaps are records I've kept private.</p>
+      <p class="lede">Selected decision records from my homelab, lightly edited for publishing. Each one explains what I chose, what I passed on, and why.</p>
     </header>
+
+    <div class="prose">
+      <p>These are Architecture Decision Records (ADRs), and they follow the <a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions" target="_blank" rel="noopener noreferrer">Michael Nygard style</a>:</p>
+      <ul>
+        <li>Each ADR is a numbered Markdown file (<code>0001-….md</code>, <code>0002-….md</code>, etc.).</li>
+        <li>The number is sequential and permanent; a deprecated ADR is never renumbered.</li>
+        <li>Status can be Proposed, Accepted, Superseded, or Deprecated.</li>
+      </ul>
+      <p>Gaps in the numbering are records I've kept private.</p>
+    </div>
 
     {years.map((y) => (
       <>

@@ -925,13 +925,6 @@ span.uses-row-title:hover {
 .prose {
   overflow-wrap: break-word; /* long URLs must not force sideways scrolling (WCAG 1.4.10) */
 }
-/* Intro copy under a page header: body-sized but grey, like the lede. On /now that's
-   the opening paragraph of now.md. */
-.prose-intro p,
-.now-body > p:first-child {
-  color: var(--muted);
-}
-
 .prose > :first-child {
   margin-top: 0;
 }
