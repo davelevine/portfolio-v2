@@ -160,3 +160,23 @@ misses twice, stop and ask what feels off (or offer the original back) before tr
 
 When restoring, restore only the part named. Asked to restore the badge section, I also reverted
 "The Levels" divider he liked, because I treated the whole layout file as one unit.
+
+## Build what was proposed, not a broader version of it
+
+**Context:** I proposed a "Superseded" label on /decisions rows, then implemented it as "any status
+that isn't Accepted," which also put "Partially superseded" on ADR 0077's row. Dave didn't want it
+in the list.
+
+**How to apply next time:** implement the rule as it was described and approved. If the code would
+reach cases the proposal didn't mention (other status values, other categories), list those cases
+and ask before including them.
+
+## Describe proposals by what the user sees, not how they're built
+
+**Context:** I offered /decisions filter buttons "with per-category routes, reusing the /writing
+setup." Dave approved, but he pictured the buttons filtering the list on the same page; each
+button went to a separate page that dropped the intro.
+
+**How to apply next time:** describe UI proposals by behavior ("each button opens its own page" vs
+"the list filters in place and the page stays put"). "Similar to X" means it looks similar; confirm
+the behavior before copying X's implementation.
