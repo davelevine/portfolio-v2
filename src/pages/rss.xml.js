@@ -6,29 +6,30 @@ import { marked } from 'marked';
 const FAVICON = 'https://cdn.levine.io/uploads/portfolio/public/images/favicon/favicon.ico';
 
 export async function GET(context) {
-  const posts = (await getCollection('blog')).sort(
+  const posts = (await getCollection('writing')).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   );
 
   return rss({
-    title: "Dave's Blog",
-    description: "Latest posts from Dave Levine's blog.",
+    title: "Dave Levine's Writing",
+    description: "Latest writing from Dave Levine.",
     site: context.site,
     xmlns: { dc: 'http://purl.org/dc/elements/1.1/' },
     customData: [
       '<language>en</language>',
       '<copyright>All rights reserved 2025, Dave Levine</copyright>',
       '<ttl>60</ttl>',
-      `<image><url>${FAVICON}</url><title>Dave's Blog</title><link>${context.site}</link></image>`,
-      "<generator>Dave's Blog RSS Feed</generator>",
+      `<image><url>${FAVICON}</url><title>Dave Levine's Writing</title><link>${context.site}</link></image>`,
+      "<generator>Dave Levine's Writing RSS Feed</generator>",
     ].join(''),
     items: posts.map((post) => ({
       title: post.data.title,
-      link: `/blog/${post.id}`,
+      link: `/writing/${post.id}`,
       pubDate: post.data.date,
       description: post.data.description,
       content: marked.parse(post.body ?? ''),
-      customData: '<dc:creator>Dave Levine</dc:creator>',
+      // GUIDs keep the pre-rename /blog/ URL so readers don't re-list every post as new.
+      customData: `<dc:creator>Dave Levine</dc:creator><guid isPermaLink="false">${context.site}blog/${post.id}/</guid>`,
     })),
   });
 }

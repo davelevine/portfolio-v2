@@ -810,7 +810,7 @@ span.uses-row-title:hover {
     font-size: 20px;
   }
 }
-/* ---- blog year sidebar (wide screens only) ---- */
+/* ---- writing year sidebar (wide screens only) ---- */
 .year-sidebar {
   display: none;
 }
@@ -1059,7 +1059,7 @@ span.uses-row-title:hover {
   color: var(--shiki-dark) !important;
 }
 
-/* Copy-code button (added by the blog post script). */
+/* Copy-code button (added by the writing post script). */
 .code-block {
   position: relative;
   margin: 24px 0;

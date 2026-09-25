@@ -1,11 +1,11 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { CATEGORIES } from './lib/blog';
+import { CATEGORIES } from './lib/writing';
 
 // Schemas mirror the original markdown frontmatter 1:1 (camelCase preserved).
 
-const blog = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/blog' }),
+const writing = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/writing' }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -88,4 +88,4 @@ const home = defineCollection({
   }),
 });
 
-export const collections = { blog, projects, certs, now, adr, home };
+export const collections = { writing, projects, certs, now, adr, home };
