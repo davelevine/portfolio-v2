@@ -1,0 +1,10 @@
+---
+// AI Influence Level badge (see /ail). Renders nothing when no level is set.
+interface Props { ail?: number; ailImages?: number }
+const { ail, ailImages } = Astro.props;
+const label = ailImages === undefined ? `AIL ${ail}` : `AIL: Writing ${ail} · Images ${ailImages}`;
+---
+
+{ail !== undefined && (
+  <a class="ail-badge" href={`/ail/#ail-${ail}`} title="AI Influence Level: how much AI was involved">{label}</a>
+)}

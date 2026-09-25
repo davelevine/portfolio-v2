@@ -1,10 +1,11 @@
 ---
+category: Work
 title: Knowledge Management
 categories:
-    - Knowledge
     - Productivity
 date: "2020-03-29T17:31:00Z"
 description: An exploration of knowledge management and its significance in documenting complex systems.
+ail: 0
 ---
 
 

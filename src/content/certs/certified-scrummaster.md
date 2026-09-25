@@ -1,7 +1,7 @@
 ---
 title: 'Certified ScrumMaster (CSM)'
 achievedDate: '2024-08-14'
-expirationDate: '2026-08-14'
+expirationDate: '2028-08-14'
 image: csm.webp
 excerpt: "This certification journey has equipped me with the skills to effectively apply Scrum principles, enhancing project outcomes and customer satisfaction."
 isFeatured: true
@@ -30,6 +30,6 @@ In essence, my journey to become a Certified ScrumMaster represents a transforma
 
 The CSM certification marks my ongoing quest to master Agile practices and make a meaningful impact on project management. It's not about knowing everything there is to know about Scrum; it's about continually challenging myself to learn, grow, and apply these principles to create valuable solutions.
 
-## Certificate
+## Verification
 
-To view my certificate, you can find it [here](https://bcert.me/sbppozyri).
+Verify this certification with [Scrum Alliance](https://bcert.me/sbppozyri).

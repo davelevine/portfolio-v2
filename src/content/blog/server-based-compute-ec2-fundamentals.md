@@ -1,10 +1,11 @@
 ---
+category: AWS
 title: Server-Based Compute (EC2) Fundamentals
 categories:
     - AWS
-    - Knowledge
 date: "2020-03-27T11:36:00Z"
 description: Reflections on the EC2 Fundamentals course as I prepare for the Intermediate coursework.
+ail: 0
 ---
 
 As I mentioned in my first post, I'm working my way through the [AWS Certified Solutions Architect certification training course](https://linuxacademy.com/course/aws-certified-solutions-architect-2019-associate-level/). I finished the EC2 Fundamentals course last night and just wanted to write some of my thoughts on it as I move onto the Intermediate coursework.

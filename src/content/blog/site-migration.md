@@ -1,10 +1,11 @@
 ---
+category: Homelab
 title: Site Migration
 categories:
     - Cloud
-    - Knowledge
 date: "2020-04-09T14:11:00Z"
 description: A successful migration to a new professional domain and the lessons learned along the way.
+ail: 0
 ---
 
 ## Analysis

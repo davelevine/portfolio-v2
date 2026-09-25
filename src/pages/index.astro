@@ -1,12 +1,35 @@
 ---
-// Home — hero (parity with pages/index.js, which renders only <Hero />).
+// Home — hero + "now" panel + favourite posts.
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../lib/format';
+
+const favorites = (await getCollection('blog', (p) => p.data.isFeatured)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
 ---
 
 <Layout
   title="Dave Levine - Solutions Engineer"
-  description="My personal portfolio including various projects and certifications."
+  description="Dave Levine: husband, father, engineer, minimalist, technical writer, musician, and lifter of weights."
 >
-  <Hero />
+  <main class="wrap">
+    <Hero />
+
+    <section class="home-favorites">
+      <h2 class="section-rule"><span>Favorites</span></h2>
+      <p class="section-hint">A few good places to start:</p>
+
+      {favorites.map((p) => (
+        <div class="post-row">
+          <span class="post-fav-slot" role="img" aria-label="Favorite">&#10084;</span>
+          <a class="post-title" href={`/blog/${p.id}/`}>{p.data.title}</a>
+          <span class="post-date">{formatDate(p.data.date)}</span>
+        </div>
+      ))}
+
+      <a class="more-link" href="/blog/favorites/">All favorites &rarr;</a>
+    </section>
+  </main>
 </Layout>

@@ -1,326 +1,93 @@
 ---
-// Navbar — ports components/layout/navbar/{navbar,themeToggle,menuToggle}.js.
-// framer-motion dropped in favor of CSS transitions + a small client script.
-const links = [
-  { path: '/', label: 'HOME' },
-  { path: '/projects', label: 'PROJECTS' },
-  { path: '/certs', label: 'CERTS' },
-  { path: '/blog', label: 'BLOG' },
-  { path: '/now', label: 'NOW' },
-  { path: '/about', label: 'ABOUT ME' },
+// Navbar — Heap-style: primary links, divider, social icons, theme toggle.
+// Secondary pages live in the mobile menu's second row and the footer.
+const primary = [
+  { path: '/', label: 'Home' },
+  { path: '/blog', label: 'Blog' },
+  { path: '/projects', label: 'Projects' },
+  { path: '/certs', label: 'Certs' },
+  { path: '/decisions', label: 'Decisions' },
+];
+const secondary = [
+  { path: '/about', label: 'About' },
+  { path: '/now', label: 'Now' },
+  { path: '/uses', label: 'Uses' },
 ];
 
-const norm = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
-const current = norm(Astro.url.pathname);
+const norm = (p: string) => (p.endsWith('/') ? p.slice(0, -1) : p);
+const current = norm(Astro.url.pathname) || '/';
 const isActive = (path: string) =>
   path === '/' ? current === '/' : current === path || current.startsWith(path + '/');
+const href = (path: string) => (path === '/' ? '/' : `${path}/`);
 ---
 
-<div class="navbar" id="navbar">
-  <div class="container">
-    <a href="/" class="logo"><span class="name">&lt;</span>/DAVE LEVINE<span class="name">&gt;</span></a>
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="brand" href="/">
+      <span class="bracket">&lt;/</span>Dave Levine<span class="bracket">&gt;</span>
+    </a>
 
-    <nav class="navMenu" id="navMenu">
-      <div class="linkWrapper">
-        {links.map((l) => (
-          <a href={l.path} class={isActive(l.path) ? 'activeLink' : ''} data-nav-link>{l.label}</a>
-        ))}
+    <div class="nav-desktop">
+      {primary.map((l) => (
+        <a class:list={['nav-link', { active: isActive(l.path) }]} href={href(l.path)}>{l.label}</a>
+      ))}
+      <span class="nav-divider" aria-hidden="true"></span>
+      <div class="nav-icons">
+        <a href="https://github.com/davelevine" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.1-4.55-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 012.5-.34c.85.01 1.7.11 2.5.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.21 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.94.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/iamdavelevine" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn">
+          <svg class="icon-linkedin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="/rss.xml" aria-label="RSS" title="RSS">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.18 15.64A2.18 2.18 0 0 1 8.36 17.82C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z"/></svg>
+        </a>
       </div>
-    </nav>
-
-    <div class="navContainer">
-      <button class="icon" id="contactBtn" aria-label="Toggle Contact Modal">
-        <i class="fa fa-envelope" id="contact-icon"></i>
+      <button class="theme-toggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.36.89-1.59 1.59M21 12h-2.25m-.39 6.36-1.59-1.59M12 18.75V21m-4.77-4.23-1.59 1.59M5.25 12H3m4.23-4.77-1.59-1.59M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 15.002A9.72 9.72 0 0 1 18 15.75c-5.39 0-9.75-4.36-9.75-9.75 0-1.33.27-2.6.75-3.75A9.75 9.75 0 0 0 3 11.25C3 16.64 7.36 21 12.75 21a9.75 9.75 0 0 0 9-5.998Z"/></svg>
       </button>
+    </div>
 
-      <div class="themeToggleContainer">
-        <button class="icon" id="themeBtn" aria-label="Toggle Theme">
-          <i class="fa fa-moon" id="theme-icon"></i>
-        </button>
-      </div>
+    <button class="menu-toggle" id="menuBtn" type="button" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5"/></svg>
+    </button>
+  </div>
 
-      <button class="icon iconMain" id="menuBtn" aria-label="Toggle Mobile Menu">
-        <svg width="45" height="45" viewBox="0 0 23 23">
-          <path class="line top" fill="transparent" stroke-width="3" stroke-linecap="round" d="M 2 2.5 L 20 2.5" />
-          <path class="line mid" fill="transparent" stroke-width="3" stroke-linecap="round" d="M 2 9.423 L 20 9.423" />
-          <path class="line bot" fill="transparent" stroke-width="3" stroke-linecap="round" d="M 2 16.346 L 20 16.346" />
-        </svg>
+  <div id="mobile-menu" class="mobile-menu">
+    {primary.map((l) => (
+      <a class:list={['nav-link', { active: isActive(l.path) }]} href={href(l.path)}>{l.label}</a>
+    ))}
+    <div class="mobile-secondary">
+      {secondary.map((l) => (
+        <a class:list={['nav-link', { active: isActive(l.path) }]} href={href(l.path)}>{l.label}</a>
+      ))}
+      <button class="theme-toggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.36.89-1.59 1.59M21 12h-2.25m-.39 6.36-1.59-1.59M12 18.75V21m-4.77-4.23-1.59 1.59M5.25 12H3m4.23-4.77-1.59-1.59M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 15.002A9.72 9.72 0 0 1 18 15.75c-5.39 0-9.75-4.36-9.75-9.75 0-1.33.27-2.6.75-3.75A9.75 9.75 0 0 0 3 11.25C3 16.64 7.36 21 12.75 21a9.75 9.75 0 0 0 9-5.998Z"/></svg>
       </button>
     </div>
   </div>
-</div>
+</nav>
 
 <script>
-  // The navbar is NOT transition:persist'd. Persisting it corrupts its layout when it
-  // is carried through a View Transition after the mobile menu has been opened: the
-  // menu links spill across the bar (a bare desktop-looking navbar) on the next page.
-  // Re-rendering it per navigation avoids that, but Astro runs this module only once
-  // per session — so (re)bind element-scoped listeners on every astro:page-load, and
-  // register the document/window listeners a single time (they re-query live elements).
-  // The theme is owned by <html> (so the root background follows it — no flash) and
-  // <html> survives navigations, so it is safe to read live each time.
-  const root = document.documentElement;
-  const norm = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
+  function toggleTheme() {
+    const root = document.documentElement;
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    document.getElementById('theme-color-meta')?.setAttribute('content', next === 'dark' ? '#202122' : '#faf6ef');
+  }
 
-  const syncThemeIcon = () => {
-    const dark = root.getAttribute('data-theme') !== 'light';
-    const themeIcon = document.getElementById('theme-icon');
-    if (themeIcon) themeIcon.className = `fa ${dark ? 'fa-moon' : 'fa-sun'}`;
-    const meta = document.getElementById('theme-color-meta');
-    if (meta) meta.setAttribute('content', dark ? '#121212' : '#ffffff');
-  };
-
-  const updateActive = () => {
-    const navMenu = document.getElementById('navMenu');
-    if (!navMenu) return;
-    const cur = norm(location.pathname);
-    navMenu.querySelectorAll<HTMLAnchorElement>('a[data-nav-link]').forEach((a) => {
-      const path = norm(new URL(a.href).pathname);
-      const active = path === '/' ? cur === '/' : cur === path || cur.startsWith(path + '/');
-      a.classList.toggle('activeLink', active);
-    });
-  };
-
-  // Re-bind the freshly-rendered navbar on every page load (initial + each navigation).
-  const bind = () => {
+  // Re-bind on every page-load: the navbar is re-rendered on each navigation.
+  document.addEventListener('astro:page-load', () => {
     const menuBtn = document.getElementById('menuBtn');
-    const navMenu = document.getElementById('navMenu');
-    const themeBtn = document.getElementById('themeBtn');
-    const contactBtn = document.getElementById('contactBtn');
-    if (!menuBtn || !navMenu || !themeBtn || !contactBtn) return;
-
-    syncThemeIcon();
-
-    // Theme toggle — flips <html>[data-theme]; remembered in sessionStorage so it
-    // survives client-side navigations (re-applied in Layout on after-swap).
-    themeBtn.addEventListener('click', () => {
-      const next = root.getAttribute('data-theme') !== 'light' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      sessionStorage.setItem('theme', next);
-      syncThemeIcon();
-    });
-
-    // Mobile menu (delegated so it survives independent of link identity).
+    const mobileMenu = document.getElementById('mobile-menu');
+    document.querySelectorAll('.site-nav .theme-toggle').forEach((b) => b.addEventListener('click', toggleTheme));
+    if (!menuBtn || !mobileMenu) return;
     menuBtn.addEventListener('click', () => {
-      menuBtn.classList.toggle('open');
-      navMenu.classList.toggle('responsive');
+      menuBtn.setAttribute('aria-expanded', String(mobileMenu.classList.toggle('open')));
     });
-    navMenu.addEventListener('click', (e) => {
-      if ((e.target as HTMLElement).closest('[data-nav-link]') && window.innerWidth <= 768) {
-        menuBtn.classList.remove('open');
-        navMenu.classList.remove('responsive');
-      }
-    });
-
-    // Contact modal trigger.
-    contactBtn.addEventListener('click', () =>
-      document.dispatchEvent(new CustomEvent('modal:open', { detail: { type: 'contact' } }))
-    );
-
-    updateActive();
-  };
-
-  // Document/window listeners — registered once; they re-query the live navbar.
-  let t: number | undefined;
-  window.addEventListener(
-    'scroll',
-    () => {
-      window.clearTimeout(t);
-      t = window.setTimeout(() => {
-        const navbar = document.getElementById('navbar');
-        if (navbar) navbar.classList.toggle('sticky', window.scrollY >= 100);
-      }, 100);
-    },
-    { passive: true }
-  );
-  document.addEventListener('modal:open', (e) => {
-    if ((e as CustomEvent).detail?.type !== 'contact') return;
-    const ci = document.getElementById('contact-icon');
-    if (ci) ci.className = 'fa fa-envelope-open';
+    mobileMenu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
   });
-  document.addEventListener('modal:closed', () => {
-    const ci = document.getElementById('contact-icon');
-    if (ci) ci.className = 'fa fa-envelope';
-  });
-
-  document.addEventListener('astro:page-load', bind);
 </script>
-
-<style lang="scss">
-  .navbar {
-    z-index: 2;
-    height: 4.0625rem;
-    width: 100%;
-    position: fixed;
-    background-color: var(--background);
-    transition: background 0.3s;
-    margin-bottom: 0;
-    animation: navbar-drop 0.5s ease-in-out both;
-  }
-
-  // Entrance animations (replace the framer-motion navbar/link/button variants).
-  // Links share a start time but each has a LONGER duration (0.5 + i*0.075) — they
-  // all drop together and settle in sequence (framer's per-item duration, not delay).
-  @keyframes navbar-drop { from { transform: translateY(-100px); } to { transform: translateY(0); } }
-  @keyframes nav-item-in { from { opacity: 0; transform: translateY(-100px); } to { opacity: 1; transform: translateY(0); } }
-
-  .navMenu .linkWrapper a { opacity: 0; animation: nav-item-in 0.5s ease-in-out forwards; }
-  .navMenu .linkWrapper a:nth-child(1) { animation-duration: 0.5s; }
-  .navMenu .linkWrapper a:nth-child(2) { animation-duration: 0.575s; }
-  .navMenu .linkWrapper a:nth-child(3) { animation-duration: 0.65s; }
-  .navMenu .linkWrapper a:nth-child(4) { animation-duration: 0.725s; }
-  .navMenu .linkWrapper a:nth-child(5) { animation-duration: 0.8s; }
-  .navMenu .linkWrapper a:nth-child(6) { animation-duration: 0.875s; }
-
-  .navContainer .icon { opacity: 0; animation: nav-item-in 0.7s ease-in-out forwards; }
-  .navContainer .themeToggleContainer .icon { animation-duration: 0.75s; }
-
-  // After the first page of a session, skip the entrance (no replay per navigation).
-  // :global() so Astro doesn't scope the <html> flag class.
-  :global(html.nav-seen) .navbar { animation: none; }
-  :global(html.nav-seen) .navMenu .linkWrapper a,
-  :global(html.nav-seen) .navContainer .icon { animation: none; opacity: 1; }
-
-  .navbar.sticky {
-    position: fixed;
-    top: 0;
-    background-color: var(--background);
-    box-shadow: 0 0.375rem 1.875rem 0.125rem rgba(0, 0, 0, 0.03),
-                0 0.1875rem 0.9375rem 0.0625rem rgba(0, 0, 0, 0.02),
-                0 0.0625rem 0.5rem 0.0625rem rgba(0, 0, 0, 0.01);
-  }
-
-  .navbar .container {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    margin: 0 auto;
-  }
-
-  .navbar .logo {
-    z-index: 3;
-    font-weight: bold;
-    background-color: transparent;
-    color: var(--navbar-primary);
-    border-radius: 50%;
-    padding: 0.3125rem;
-    font-size: 1rem;
-    width: 2.8125rem;
-    height: 1.875rem;
-    box-shadow: none;
-    margin-right: auto;
-    margin-left: 1.25rem;
-    white-space: nowrap;
-    transition: color 0.3s;
-  }
-
-  .navbar .logo .name { color: var(--background-secondary); }
-  .navbar .logo:hover { color: var(--text-secondary); }
-
-  .navbar .navMenu {
-    height: 0;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    position: absolute;
-    top: 0;
-    padding-top: 4.0625rem;
-    margin-left: auto;
-  }
-
-  .navbar .navMenu a {
-    font-size: 1.3rem;
-    color: var(--navbar-primary);
-    border-bottom: 0.0625rem solid var(--border);
-    cursor: pointer;
-  }
-
-  .navbar .navMenu a:first-child { border-top: 0.0625rem solid var(--border); }
-  .navbar .navMenu .linkWrapper a:hover { color: var(--background-secondary); }
-  .navbar .navMenu .activeLink { color: var(--text-secondary); }
-
-  .navbar .navMenu.responsive {
-    height: auto;
-    width: 100%;
-    display: block;
-    text-align: center;
-    right: 0;
-    background-color: var(--transparent-primary);
-  }
-
-  .navbar .navMenu.responsive a { display: block; padding: 1.5625rem 0; }
-
-  .navbar .navContainer {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-  }
-
-  .navbar .navContainer .icon {
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-  }
-
-  .navbar .navContainer .icon i,
-  .navbar .navContainer .icon svg {
-    font-size: 1.5rem;
-    color: var(--navbar-primary);
-    padding: 0.3125rem;
-  }
-
-  .navbar .navContainer .icon path { stroke: var(--navbar-primary); }
-
-  .navbar .navContainer .icon:hover i,
-  .navbar .navContainer .icon:hover svg { color: var(--background-secondary); }
-
-  .navbar .navContainer .themeToggleContainer {
-    width: 2.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  // Hamburger → X morph (replaces framer-motion path variants).
-  .iconMain .line {
-    transition: transform 0.3s ease, opacity 0.2s ease;
-    transform-origin: center;
-    transform-box: fill-box;
-  }
-  .iconMain.open .top { transform: translateY(6.9px) rotate(45deg); }
-  .iconMain.open .mid { opacity: 0; }
-  .iconMain.open .bot { transform: translateY(-6.9px) rotate(-45deg); }
-
-  @media only screen and (max-width: 47.9375rem) {
-    .navbar .logo { margin-right: auto; }
-    .navbar .navContainer .iconMain { height: 2.5rem; margin-right: 0.625rem; }
-  }
-
-  @media only screen and (min-width: 48rem) {
-    .navbar .container { max-width: 79.0625rem; margin: 0 auto; }
-
-    .navbar .navMenu {
-      height: auto;
-      display: flex;
-      width: 90%;
-      top: 0;
-      padding-top: 0;
-      position: static;
-    }
-
-    .navbar .navMenu.responsive { width: 45%; display: flex; background-color: transparent !important; }
-
-    .navbar .navMenu .linkWrapper { margin: 0 auto; display: flex; justify-content: flex-end; width: 94%; }
-    .navbar .navMenu .linkWrapper a { margin-left: 1.5625rem; border-bottom: none; font-size: 1.03rem; }
-    .navbar .navMenu .linkWrapper a:first-child { border-top: none; margin-left: 0; }
-
-    .navbar .logo { margin-left: 0; }
-    .navbar .navContainer .iconMain { display: none; }
-  }
-
-  @media only screen and (min-width: 100rem) {
-    .navbar .container { max-width: 87.5rem; }
-    .navbar .navMenu .linkWrapper a { font-size: 1.03rem; }
-    .navbar .logo { font-size: 1rem; }
-  }
-</style>

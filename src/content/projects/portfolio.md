@@ -7,10 +7,12 @@ tech:
   - React
   - Sass
 description: My personal portfolio developed with Next.js and React. Certs and Projects sections are written in markdown and rendered with react-markdown and react-syntax-highlighter.
+summary: "This site."
 
 liveLink: https://dave.levine.io
 githubLink: https://github.com/davelevine/portfolio
-image: hero.webp
+image: portfolio/portfolio-astro-light.webp
+imageDark: portfolio/portfolio-astro-dark.webp
 isFeatured: true
 
 ---

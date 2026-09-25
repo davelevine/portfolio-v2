@@ -1,0 +1,18 @@
+---
+// Blog archive — favorite posts only.
+import Layout from '../../layouts/Layout.astro';
+import BlogArchive from '../../components/BlogArchive.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', (p) => p.data.isFeatured);
+---
+
+<Layout title="Favorites | Dave Levine" description="Dave Levine's favorite posts.">
+  <main class="wrap">
+    <header class="page-header">
+      <h1>Favorites</h1>
+      <p class="lede">The posts I'd point someone to first.</p>
+    </header>
+    <BlogArchive posts={posts} active="favorites" />
+  </main>
+</Layout>

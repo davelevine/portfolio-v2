@@ -1,9 +1,10 @@
 ---
+category: Homelab
+isFeatured: true
 title: Infrastructure as Code (IaC)
-categories:
-    - Knowledge
 date: "2026-05-01T17:29:00Z"
 description: This post explores how far my homelab has come with a GitOps approach, and where to go from here.
+ail: 2
 ---
 
 ## Summary

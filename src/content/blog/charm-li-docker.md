@@ -1,10 +1,11 @@
 ---
+category: Homelab
 title: Running Charm.li in Docker Compose
 categories:
-    - Knowledge
     - Tools
 date: "2025-05-14T11:14:00Z"
 description: This post explains how to run Charm.li in Docker Compose on Ubuntu Server 24.04.02 LTS.
+ail: 0
 ---
 
 ## Summary

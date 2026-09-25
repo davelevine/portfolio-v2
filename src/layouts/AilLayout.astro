@@ -1,0 +1,50 @@
+---
+// Layout for /ail (src/pages/ail.md): intro body, optional commitment, example badges, level cards.
+import Layout from './Layout.astro';
+import AilBadge from '../components/AilBadge.astro';
+
+interface Level { title: string; tag: string; text: string; examples?: string[] }
+interface Badge { text: string; ail: number; ailImages?: number }
+const { title, description, heading, lede, commitment, badges = [], levels = [] } = Astro.props.frontmatter as {
+  title: string; description: string; heading: string; lede?: string; commitment?: string; badges?: Badge[]; levels?: Level[];
+};
+---
+
+<Layout title={title} description={description}>
+  <main class="wrap">
+    <header class="page-header">
+      <h1>{heading}</h1>
+      {lede && <p class="lede">{lede}</p>}
+    </header>
+
+    <div class="prose"><slot /></div>
+
+    {commitment && <p class="ail-commitment"><strong>My commitment:</strong> {commitment}</p>}
+
+    {badges.length > 0 && (
+      <section>
+        <h2 class="ail-heading">Reading the badge</h2>
+        {badges.map((b) => (
+          <p class="ail-example">{b.text} <AilBadge ail={b.ail} ailImages={b.ailImages} /></p>
+        ))}
+      </section>
+    )}
+
+    <section>
+      <h2 class="ail-heading">The levels</h2>
+      <div class="ail-cards">
+        {levels.map((l, n) => (
+          <div class="ail-card" id={`ail-${n}`}>
+            <div class="ail-card-num" aria-hidden="true">{n}</div>
+            <div>
+              <h3 class="ail-card-title"><span class="visually-hidden">AIL {n}: </span>{l.title}</h3>
+              <p class="ail-card-tag">{l.tag}</p>
+              <p>{l.text}</p>
+              {l.examples && <ul>{l.examples.map((e) => <li>{e}</li>)}</ul>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>

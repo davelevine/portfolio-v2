@@ -1,10 +1,12 @@
 ---
+category: Homelab
 title: Firewall Misconfiguration
 categories:
     - Case Studies
     - Security
 date: "2020-10-04T17:21:00Z"
 description: A recent firewall change in my homelab led to unexpected issues instead of improvements.
+ail: 0
 ---
 
 

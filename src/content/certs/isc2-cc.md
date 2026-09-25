@@ -10,6 +10,6 @@ tech: ['Cybersecurity', 'Network Security', 'Risk Management']
 
 ![isc2-cc](/images/certs/isc2-cc.png)
 
-## Certificate
+## Verification
 
-To view my certificate, you can find it [here](https://www.credly.com/badges/f5761376-ff77-4720-80e9-ccec8836c3d4/).
+Verify this certification on [Credly](https://www.credly.com/badges/f5761376-ff77-4720-80e9-ccec8836c3d4/).

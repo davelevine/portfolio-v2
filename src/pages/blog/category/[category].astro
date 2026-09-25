@@ -1,0 +1,23 @@
+---
+// Blog archive — one category.
+import Layout from '../../../layouts/Layout.astro';
+import BlogArchive from '../../../components/BlogArchive.astro';
+import { CATEGORIES } from '../../../lib/blog';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((category) => ({ params: { category: category.toLowerCase() }, props: { category } }));
+}
+
+const { category } = Astro.props;
+const posts = await getCollection('blog', (p) => p.data.category === category);
+---
+
+<Layout title={`${category} | Dave Levine`} description={`Dave Levine's ${category.toLowerCase()} posts.`}>
+  <main class="wrap">
+    <header class="page-header">
+      <h1>{category}</h1>
+    </header>
+    <BlogArchive posts={posts} active={category} />
+  </main>
+</Layout>

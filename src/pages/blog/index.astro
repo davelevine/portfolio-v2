@@ -1,141 +1,18 @@
 ---
-// Blog list — ports pages/blog/index.js + components/blog/blog.js.
+// Blog archive — all posts.
 import Layout from '../../layouts/Layout.astro';
-import BlogItem from '../../components/BlogItem.astro';
+import BlogArchive from '../../components/BlogArchive.astro';
 import { getCollection } from 'astro:content';
 
-const readingTime = (body: string) => Math.ceil(body.split(/\s+/).length / 200);
-
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
-// "All" view shows featured first, then the rest (date desc within each — stable sort).
-const ordered = [...posts].sort(
-  (a, b) => (b.data.isFeatured ? 1 : 0) - (a.data.isFeatured ? 1 : 0)
-);
-const categories = [...new Set(posts.flatMap((p) => p.data.categories ?? []))].sort();
+const posts = await getCollection('blog');
 ---
 
-<Layout title="Blog" description="List of all content from my blog.">
-  <section class="blogGallery">
-    <div id="scroll-progress" class="scrollProgress"></div>
-
-    <div class="container">
-      <h1 class="anim-header">BLOG</h1>
-
-      <div class="filter">
-        <h3 class="anim-subheader"><p>Sort By Category</p></h3>
-        <div class="filterButtons" id="filterButtons">
-          <button class="btn btn-outlined sm active anim-filter-btn" data-category="all">All</button>
-          {categories.map((c, i) => (
-            <button class="btn btn-outlined sm anim-filter-btn" data-category={c} style={`animation-delay: ${(i + 1) * 50}ms`}>{c}</button>
-          ))}
-        </div>
-      </div>
-
-      <div class="galleryWrap">
-        <div class="gallery" id="gallery">
-          {ordered.map((p) => (
-            <div class="blogItemContainer reveal" data-categories={(p.data.categories ?? []).join('|')}>
-              <BlogItem
-                title={p.data.title}
-                description={p.data.description}
-                date={p.data.date}
-                slug={p.id}
-                readingTime={readingTime(p.body ?? '')}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+<Layout title="Writing | Dave Levine" description="Notes on infrastructure, security, and how work gets done.">
+  <main class="wrap">
+    <header class="page-header">
+      <h1>Writing</h1>
+      <p class="lede">Notes on infrastructure, security, and documentation, from work and the homelab.</p>
+    </header>
+    <BlogArchive posts={posts} active="all" />
+  </main>
 </Layout>
-
-<script>
-  function onScroll() {
-    requestAnimationFrame(() => {
-      const el = document.documentElement;
-      const bar = document.getElementById('scroll-progress');
-      if (bar) bar.style.width = `${(el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100}%`;
-    });
-  }
-  // Re-wire on every page load (bundled scripts don't re-run on client-side nav).
-  document.addEventListener('astro:page-load', () => {
-    const buttons = document.querySelectorAll<HTMLButtonElement>('#filterButtons button');
-    const items = document.querySelectorAll<HTMLElement>('#gallery .blogItemContainer');
-    // This document-level listener fires on every navigation; #filterButtons is shared
-    // with /projects and /certs, so gate on a page-unique element (the blog items).
-    if (!buttons.length || !items.length) return;
-    buttons.forEach((btn) =>
-      btn.addEventListener('click', () => {
-        const cat = btn.dataset.category!;
-        buttons.forEach((b) => b.classList.toggle('active', b === btn));
-        items.forEach((it) => {
-          const cats = (it.dataset.categories || '').split('|');
-          it.style.display = cat === 'all' || cats.includes(cat) ? '' : 'none';
-        });
-      })
-    );
-    window.removeEventListener('scroll', onScroll);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  });
-</script>
-
-<style lang="scss">
-  .blogGallery {
-    padding: 50px 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
-
-  .blogGallery .scrollProgress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 5px;
-    background: var(--navbar-primary);
-    z-index: 1000;
-    transition: width var(--transition-speed) ease-out;
-    border-radius: 0 0 5px 5px;
-  }
-
-  .blogGallery h1 {
-    text-align: center;
-    font-size: 2.3rem;
-    background: var(--text-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-top: 40px;
-  }
-
-  .blogGallery .filter p { text-align: center; margin-top: -5px; font-weight: 600; color: var(--text-primary); }
-  .blogGallery .filter p::after { content: ':'; color: var(--accent); }
-
-  .blogGallery .filterButtons { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
-
-  .blogGallery .galleryWrap { margin-top: 50px; }
-
-  .blogGallery .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-  .blogGallery .blogItemContainer { display: grid; }
-
-  @media (min-width: 768px) {
-    .blogGallery { padding: 150px 25px; min-height: 100vh; }
-    .blogGallery .container { max-width: 1200px; margin: auto; }
-    .blogGallery h1 { font-size: 3.8rem; margin-top: -40px; }
-    .blogGallery .filter { margin-top: -30px; }
-    .blogGallery .gallery { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (min-width: 1200px) {
-    .blogGallery .gallery { grid-template-columns: repeat(3, 1fr); }
-  }
-
-  @media (max-width: 767px) {
-    .blogGallery .scrollProgress { display: block; }
-    .blogGallery .gallery { grid-template-columns: 1fr; gap: 0 15px; }
-  }
-</style>

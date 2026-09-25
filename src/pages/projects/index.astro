@@ -1,207 +1,28 @@
 ---
-// Projects list — ports pages/projects/index.js + components/projects/allProjects.js.
+// Projects — index; each row links to its detail page.
 import Layout from '../../layouts/Layout.astro';
-import ProjectItem from '../../components/ProjectItem.astro';
 import { getCollection } from 'astro:content';
 
-const cdn = 'https://cdn.levine.io/uploads/portfolio/public/images/projects';
-const logo = (t: string) => `${cdn}/logos/${encodeURIComponent(t)}.svg`;
-
-const projects = await getCollection('projects');
-// Deterministic order (the collection's native order isn't alphabetical):
-// featured first, then date desc, then alphabetical by slug — matches Production.
-const ordered = [...projects].sort((a, b) => {
-  const fa = a.data.isFeatured ? 1 : 0;
-  const fb = b.data.isFeatured ? 1 : 0;
-  if (fa !== fb) return fb - fa;
-  const da = a.data.date ? a.data.date.valueOf() : 0;
-  const db = b.data.date ? b.data.date.valueOf() : 0;
-  if (da !== db) return db - da;
-  return a.id.localeCompare(b.id);
-});
-const techs = [...new Set(projects.flatMap((p) => p.data.tech))].sort();
+const projects = (await getCollection('projects')).sort(
+  (a, b) => Number(b.data.isFeatured) - Number(a.data.isFeatured)
+);
 ---
 
-<Layout title="Projects" description="List of all of my projects.">
-  <section class="projectsGallery">
-    <div id="scroll-progress" class="scrollProgress"></div>
+<Layout title="Projects | Dave Levine" description="Projects Dave Levine has built.">
+  <main class="wrap">
+    <header class="page-header">
+      <h1>Projects</h1>
+      <p class="lede">Things I've built, mostly to solve problems I had or to learn how something works.</p>
+    </header>
 
-    <div class="container">
-      <h1 class="anim-header">PROJECTS</h1>
-
-      <div class="filter">
-        <h3 class="anim-subheader"><p>Sort By Tech</p></h3>
-        <div class="filterButtons" id="filterButtons">
-          <button class="btn btn-outlined sm active anim-filter-btn" data-tech="all" aria-label="Show all projects">
-            <span class="techLogoContainer">
-              <i class="fa-regular fa-asterisk" aria-hidden="true"></i>
-              <span class="techLogoName">All</span>
-            </span>
-          </button>
-          {techs.map((t, i) => (
-            <button class="btn btn-outlined sm anim-filter-btn" data-tech={t} style={`animation-delay: ${(i + 1) * 50}ms`} aria-label={`Filter projects by ${t}`}>
-              <span class="techLogoContainer">
-                <img class="techLogo" src={logo(t)} alt={t} width="32" height="32" loading="lazy" />
-                <span class="techLogoName">{t}</span>
-              </span>
-            </button>
-          ))}
+    <div class="uses-group">
+      {projects.map((p) => (
+        <div class="uses-row">
+          <a class="uses-row-title" href={`/projects/${p.id}/`}>{p.data.title}</a>
+          <p class="uses-row-desc">{p.data.summary ?? p.data.description}</p>
+          <p class="uses-row-meta">{p.data.tech.join(' · ')}</p>
         </div>
-      </div>
-
-      <div class="galleryWrap">
-        <div class="gallery" id="gallery">
-          {ordered.map((p) => (
-            <div class="projectCard reveal" data-tech={p.data.tech.join('|')}>
-              <ProjectItem
-                title={p.data.title}
-                tech={p.data.tech}
-                image={p.data.image}
-                description={p.data.description}
-                githubLink={p.data.githubLink}
-                githubComingSoon={p.data.githubComingSoon}
-                liveLink={p.data.liveLink}
-                slug={p.id}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
-  </section>
+  </main>
 </Layout>
-
-<script>
-  function onScroll() {
-    requestAnimationFrame(() => {
-      const el = document.documentElement;
-      const bar = document.getElementById('scroll-progress');
-      if (bar) bar.style.width = `${(el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100}%`;
-    });
-  }
-  document.addEventListener('astro:page-load', () => {
-    const buttons = document.querySelectorAll<HTMLButtonElement>('#filterButtons button');
-    const items = document.querySelectorAll<HTMLElement>('#gallery .projectCard');
-    // This document-level listener fires on every navigation; #filterButtons is shared
-    // with /certs and /blog, so gate on a page-unique element (the project cards).
-    if (!buttons.length || !items.length) return;
-
-    // Card entrance is pure CSS (.fx fx-fade-up) — fires on element insertion, so it
-    // works on every client-side navigation with no JS reveal needed.
-    buttons.forEach((btn) =>
-      btn.addEventListener('click', () => {
-        const tech = btn.dataset.tech!;
-        buttons.forEach((b) => b.classList.toggle('active', b === btn));
-        items.forEach((it) => {
-          const techs = (it.dataset.tech || '').split('|');
-          it.style.display = tech === 'all' || techs.includes(tech) ? '' : 'none';
-        });
-      })
-    );
-    window.removeEventListener('scroll', onScroll);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  });
-</script>
-
-<style lang="scss">
-  .projectsGallery { padding: 50px 15px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
-
-  .projectsGallery .scrollProgress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 5px;
-    background: var(--navbar-primary);
-    z-index: 1000;
-    transition: width var(--transition-speed) ease-out;
-    border-radius: 0 0 5px 5px;
-  }
-
-  .projectsGallery h1 {
-    text-align: center;
-    font-size: 2.3rem;
-    background: var(--text-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-top: 40px;
-  }
-
-  .projectsGallery .filter p { text-align: center; margin-top: -5px; font-weight: 600; color: var(--text-primary); }
-  .projectsGallery .filter p::after { content: ':'; color: var(--accent); }
-
-  .projectsGallery .filterButtons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    transition: transform var(--transition-speed) ease, color var(--transition-speed) ease;
-  }
-
-  // Round tech-filter buttons sized by their logo + the .btn.sm padding (parity
-  // with Production); scoped to projects so the blog/cert text chips are unaffected.
-  .projectsGallery .filterButtons button {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-  }
-  // Lift the hovered button above its siblings so its tooltip (which drops below
-  // the icon) isn't painted over by the wrapped second row of filter buttons.
-  .projectsGallery .filterButtons button:hover { z-index: 5; }
-  .projectsGallery .filterButtons button img { width: 32px; height: 32px; border-radius: 50%; object-fit: contain; }
-  .projectsGallery .filterButtons button .fa-asterisk { font-size: 32px; color: currentColor; }
-  .projectsGallery .techLogoContainer { position: relative; display: flex; align-items: center; justify-content: center; text-align: center; }
-  .projectsGallery .techLogoName {
-    display: none;
-    position: absolute;
-    bottom: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--transparent-secondary);
-    color: var(--accent);
-    padding: 2px 8px;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 1;
-  }
-  .projectsGallery .techLogoContainer:hover .techLogoName { display: block; }
-
-  .projectsGallery .galleryWrap { margin-top: 50px; }
-  // minmax(0, 1fr) instead of the default `1fr` (= minmax(auto, 1fr)) so every
-  // column is exactly equal width. With the implicit `auto` minimum, the track
-  // holding the widest-min-content card refuses to shrink and steals width from
-  // the others — that's why one column rendered larger, worst at narrow desktop
-  // widths. min-width: 0 lets each card shrink to its (now equal) track.
-  .projectsGallery .gallery { display: grid; grid-template-columns: 1fr; gap: 25px; }
-
-  // Layout only — the fade-up entrance comes from the global `.fx fx-fade-up`
-  // classes (pure CSS, fires on insertion → works on every client-side nav).
-  .projectsGallery .projectCard { display: grid; min-width: 0; }
-
-  @media (min-width: 768px) {
-    .projectsGallery { padding: 150px 25px; min-height: 100vh; margin-bottom: 0; }
-    .projectsGallery .container { max-width: 1200px; margin: auto; }
-    .projectsGallery h1 { font-size: 3.8rem; margin-top: -40px; }
-    .projectsGallery .filter { margin-top: -30px; }
-    .projectsGallery .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-
-  @media (min-width: 1080px) {
-    .projectsGallery .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  }
-
-  // :global() so Astro doesn't scope the theme selector onto <html> (the theme
-  // host), which carries no page scope-id. Opaque --background-card (not the ~38%
-  // alpha --button-border) so the tooltip is readable, not see-through.
-  :global([data-theme='dark']) .projectsGallery .techLogoName {
-    background: var(--background-card);
-    color: var(--text-primary);
-    border: 1px solid var(--border-card);
-  }
-</style>

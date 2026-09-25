@@ -6,6 +6,7 @@ tech:
   - Redis
   - Tailwind CSS
 description: A progressive web app for browsing Hacker News, built with React. Makes use of a self-hosted API for fetching content. Focuses on small touches missing from similar projects.
+summary: "A progressive web app for browsing Hacker News, focusing on small touches missing from similar projects."
 liveLink: https://hnpwa.pages.dev/
 githubLink: https://github.com/davelevine/hn-pwa
 image: hn-pwa.webp

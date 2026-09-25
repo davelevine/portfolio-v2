@@ -1,0 +1,38 @@
+---
+// Layout for /uses (src/pages/uses.md): intro body, then sections of name + role rows.
+import Layout from './Layout.astro';
+
+interface Item { name: string; role: string; url?: string; detail?: string }
+interface Section { title: string; items: Item[] }
+const { title, description, heading, lede, sections = [] } = Astro.props.frontmatter as {
+  title: string; description: string; heading: string; lede?: string; sections?: Section[];
+};
+---
+
+<Layout title={title} description={description}>
+  <main class="wrap">
+    <header class="page-header">
+      <h1>{heading}</h1>
+      {lede && <p class="lede">{lede}</p>}
+    </header>
+
+    <div class="prose"><slot /></div>
+
+    {sections.map((section) => (
+      <section>
+        <h2 class="section-rule"><span>{section.title}</span></h2>
+        {section.items.map((item) => (
+          <div class="post-row uses-item">
+            <div class="uses-name">
+              {item.url
+                ? <a class="post-title" href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
+                : <span class="post-title">{item.name}</span>}
+              {item.detail && <p class="uses-detail">{item.detail}</p>}
+            </div>
+            <span class="uses-role">{item.role}</span>
+          </div>
+        ))}
+      </section>
+    ))}
+  </main>
+</Layout>

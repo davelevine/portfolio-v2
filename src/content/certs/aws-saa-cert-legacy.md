@@ -10,6 +10,6 @@ tech: ['AWS', 'Cybersecurity', 'Compliance', 'Migration', 'Serverless']
 
 ![AWS](/images/certs/aws-saa-legacy.png)
 
-## Certificate
+## Verification
 
-To view my certificate, you can find it [here](https://www.credly.com/badges/1499850a-2482-4ae0-b704-a85900ec631d).
+Verify this certification on [Credly](https://www.credly.com/badges/1499850a-2482-4ae0-b704-a85900ec631d).
