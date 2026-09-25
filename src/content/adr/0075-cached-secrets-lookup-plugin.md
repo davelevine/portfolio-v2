@@ -3,6 +3,7 @@ title: "Cached Secrets Lookup Plugin for Ansible"
 number: 75
 date: "2026-05-04"
 status: "Accepted"
+category: "Automation"
 summary: "Replaced the upstream Bitwarden Secrets Manager lookup with a small local Ansible plugin that reuses one client, caches each secret once per run, and retries transient errors, cutting per-run failure probability from about 99% to effectively zero."
 ail: 2
 ---

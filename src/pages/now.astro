@@ -2,14 +2,11 @@
 // Now — rendered from the markdown entry, wrapped in the new prose layout.
 import Layout from '../layouts/Layout.astro';
 import { getEntry, render } from 'astro:content';
+import { formatDate } from '../lib/format';
 
 const entry = await getEntry('now', 'now');
 const { Content } = await render(entry!);
-const nowDate = entry!.data.date.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  timeZone: 'UTC',
-});
+const nowDate = formatDate(entry!.data.date);
 ---
 
 <Layout title="Here and Now | Dave Levine" description="What Dave Levine is focused on now.">

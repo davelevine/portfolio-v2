@@ -3,6 +3,7 @@ title: "Cloudflare Access Manual Management"
 number: 28
 date: "2025-09-08"
 status: "Superseded"
+category: "Infrastructure as Code"
 summary: "Kept Cloudflare Zero Trust Access in the dashboard rather than in Terraform, because the provider at the time could not model Access's reusable-policy design without errors or duplication."
 supersededBy: 80
 ail: 2

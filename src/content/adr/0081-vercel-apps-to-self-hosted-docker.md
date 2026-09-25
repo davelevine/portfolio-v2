@@ -3,6 +3,7 @@ title: "Migrate Vercel Applications to Self-Hosted Docker"
 number: 81
 date: "2026-07-14"
 status: "Accepted"
+category: "Hosting"
 summary: "Moved four Vercel-hosted apps onto the homelab's existing compose, secrets, and ingress model so there is one operational model again, while deliberately keeping the managed Neon database: self-host the compute, rent the database."
 ail: 2
 ---

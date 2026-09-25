@@ -3,6 +3,7 @@ title: "Self-Hosted Autoheal Watcher for Unhealthy Containers"
 number: 85
 date: "2026-08-13"
 status: "Accepted"
+category: "Containers"
 summary: "Added a small systemd-supervised host script that restarts unhealthy-but-running containers that opt in with a label, because Docker's restart policy ignores failing healthchecks and the usual autoheal sidecar was unmaintained and needed the Docker socket inside a container."
 ail: 2
 ---

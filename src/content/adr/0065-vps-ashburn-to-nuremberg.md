@@ -3,6 +3,7 @@ title: "Migrate the Hetzner VPS from Ashburn to Nuremberg"
 number: 65
 date: "2026-01-31"
 status: "Accepted"
+category: "Hosting"
 summary: "Moved the VPS from Hetzner's US region to Nuremberg for EU data protection, cheaper and larger instances, and deliberate latency as friction against compulsively checking dashboards."
 ail: 2
 ---

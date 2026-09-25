@@ -3,6 +3,7 @@ title: "Adopt Docker Compose for Container Orchestration"
 number: 7
 date: "2025-08-25"
 status: "Accepted"
+category: "Containers"
 summary: "Chose Docker Compose over Kubernetes, Swarm, Nomad and Podman because a single-operator homelab values determinism and low overhead over cluster features."
 ail: 2
 ---

@@ -3,6 +3,7 @@ title: "Simplify Automation Jobs by Removing the Templating Abstraction"
 number: 59
 date: "2025-10-23"
 status: "Accepted"
+category: "Automation"
 summary: "Removed the job templating and smart-scheduling layer from ADR 0039 in favour of explicit per-job configuration, because every production job overrode the templates anyway."
 supersedes: [39]
 ail: 2

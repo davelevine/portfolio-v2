@@ -3,6 +3,7 @@ title: "Adopt OpenTofu for External Infrastructure (Cloudflare, Hetzner, Tailsca
 number: 22
 date: "2025-08-29"
 status: "Superseded"
+category: "Infrastructure as Code"
 summary: "Proposed OpenTofu to manage cloud resources (DNS, tunnels, VPS, ACLs) as code, so external infrastructure becomes portable, reviewable and rebuildable in hours instead of weeks."
 supersededBy: 24
 ail: 2

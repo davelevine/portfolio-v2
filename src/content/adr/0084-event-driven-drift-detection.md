@@ -3,6 +3,7 @@ title: "Event-Driven Drift Notification"
 number: 84
 date: "2026-08-13"
 status: "Accepted"
+category: "Infrastructure as Code"
 summary: "Made the per-host drift detector notify only when the drift set changes and deleted the fixed-schedule weekly digest, because drift should page when it happens and quiet weeks should stay quiet."
 supersedes: [49]
 ail: 2

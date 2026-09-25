@@ -3,6 +3,7 @@ title: "Image Policy: Digest Pinning with Renovate Merge Windows"
 number: 8
 date: "2025-08-25"
 status: "Accepted"
+category: "Containers"
 summary: "Pinned every container image by tag plus digest and tiered Renovate automerge by update type, so deploys are deterministic, rollbacks are one-line reverts, and only major upgrades need human review."
 ail: 2
 ---

@@ -3,6 +3,7 @@ title: "Adopt VersityGW as Homelab S3 Gateway"
 number: 74
 date: "2026-04-23"
 status: "Accepted"
+category: "Storage & Backups"
 summary: "Replaced MinIO, whose open-source upstream was archived, with VersityGW, a maintained Apache-2.0 gateway built for exactly the homelab's pattern of serving a POSIX directory over S3."
 supersedes: [13]
 ail: 2

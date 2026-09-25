@@ -3,6 +3,7 @@ title: "Stateless Plex Tiering Mover"
 number: 78
 date: "2026-05-14"
 status: "Accepted"
+category: "Storage & Backups"
 summary: "Refactored the Plex tiering mover to derive tier state at runtime from the filesystem and the Plex API, because the state.json cache it replaced bought nothing and caused three fragilities."
 supersedes: [77]
 ail: 2

@@ -1,7 +1,8 @@
 ---
-// Decisions — selected ADRs from the homelab, grouped by year.
+// Decisions — selected ADRs from the homelab, grouped by year, filterable by category.
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { ADR_CATEGORIES, adrCategorySlug } from '../../lib/decisions';
 
 // Newest first; same-day ADRs fall back to number so ties don't depend on load order.
 const adrs = (await getCollection('adr')).sort(
@@ -9,6 +10,7 @@ const adrs = (await getCollection('adr')).sort(
 );
 const years = [...new Set(adrs.map((a) => a.data.date.getUTCFullYear()))];
 const num = (n: number) => String(n).padStart(4, '0');
+const filters = [{ slug: '', label: 'All' }, ...ADR_CATEGORIES.map((c) => ({ slug: adrCategorySlug(c), label: c }))];
 ---
 
 <Layout title="Decisions | Dave Levine" description="Selected architecture decision records from Dave Levine's homelab.">
@@ -28,16 +30,59 @@ const num = (n: number) => String(n).padStart(4, '0');
       <p>Gaps in the numbering are records I've kept private.</p>
     </div>
 
+    <nav class="category-switcher" aria-label="Filter by category">
+      {filters.map((f) => (
+        <button type="button" data-filter={f.slug} class:list={{ active: !f.slug }} aria-pressed={f.slug ? 'false' : 'true'}>{f.label}</button>
+      ))}
+    </nav>
+
     {years.map((y) => (
-      <>
+      <section class="decision-year">
         <h2 class="section-rule"><span>{y}</span></h2>
         {adrs.filter((a) => a.data.date.getUTCFullYear() === y).map((a) => (
-          <div class="post-row">
+          <div class="post-row" data-category={adrCategorySlug(a.data.category)}>
             <a class="post-title" href={`/decisions/${a.id}/`}>{a.data.title}</a>
-            <span class="post-date">ADR {num(a.data.number)}</span>
+            <span class="post-date">{a.data.status === 'Superseded' && 'Superseded · '}ADR {num(a.data.number)}</span>
           </div>
         ))}
-      </>
+      </section>
     ))}
   </main>
 </Layout>
+
+<script>
+  // Category filter: hides non-matching rows (and empty years) in place and keeps the
+  // choice in ?category= so a filtered view can be linked. Bound per astro:page-load:
+  // bundled scripts run once under ClientRouter.
+  document.addEventListener('astro:page-load', () => {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    if (!buttons.length) return;
+    const apply = (slug: string) => {
+      buttons.forEach((b) => {
+        const on = b.dataset.filter === slug;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+      document.querySelectorAll<HTMLElement>('.decision-year').forEach((year) => {
+        let visible = 0;
+        year.querySelectorAll<HTMLElement>('[data-category]').forEach((row) => {
+          row.hidden = !!slug && row.dataset.category !== slug;
+          if (!row.hidden) visible++;
+        });
+        year.hidden = visible === 0;
+      });
+    };
+    buttons.forEach((b) =>
+      b.addEventListener('click', () => {
+        const slug = b.dataset.filter ?? '';
+        const url = new URL(location.href);
+        if (slug) url.searchParams.set('category', slug);
+        else url.searchParams.delete('category');
+        history.replaceState(history.state, '', url);
+        apply(slug);
+      })
+    );
+    const initial = new URLSearchParams(location.search).get('category') ?? '';
+    apply([...buttons].some((b) => b.dataset.filter === initial) ? initial : '');
+  });
+</script>

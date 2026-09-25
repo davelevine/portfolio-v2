@@ -3,6 +3,7 @@ title: "Automation Jobs Templating and Intelligent Scheduling"
 number: 39
 date: "2025-09-17"
 status: "Superseded"
+category: "Automation"
 summary: "Introduced job-type templates and automatic time-slot assignment for scheduled systemd jobs to cut repetitive configuration and prevent jobs from competing for resources."
 supersededBy: 59
 ail: 2

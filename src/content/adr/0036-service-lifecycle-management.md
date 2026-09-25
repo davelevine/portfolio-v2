@@ -3,6 +3,7 @@ title: "Establish Service Lifecycle Management Through First Service Removal"
 number: 36
 date: "2025-09-14"
 status: "Accepted"
+category: "Automation"
 summary: "Removed seven unused services in one pass and set explicit removal criteria, because idle services still cost updates, monitoring and configuration sprawl."
 ail: 2
 ---
