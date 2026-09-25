@@ -148,3 +148,15 @@ removed Dave's semicolons as "not his voice." He uses them often.
 **How to apply next time:** a handful of posts isn't enough to call a habit. Keep punctuation and
 phrasing as he wrote it, and only flag something as off-voice when it's clearly generic filler or
 jargon. When unsure, ask instead of editing.
+
+## When a design fix misses twice, ask instead of guessing
+
+**Context:** An audit flagged the /ail "Reading the badge" heading as inconsistent. I tried a
+section rule, then folding the examples into the intro, then a single sentence. Dave disliked each
+one, and the original turned out to be what he wanted.
+
+**How to apply next time:** audit findings are suggestions, not defects. After a design revision
+misses twice, stop and ask what feels off (or offer the original back) before trying a third.
+
+When restoring, restore only the part named. Asked to restore the badge section, I also reverted
+"The Levels" divider he liked, because I treated the whole layout file as one unit.
