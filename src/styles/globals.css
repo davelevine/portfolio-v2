@@ -699,35 +699,22 @@ a.tag-text:hover {
   background: var(--border);
 }
 
-/* ---- /uses rows: name (+ muted detail) left, role label right ---- */
-.uses-name {
-  flex: 1;
-  min-width: 0;
+/* ---- /uses boxes: unlinked name, writeup below ---- */
+span.uses-row-title {
+  display: block;
 }
-
-.uses-name .post-title {
-  display: inline;
-}
-
-span.post-title:hover {
+span.uses-row-title:hover {
   color: inherit;
 }
 
-.uses-detail {
-  color: var(--muted);
-  font-size: var(--text-sm);
-  line-height: 20px;
-  margin-top: 2px;
+.uses-row-desc + .uses-row-desc {
+  margin-top: 12px;
 }
 
-.uses-role {
-  margin-left: 16px;
-  font-family: var(--font-sans);
-  font-size: var(--text-xs);
-  line-height: 16px;
-  color: var(--muted);
-  white-space: nowrap;
-  text-align: right;
+.uses-row-desc a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* ---- /ail page ---- */

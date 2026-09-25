@@ -51,7 +51,7 @@ and are referenced by URL — the repo stays free of large binaries.
 | [`/decisions`](./src/pages/decisions/index.astro) | [`content/adr/`](./src/content/adr/) | Selected ADRs from the homelab, edited for publishing, by year |
 | [`/ail`](./src/pages/ail.md) | Markdown page | AI Influence Level scale used on posts and decisions |
 | [`/contact`](./src/pages/contact.astro) | static page | Formspree contact form, LinkedIn, PGP key, résumé |
-| [`/uses`](./src/pages/uses.md) | Markdown page | Colophon: stack, devices, workspace |
+| [`/uses`](./src/pages/uses.md) | Markdown page | Colophon: code, writing, learning, planning, tools, gear, workspace |
 
 </div>
 
