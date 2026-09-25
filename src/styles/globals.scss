@@ -142,7 +142,14 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 700; letter-spacin
   font-weight: 600;
   letter-spacing: -0.025em;
   color: var(--fg);
-  .bracket { color: var(--accent); }
+  .bracket {
+    color: var(--accent);
+    display: inline-block; // needed for transform on an inline span
+    transition: transform var(--transition-fast);
+  }
+  // Hover/focus: the tag "opens", brackets easing outward from the name.
+  &:hover .bracket:first-child, &:focus-visible .bracket:first-child { transform: translateX(-2px); }
+  &:hover .bracket:last-child, &:focus-visible .bracket:last-child { transform: translateX(2px); }
 }
 
 .nav-desktop { display: none; align-items: center; gap: 20px; }
