@@ -495,14 +495,16 @@ h1, h2, h3, h4 {
 
 /* ---- underlined body links (prose, now panel) ---- */
 .prose a,
-.def-value a {
+.def-value a,
+.page-header .lede a {
   color: inherit;
   box-shadow: 0 3px 0 0 var(--accent);
   padding-bottom: 0.08em;
   transition: color var(--transition-fast), box-shadow var(--transition-fast);
 }
 .prose a:hover,
-.def-value a:hover {
+.def-value a:hover,
+.page-header .lede a:hover {
   color: var(--accent);
 }
 

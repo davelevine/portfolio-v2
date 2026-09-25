@@ -3,7 +3,10 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const adrs = (await getCollection('adr')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// Newest first; same-day ADRs fall back to number so ties don't depend on load order.
+const adrs = (await getCollection('adr')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf() || b.data.number - a.data.number
+);
 const years = [...new Set(adrs.map((a) => a.data.date.getUTCFullYear()))];
 const num = (n: number) => String(n).padStart(4, '0');
 ---
@@ -12,7 +15,7 @@ const num = (n: number) => String(n).padStart(4, '0');
   <main class="wrap">
     <header class="page-header">
       <h1>Decisions</h1>
-      <p class="lede">Selected decision records from my homelab, lightly edited for publishing. Each one explains what I chose, what I passed on, and why.</p>
+      <p class="lede">Selected Architecture Decision Records (ADRs) from my homelab, lightly edited for publishing, in the <a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions" target="_blank" rel="noopener noreferrer">Michael Nygard style</a>. Each one explains what I chose, what I passed on, and why. Numbers are sequential and never reused, so gaps are records I've kept private.</p>
     </header>
 
     {years.map((y) => (
