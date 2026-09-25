@@ -132,7 +132,9 @@ h1, h2, h3, h4, p { margin: 0; }
   margin: 0 auto;
   padding: 16px 24px;
   display: flex;
-  align-items: center;
+  // Baseline, not center: the mono brand and sans links have different font
+  // metrics, so centered boxes leave the brand text sitting ~1px high.
+  align-items: baseline;
   justify-content: space-between;
 }
 
@@ -143,6 +145,9 @@ h1, h2, h3, h4, p { margin: 0; }
   font-weight: 600;
   letter-spacing: -0.025em;
   color: var(--fg);
+  // Optical nudge: with baselines matched, the taller mono caps and brackets
+  // still read as sitting high next to the sans links.
+  transform: translateY(1px);
   .bracket { color: var(--accent); }
 }
 
@@ -189,6 +194,8 @@ h1, h2, h3, h4, p { margin: 0; }
   transition: color var(--transition-fast);
   &:hover { color: var(--fg); }
 }
+
+.menu-toggle { align-self: center; }
 
 .theme-toggle svg { width: 16px; height: 16px; }
 .menu-toggle svg { width: 20px; height: 20px; }
