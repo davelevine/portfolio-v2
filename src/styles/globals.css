@@ -493,18 +493,23 @@ h1, h2, h3, h4 {
   color: var(--accent);
 }
 
-/* ---- underlined body links (prose, now panel) ---- */
+/* ---- underlined body links: full-contrast text, accent underline, everywhere ---- */
+/* (fg rather than inherit so links in grey ledes and intros still read as links) */
 .prose a,
 .def-value a,
-.page-header .lede a {
-  color: inherit;
+.page-header .lede a,
+.uses-row-desc a,
+.post-meta a {
+  color: var(--fg);
   box-shadow: 0 3px 0 0 var(--accent);
   padding-bottom: 0.08em;
   transition: color var(--transition-fast), box-shadow var(--transition-fast);
 }
 .prose a:hover,
 .def-value a:hover,
-.page-header .lede a:hover {
+.page-header .lede a:hover,
+.uses-row-desc a:hover,
+.post-meta a:hover {
   color: var(--accent);
 }
 
@@ -713,12 +718,6 @@ span.uses-row-title:hover {
   margin-top: 12px;
 }
 
-.uses-row-desc a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
 /* ---- /ail page ---- */
 .ail-example .ail-badge {
   margin-left: 4px;
@@ -891,14 +890,6 @@ span.uses-row-title:hover {
   font-size: var(--text-sm);
   line-height: 20px;
   /* Underlined always: accent vs muted text alone is not distinguishable (WCAG 1.4.1). */
-}
-.post-meta a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.post-meta a:hover {
-  text-decoration-thickness: 2px;
 }
 .post-meta .meta-tag {
   margin-left: 8px;

@@ -3,7 +3,7 @@
 // a name with an optional writeup (inline Markdown; a blank line in the YAML folds to "\n"
 // and starts a new paragraph) underneath.
 import Layout from './Layout.astro';
-import { marked } from 'marked';
+import { inlineMd } from '../lib/markdown';
 
 interface Item { name: string; text?: string }
 interface Section { title: string; items: Item[] }
@@ -28,7 +28,7 @@ const { title, description, heading, lede, sections = [] } = Astro.props.frontma
           {section.items.map((item) => (
             <div class="uses-row">
               <span class="uses-row-title">{item.name}</span>
-              {item.text?.split('\n').map((para) => <p class="uses-row-desc" set:html={marked.parseInline(para)} />)}
+              {item.text?.split('\n').map((para) => <p class="uses-row-desc" set:html={inlineMd(para)} />)}
             </div>
           ))}
         </div>
