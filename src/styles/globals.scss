@@ -66,6 +66,7 @@
 * { box-sizing: border-box; }
 
 html {
+  scrollbar-gutter: stable; // same width with or without a scrollbar, so pages don't shift
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
   line-height: 1.5;
