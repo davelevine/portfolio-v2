@@ -8,12 +8,15 @@ tech:
   - Sass
   - YAML
 description: A knowledge base I started in 2016. It has since amassed to hundreds of articles, guides and documents that serve as a source of truth, second brain and a labor of love.
-summary: "A knowledge base built with MkDocs."
+summary: "A knowledge base built with MkDocs, now archived as legacy documentation."
+liveLink: https://kb.levine.io
 githubLink: https://github.com/davelevine/docs-public
 image: atw.webp
 isFeatured: true
 
 ---
+
+> **Archived.** This project is no longer maintained. The site stays online as legacy documentation.
 
 ## Description
 
