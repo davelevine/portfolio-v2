@@ -17,7 +17,7 @@ const { title, description, heading, lede, commitment, badges = [], levels = [] 
       {lede && <p class="lede">{lede}</p>}
     </header>
 
-    <div class="prose"><slot /></div>
+    <div class="prose prose-intro"><slot /></div>
 
     {commitment && <p class="ail-commitment"><strong>My commitment:</strong> {commitment}</p>}
 
