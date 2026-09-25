@@ -1,7 +1,7 @@
 ---
 # Home page hero. `now` values accept inline Markdown (links, emphasis).
 greeting: Hey, I'm Dave
-tagline: Make it simple, then write it down.
+tagline: Make it simple. Make it last.
 intro: Infrastructure, security, and documentation, at work and at home.
 now:
   - label: Working
