@@ -3,6 +3,7 @@ title: "Successful Terraform to OpenTofu Migration"
 number: 34
 date: "2025-09-10"
 status: "Accepted"
+category: "Infrastructure as Code"
 summary: "Moved infrastructure management back to OpenTofu after discovering that the bug which drove the earlier switch to Terraform was in the configuration code, not in OpenTofu."
 supersedes: [24]
 ail: 2

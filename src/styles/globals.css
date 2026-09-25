@@ -549,6 +549,13 @@ h1, h2, h3, h4 {
 .post-row:not(:has(+ .post-row)) {
   border-bottom: none;
 }
+/* /decisions filter hides rows (flex would override [hidden]) and drops the rule under the last visible one. */
+.post-row[hidden] {
+  display: none;
+}
+.decision-year .post-row:not(:has(~ .post-row:not([hidden]))) {
+  border-bottom: none;
+}
 .post-row:hover {
   background-color: var(--surface);
 }
@@ -613,7 +620,9 @@ a.post-category:hover {
   gap: 8px;
   margin: 16px 0 24px;
 }
-.category-switcher a {
+.category-switcher a, .category-switcher button {
+  font: inherit;
+  cursor: pointer;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 9999px;
@@ -624,17 +633,18 @@ a.post-category:hover {
   padding: 6px 12px;
   transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
-.category-switcher a:hover {
-  background-color: var(--accent);
-  border-color: var(--accent);
-  color: var(--on-accent);
-}
-.category-switcher a.active {
+.category-switcher a.active, .category-switcher button.active {
   border-color: var(--accent);
   color: var(--accent);
 }
-.category-switcher a.active:hover {
-  color: var(--on-accent);
+/* Hover fill only with a real pointer: touch keeps :hover on the tapped /decisions */
+/* filter button, which would read as a second "selected" state. */
+@media (hover: hover) {
+  .category-switcher a:hover, .category-switcher button:hover {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent);
+  }
 }
 
 .meta-tag {

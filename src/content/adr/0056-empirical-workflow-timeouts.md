@@ -3,6 +3,7 @@ title: "Empirical Workflow Timeout Standardization"
 number: 56
 date: "2025-10-13"
 status: "Accepted"
+category: "Automation"
 summary: "Replaced guessed CI timeouts with values derived from 30 days of real run data using a simple P95-based formula, so hung jobs fail in minutes instead of an hour."
 ail: 2
 ---

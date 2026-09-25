@@ -3,6 +3,7 @@ title: "Quarterly VPS Snapshot Restore Test"
 number: 70
 date: "2026-03-27"
 status: "Accepted"
+category: "Storage & Backups"
 summary: "Added a quarterly CI workflow that boots the latest VPS snapshot on a throwaway instance, safely isolated from production, and proves the database can actually be restored from offsite replicas."
 ail: 2
 ---

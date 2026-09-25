@@ -3,6 +3,7 @@ title: "Quarterly Immich Restore Test"
 number: 79
 date: "2026-05-29"
 status: "Accepted"
+category: "Storage & Backups"
 summary: "Added a quarterly, NAS-local test that restores the latest Immich dump into an isolated throwaway stack and verifies it, because the restore path for an irreplaceable photo library had never been exercised."
 ail: 2
 ---

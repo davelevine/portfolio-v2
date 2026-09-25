@@ -3,6 +3,7 @@ title: "Plex Tiered Storage with mergerfs"
 number: 77
 date: "2026-05-11"
 status: "Partially superseded"
+category: "Storage & Backups"
 summary: "Tiered the Plex library across NVMe (hot) and the NAS (cold) behind a mergerfs union, because buying more NVMe was too expensive and moving everything to the NAS would give up direct-NVMe read performance."
 supersededBy: 78
 ail: 2

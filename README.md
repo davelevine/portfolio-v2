@@ -48,7 +48,7 @@ and are referenced by URL — the repo stays free of large binaries.
 | [`/certs`](./src/pages/certs/index.astro) | [`content/certs/`](./src/content/certs/) | Certifications + detail pages |
 | [`/writing`](./src/pages/writing/index.astro) | [`content/writing/`](./src/content/writing/) | Writing archive by year, category (`/writing/category/<cat>/`) and favorites (`/writing/favorites/`) + detail pages; old `/blog/*` URLs 301 here via [`public/_redirects`](./public/_redirects) |
 | [`/now`](./src/pages/now.astro) | [`content/now.md`](./src/content/now.md) | Current focus ([nownownow.com](https://nownownow.com/about)) |
-| [`/decisions`](./src/pages/decisions/index.astro) | [`content/adr/`](./src/content/adr/) | Selected ADRs from the homelab, edited for publishing, by year |
+| [`/decisions`](./src/pages/decisions/index.astro) | [`content/adr/`](./src/content/adr/) | Selected ADRs from the homelab, edited for publishing, by year, filterable by category (`?category=<cat>`) |
 | [`/ail`](./src/pages/ail.md) | Markdown page | AI Influence Level scale used on posts and decisions |
 | [`/contact`](./src/pages/contact.astro) | static page | Formspree contact form, LinkedIn, PGP key, résumé |
 | [`/uses`](./src/pages/uses.md) | Markdown page | Colophon: code, writing, learning, planning, tools, gear, workspace |
@@ -85,7 +85,7 @@ markdown             SCSS + Shiki    static    dave.levine.io
 | `certs` | `src/content/certs/*.md` | `title`, `achievedDate`, `expirationDate`, `image`, `tech[]` |
 | `now` | `src/content/now.md` | `date` |
 | `home` | `src/content/home.md` | `greeting`, `tagline`, `intro`, `now[]` (`label`, `text` with inline Markdown) |
-| `adr` | `src/content/adr/*.md` | `title`, `number`, `date`, `status`, `summary`, `supersedes` / `supersededBy`, `ail` / `ailImages` (scrubbed copies from the private homelab-iac repo) |
+| `adr` | `src/content/adr/*.md` | `title`, `number`, `date`, `status`, `category`, `summary`, `supersedes` / `supersededBy`, `ail` / `ailImages` (scrubbed copies from the private homelab-iac repo) |
 
 </details>
 
@@ -129,7 +129,7 @@ portfolio-v2/
 │   ├── layouts/            # Base layout (head, theme, analytics) + PageLayout for Markdown pages
 │   ├── components/         # Astro components (Navbar, Footer, Hero, WritingArchive)
 │   └── styles/             # globals.css (plain CSS: tokens + all shared styles), fonts/ (brand font license)
-│   ├── lib/                # Date formatting, reading time, writing categories
+│   ├── lib/                # Date formatting, reading time, writing and decision categories
 ├── public/                 # Static assets served as-is (manifest, robots.txt, résumé, _redirects)
 ├── astro.config.mjs        # Astro config: site, Shiki, rehype plugins, sitemap
 └── tsconfig.json

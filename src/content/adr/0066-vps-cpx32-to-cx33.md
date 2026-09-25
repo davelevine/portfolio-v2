@@ -3,6 +3,7 @@ title: "Migrate the Hetzner VPS from CPX32 to CX33 for Cost Optimization"
 number: 66
 date: "2026-02-03"
 status: "Accepted"
+category: "Hosting"
 summary: "Right-sized the VPS from CPX32 to CX33, keeping the same vCPU and RAM but halving storage that was never used, for a 48% cost saving."
 ail: 2
 ---

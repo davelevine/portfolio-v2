@@ -3,6 +3,7 @@ title: "Declarative *arr Application Config via the REST API"
 number: 83
 date: "2026-07-27"
 status: "Accepted"
+category: "Automation"
 summary: "Reconciled Lidarr's application settings over its REST API from Ansible, because those settings live in its database where file templating can't reach and Configarr didn't fit Lidarr."
 ail: 2
 ---

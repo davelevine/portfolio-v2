@@ -3,6 +3,7 @@ title: "Split Caddy Architecture with Explicit DNS Records"
 number: 67
 date: "2026-02-05"
 status: "Accepted"
+category: "Infrastructure as Code"
 summary: "Split the single reverse proxy into one on the VPS and one at home, routed by explicit per-service DNS records, cutting home-service latency from ~360 ms to ~11 ms and removing the VPS as a single point of failure."
 ail: 2
 ---

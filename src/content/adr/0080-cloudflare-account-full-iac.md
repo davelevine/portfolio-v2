@@ -3,6 +3,7 @@ title: "Cloudflare Account Full Infrastructure-as-Code"
 number: 80
 date: "2026-07-02"
 status: "Accepted"
+category: "Infrastructure as Code"
 summary: "Brought the whole Cloudflare account under OpenTofu by importing every existing resource verbatim, and accepted documented gaps where a resource genuinely cannot round-trip rather than inventing workarounds."
 supersedes: [28]
 ail: 2

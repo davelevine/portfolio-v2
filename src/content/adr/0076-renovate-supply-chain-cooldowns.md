@@ -3,6 +3,7 @@ title: "Renovate Supply-Chain Cooldowns"
 number: 76
 date: "2026-05-10"
 status: "Accepted"
+category: "Containers"
 summary: "Raised Renovate's minimum release age on auto-merged dependency updates to 3–7 days so registries have time to catch and yank compromised releases before they reach production."
 ail: 2
 ---

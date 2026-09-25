@@ -3,6 +3,7 @@ title: "Switch from OpenTofu to Terraform for DNS Infrastructure"
 number: 24
 date: "2025-09-05"
 status: "Superseded"
+category: "Infrastructure as Code"
 summary: "Switched DNS infrastructure from OpenTofu to Terraform after MX record priority fields kept failing, a problem later traced to the configuration code rather than OpenTofu."
 supersedes: [22]
 supersededBy: 34

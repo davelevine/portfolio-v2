@@ -1,6 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { CATEGORIES } from './lib/writing';
+import { ADR_CATEGORIES } from './lib/decisions';
 
 // Schemas mirror the original markdown frontmatter 1:1 (camelCase preserved).
 
@@ -67,6 +68,7 @@ const adr = defineCollection({
     number: z.number(),
     date: z.coerce.date(),
     status: z.string(),
+    category: z.enum(ADR_CATEGORIES), // pill on /decisions; see lib/decisions.ts
     summary: z.string(),
     // ADR numbers; linked on the page when that ADR is also published.
     supersedes: z.array(z.number()).optional(),

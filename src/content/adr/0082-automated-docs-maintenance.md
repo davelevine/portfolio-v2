@@ -3,6 +3,7 @@ title: "Automated Documentation Maintenance"
 number: 82
 date: "2026-07-23"
 status: "Accepted"
+category: "Automation"
 summary: "Adopted a push-triggered, headless Claude agent that proposes documentation fixes as pull requests, fenced so it can never rewrite ADRs, touch its own guardrails, or open noise PRs."
 ail: 2
 ---
