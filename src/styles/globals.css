@@ -493,7 +493,7 @@ h1, h2, h3, h4 {
 .uses-row-desc a,
 .post-meta a {
   color: var(--fg);
-  box-shadow: 0 3px 0 0 var(--accent);
+  box-shadow: 0 2px 0 0 var(--accent);
   padding-bottom: 0.08em;
   transition: color var(--transition-fast), box-shadow var(--transition-fast);
 }
