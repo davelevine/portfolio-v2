@@ -383,11 +383,13 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 700; letter-spacin
   margin: 40px 0 16px;
   &::before, &::after { content: ""; flex: 1; height: 1px; background: var(--border); }
   span {
-    color: var(--muted);
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    line-height: 20px;
-    font-weight: 500;
+    // Serif like the other headings, sized so the label holds its own between
+    // the rules (sans at 14px read too small once it left mono).
+    color: var(--fg);
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 600;
     white-space: nowrap;
   }
 }
@@ -512,12 +514,11 @@ a.tag-text:hover { color: var(--accent); }
   align-items: center;
   gap: 16px;
   margin: 40px 0 16px;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
-  letter-spacing: normal;
-  color: var(--muted);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  color: var(--fg);
   &::before, &::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 }
 
