@@ -1,3 +1,45 @@
+# Heap-style redesign (branch `mock/heap-style`)
+
+Restyle modelled on michaelheap.com. The 1:1 rebuild plan below is historical;
+its design-system, AOS, modal and card items are superseded by this section.
+
+## Done
+- [x] Bugs: dark-mode code tokens (Shiki `css-variables`), blog/docs filters dead
+      on revisit (now real routes / anchors), favorites via `isFeatured`,
+      UTC-safe dates ("Sep" not "Sept"), empty `<h1>` on /now, category map moved
+      to frontmatter `category`
+- [x] Heap light + dark palette, typography and spacing in `globals.scss`
+- [x] Theme persisted in `localStorage`, defaulting to the OS preference
+- [x] Heap-style nav (5 primary links, icons, toggle; secondary pages in mobile row + footer)
+- [x] Shared `Footer` component outside `<main>`
+- [x] Resume and contact are plain links (hero); contact modal + resume iframe removed
+- [x] Project and cert detail pages restyled and linked from their indexes
+- [x] Removed orphans: Modals/About/BlogItem/CertItem/ProjectItem, old SCSS partials,
+      Google Fonts + FontAwesome CSS, nav-seen + reveal scripts
+
+- [x] /contact page (restyled Formspree form); "Reach me" row in the now panel
+- [x] /docs replaced by /decisions: 26 scrubbed ADRs (triaged from 86; security-sensitive ones stay private), supersedes/superseded-by links
+- [x] Sitemap moved from footer to robots.txt; brand casing; PGP icon path fixed
+
+- [x] WCAG 2.2 AA pass: contrast fixes (accent, code tokens, input borders, dark on-accent),
+      always-underlined meta links, section rules as real h2s, skip link, heart/emoji names,
+      long-URL wrapping, larger small text on phones; static scan of all built pages clean
+
+- [x] Prose moved to Markdown (home.md, about.md, uses.md); short project summaries; mock/ deleted
+
+## Open
+- [ ] Review the 26 published ADRs and drafts/secrets-at-deploy-time.md before merge
+- [ ] Rotate Healthchecks ping URLs committed in private ADRs 0015/0057 (anyone holding them can ping those checks)
+- [ ] Screen-reader + keyboard pass on a real phone (static checks can't cover these)
+- [ ] Review scrubbed ADRs before publishing (0056 names CI workflows; 0070 outlines DR mechanics; 0076 states exact cooldowns)
+- [ ] Test the contact form end-to-end once deployed (Formspree may need the new /contact origin allowed)
+- [ ] Visual review against michaelheap.com (screenshots from Dave)
+- [ ] Retire the resume X-Frame-Options exception in homelab-iac once this ships
+- [ ] Refresh /uses colophon copy (MkDocs Insiders, Plausible, Cursor are stale); optionally Heap `uses-group` layout
+- [ ] Open Graph / Twitter / canonical meta (Heap has them; production never did)
+- [ ] Optional: TOC on long posts, topic pages for `#tags`, 404 page
+- [ ] Portfolio project copy still describes the Next.js site
+
 # Astro Portfolio — 1:1 Rebuild Plan
 
 Faithful re-implementation of the existing Next.js portfolio (`../portfolio`,

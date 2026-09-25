@@ -65,3 +65,27 @@ element listeners on every `astro:page-load` (document/window listeners register
    `transition:persist`) localized it in one test; I should have reached for that on step 2,
    not step 20.
 3. Don't trust a code comment that says "already fixed." Verify against the running build.
+
+## Copy edits: change only what was asked, and think about the punctuation's job
+
+**Context:** During the Heap redesign, several copy corrections were avoidable:
+- Asked to drop the period after "A few good places to start", I removed it. It leads into a list,
+  so it needed a colon ("come on").
+- Asked to restore "raising two kids", I also rewrote the rest of the line, which was already fine.
+- A tagline got `text-wrap: balance`, which split one line into two and looked deliberate.
+
+**How to apply next time:**
+1. A lead-in to a list or example ends in a colon. Ask what the punctuation does, not just whether to delete it.
+2. When one phrase is flagged, change that phrase only. Keep everything the user didn't mention.
+3. Dave's copy preference is terse and plain. No slogans, no calls to action like "Want to talk?", no aphorisms.
+4. Never reuse wording from the reference site (michaelheap.com). Check new copy against it.
+
+## Content schema changes need a dev-server restart
+
+**Context:** After adding `ail` to `src/content.config.ts`, the production build showed badges but
+Dave's running `astro dev` did not. The dev server keeps the schema it started with and silently
+strips unknown frontmatter fields. Touching the config did not reload it.
+
+**How to apply next time:** Whenever a change adds or changes collection fields, tell the user to
+restart the dev server. Verify against a fresh `astro dev --background` (then `astro dev stop`),
+not just `astro build`. Astro 7 refuses a second dev server while one is running.
