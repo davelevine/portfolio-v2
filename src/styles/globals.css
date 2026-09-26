@@ -742,6 +742,12 @@ span.uses-row-title:hover {
   line-height: 28px;
   margin: 40px 0 16px;
 }
+.ail-badges .ail-heading {
+  margin: 0 0 8px;
+}
+.ail-badges .ail-example + .ail-example {
+  margin-top: 8px;
+}
 
 .ail-cards {
   display: flex;
@@ -979,16 +985,16 @@ span.uses-row-title:hover {
 .prose strong, .prose b {
   font-weight: 700;
 }
-.prose blockquote {
+.prose blockquote, .callout {
   margin: 16px 0;
   padding: 8px 16px;
   border-left: 4px solid var(--accent);
   background-color: var(--surface);
 }
-.prose blockquote p {
+.prose blockquote p, .callout p {
   margin-bottom: 0;
 }
-.prose blockquote p + p {
+.prose blockquote p + p, .callout p + p {
   margin-top: 16px;
 }
 .prose :not(pre) > code {
