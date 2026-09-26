@@ -7,11 +7,11 @@ now:
   - label: Working
     text: Solutions Engineer at [Weill Cornell Medicine](https://weill.cornell.edu/)
   - label: Sharing
-    text: "[Posts](/writing/) on infrastructure, security, and documentation"
+    text: "[Posts](/writing/) on systems, life, and lessons along the way"
   - label: Building
     text: "[Side projects](/projects/), mostly open source on [GitHub](https://github.com/davelevine)"
   - label: Exploring
-    text: Self-hosting, and a homelab that's always a work in progress
+    text: A self-hosted [homelab](/writing/category/homelab/), built and run as code
   - label: Living
-    text: Raising two kids, reading, and owning less
+    text: Raising two kids, reading, and keeping life simple
 ---
