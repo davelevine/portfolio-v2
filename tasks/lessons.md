@@ -180,3 +180,14 @@ button went to a separate page that dropped the intro.
 **How to apply next time:** describe UI proposals by behavior ("each button opens its own page" vs
 "the list filters in place and the page stays put"). "Similar to X" means it looks similar; confirm
 the behavior before copying X's implementation.
+
+## Match a style to the content's role, not just its position on the page
+
+**Context:** I recommended moving the /now opening sentence into the gray page intro because other
+pages have one there, and earlier put the /decisions explainer in the /now "Update" box. Dave
+reverted both after seeing them. The /now sentence is a personal note with two links, not a page
+description, and in the header it pushed the date away from the title. The /decisions text was the
+whole intro, so the box had nothing to set it apart from.
+
+**How to apply next time:** before proposing "make X match page Y," check that X does the same job
+as the thing on Y. If it only sits in the same spot, say so and recommend leaving it.
