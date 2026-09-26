@@ -76,7 +76,6 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .app {
@@ -1233,6 +1232,11 @@ span.uses-row-title:hover {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* ---- theme toggle: no transitions while colors swap (see Navbar.astro) ---- */
+.theme-switching *, .theme-switching *::before, .theme-switching *::after {
+  transition: none !important;
 }
 
 /* ---- reduced motion ---- */

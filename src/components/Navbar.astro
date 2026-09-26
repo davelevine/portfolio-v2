@@ -74,9 +74,20 @@ const href = (path: string) => (path === '/' ? '/' : `${path}/`);
   function toggleTheme() {
     const root = document.documentElement;
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
+    // Swap every color in one frame, then let a view transition crossfade the whole page.
+    // Per-element CSS transitions can't do this evenly: only some elements have them, so
+    // the nav background and callouts would snap while text faded. Reading a computed
+    // style commits the swap before transitions return. No view transition support: instant.
+    const swap = () => {
+      root.classList.add('theme-switching');
+      root.setAttribute('data-theme', next);
+      getComputedStyle(root).color;
+      root.classList.remove('theme-switching');
+      document.getElementById('theme-color-meta')?.setAttribute('content', next === 'dark' ? '#202122' : '#faf6ef');
+    };
+    if (document.startViewTransition) document.startViewTransition(swap);
+    else swap();
     localStorage.setItem('theme', next);
-    document.getElementById('theme-color-meta')?.setAttribute('content', next === 'dark' ? '#202122' : '#faf6ef');
   }
 
   // Re-bind on every page-load: the navbar is re-rendered on each navigation.
