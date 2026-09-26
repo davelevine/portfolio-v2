@@ -3,7 +3,6 @@ category: Homelab
 categories:
     - Cloudflare
     - Static-Sites
-isFeatured: true
 title: Jamstack
 date: "2021-03-14T14:13:00Z"
 description: This article will be a quick write-up on my static website hosting on Cloudflare Pages, also known as Jamstack.
