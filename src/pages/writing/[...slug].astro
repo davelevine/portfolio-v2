@@ -5,6 +5,7 @@ import { getCollection, render } from 'astro:content';
 import { formatDate, readingTime } from '../../lib/format';
 import { categoryHref } from '../../lib/writing';
 import AilBadge from '../../components/AilBadge.astro';
+import Lightbox from '../../components/Lightbox.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('writing');
@@ -34,7 +35,7 @@ const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
         </p>
       </header>
 
-      <div class="prose writing-post">
+      <div class="prose writing-post" data-lightbox>
         <Content />
       </div>
       <div class="end-mark" aria-hidden="true"></div>
@@ -43,11 +44,10 @@ const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
   </main>
 </Layout>
 
-<script>
-  // Code-copy buttons and image lightbox.
-  import { Fancybox } from '@fancyapps/ui';
-  import '@fancyapps/ui/dist/fancybox/fancybox.css';
+<Lightbox />
 
+<script>
+  // Code-copy buttons.
   const COPY =
     '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
   const CHECK =
@@ -74,20 +74,6 @@ const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
           setTimeout(() => (btn.innerHTML = COPY), 2000);
         });
       });
-    });
-
-    document.querySelectorAll('.writing-post img:not([data-fb])').forEach((img) => {
-      img.setAttribute('data-fb', '');
-      const a = document.createElement('a');
-      a.href = (img as HTMLImageElement).src;
-      a.dataset.fancybox = 'post';
-      if (img.getAttribute('alt')) a.dataset.caption = img.getAttribute('alt')!;
-      img.parentNode!.insertBefore(a, img);
-      a.appendChild(img);
-    });
-    Fancybox.unbind('[data-fancybox="post"]');
-    Fancybox.bind('[data-fancybox="post"]', {
-      Toolbar: { display: { left: ['counter'], middle: [], right: ['zoomIn', 'fullscreen', 'download'] } },
     });
   });
 </script>

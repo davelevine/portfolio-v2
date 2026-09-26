@@ -7,11 +7,11 @@ import { getCollection } from 'astro:content';
 const posts = await getCollection('writing');
 ---
 
-<Layout title="Writing | Dave Levine" description="Notes on infrastructure, security, and how work gets done.">
+<Layout title="Writing | Dave Levine" description="Notes on infrastructure, security, and lessons learned along the way.">
   <main class="wrap">
     <header class="page-header">
       <h1>Writing</h1>
-      <p class="lede">Notes on infrastructure, security, and documentation, from work and the homelab.</p>
+      <p class="lede">Notes on infrastructure, security, and documentation, from work, the homelab, and life.</p>
     </header>
     <WritingArchive posts={posts} active="all" />
   </main>

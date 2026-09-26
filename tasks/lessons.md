@@ -200,3 +200,21 @@ naming WCM is fine; the only problem was the "dry and stuffy" framing.
 
 **How to apply next time:** name the specific phrase that carries the risk, not the whole passage,
 and propose the smallest change to that phrase. Dave knows his workplace; one flag is enough.
+
+## A constraint stated for one line applies to that line only
+
+**Context:** Dave asked for a stronger single-line version of the home page's "Exploring" row. While
+measuring it, I found my earlier "Sharing" and "Living" rewrites wrapped too, and rewrote them as
+well. He only wanted "Exploring" changed; the other two were already approved.
+
+**How to apply next time:** change only the item asked about. If the same constraint reveals a
+problem elsewhere, report it with a suggested fix and let Dave decide. Don't apply it.
+
+## On personal pages, fix sentences; don't add new ones
+
+**Context:** Asked to improve /about "as long as it sounds like me," I made fixes to existing
+sentences (a dangling reference, the start year) and also added two new sentences: a link to
+/writing and a contact/resume call to action. Dave kept the fixes and cut both new sentences.
+
+**How to apply next time:** on About-style pages, suggest new sentences but don't write them in
+unless asked. Keep "résumé" as "resume."

@@ -27,7 +27,7 @@ const { title, excerpt, achievedDate, expirationDate, tech = [] } = cert.data;
         <p class="post-meta">
           Achieved {formatDate(new Date(achievedDate))}
           {expirationDate !== 'Never' && ` · Expires ${formatDate(new Date(expirationDate))}`}
-          <span class="meta-tag">{certStatus(expirationDate)}</span>
+          <span class="meta-tag" data-expires={expirationDate}>{certStatus(expirationDate)}</span>
         </p>
       </header>
 
@@ -39,3 +39,14 @@ const { title, excerpt, achievedDate, expirationDate, tech = [] } = cert.data;
     </article>
   </main>
 </Layout>
+
+<script>
+  // The status tag is set at build time; recheck it so a cert that expired since the last
+  // deploy doesn't still read Active.
+  import { certStatus } from '../../lib/format';
+
+  document.addEventListener('astro:page-load', () => {
+    const tag = document.querySelector<HTMLElement>('.meta-tag[data-expires]');
+    if (tag) tag.textContent = certStatus(tag.dataset.expires ?? 'Never');
+  });
+</script>
