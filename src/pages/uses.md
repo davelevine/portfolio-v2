@@ -182,5 +182,3 @@ sections:
           I switch between sitting and standing throughout the day. The 4-leg frame is rock solid,
           even at full standing height.
 ---
-
-I got this idea from [Daniel Miessler](https://web.archive.org/web/20230329001503/https://danielmiessler.com/uses/) and decided to borrow from it.
