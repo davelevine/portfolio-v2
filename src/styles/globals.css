@@ -558,9 +558,13 @@ h1, h2, h3, h4 {
 .post-row:hover {
   background-color: var(--surface);
 }
-/* Keeps the right-hand date/category off the edge of the hover highlight. */
+/* Keeps row text off the edges of the hover highlight. Rows that start with the favorite
+   slot (home, /writing) already have room on the left. */
 .post-row > :last-child {
   padding-right: 12px;
+}
+.post-row > .post-title:first-child {
+  padding-left: 12px;
 }
 /* Whole row is clickable: the title link's ::after covers the row. Other links in the row
    (the writing archive's category pill, links in a description) sit above it. /uses rows

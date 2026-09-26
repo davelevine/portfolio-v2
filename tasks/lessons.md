@@ -218,3 +218,13 @@ sentences (a dangling reference, the start year) and also added two new sentence
 
 **How to apply next time:** on About-style pages, suggest new sentences but don't write them in
 unless asked. Keep "résumé" as "resume."
+
+## Put open questions where they can't be missed
+
+**Context:** Fixing list-row spacing on the right, I noticed titles on /decisions and /certs sat
+flush on the left too, and asked about it in the last line of my reply. Dave merged without
+seeing it and wanted it fixed; it needed a second PR.
+
+**How to apply next time:** when a fix leaves an obvious mirror-image gap (the other side, the
+sibling page), ask about it at the top of the reply, before saying the work is ready. Still don't
+apply it without a yes.
