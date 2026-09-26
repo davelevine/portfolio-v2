@@ -11,6 +11,6 @@ export const formatMonth = (d: Date) => `${MONTHS[d.getUTCMonth()]} ${d.getUTCFu
 
 export const readingTime = (body = '') => Math.ceil(body.split(/\s+/).length / 200);
 
-/** Cert status at build time (a stale build shows stale status). */
+/** Cert status. Runs at build time and again in the browser on /certs pages. */
 export const certStatus = (expirationDate: string) =>
   expirationDate === 'Never' ? 'No expiry' : new Date(expirationDate) < new Date() ? 'Expired' : 'Active';

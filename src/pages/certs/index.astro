@@ -8,8 +8,8 @@ const certs = (await getCollection('certs')).sort(
   (a, b) => new Date(b.data.achievedDate).valueOf() - new Date(a.data.achievedDate).valueOf()
 );
 const groups = [
-  { title: 'Current', certs: certs.filter((c) => certStatus(c.data.expirationDate) !== 'Expired') },
-  { title: 'Expired', certs: certs.filter((c) => certStatus(c.data.expirationDate) === 'Expired') },
+  { key: 'current', title: 'Current', certs: certs.filter((c) => certStatus(c.data.expirationDate) !== 'Expired') },
+  { key: 'expired', title: 'Expired', certs: certs.filter((c) => certStatus(c.data.expirationDate) === 'Expired') },
 ];
 const range = (earned: string, expires: string) =>
   expires === 'Never'
@@ -24,16 +24,38 @@ const range = (earned: string, expires: string) =>
       <p class="lede">Certifications I've earned over the years.</p>
     </header>
 
-    {groups.filter((g) => g.certs.length).map((g) => (
-      <>
+    {groups.map((g) => (
+      <section data-cert-group={g.key} hidden={!g.certs.length}>
         <h2 class="section-rule"><span>{g.title}</span></h2>
         {g.certs.map((c) => (
-          <div class="post-row">
+          <div class="post-row" data-expires={c.data.expirationDate} data-achieved={c.data.achievedDate}>
             <a class="post-title" href={`/certs/${c.id}/`}>{c.data.title}</a>
             <span class="post-date">{range(c.data.achievedDate, c.data.expirationDate)}</span>
           </div>
         ))}
-      </>
+      </section>
     ))}
   </main>
 </Layout>
+
+<script>
+  // The grouping above is decided at build time. Move any cert that has expired since the
+  // last deploy into Expired, keeping the newest-first order.
+  import { certStatus } from '../../lib/format';
+
+  document.addEventListener('astro:page-load', () => {
+    const current = document.querySelector<HTMLElement>('[data-cert-group="current"]');
+    const expired = document.querySelector<HTMLElement>('[data-cert-group="expired"]');
+    if (!current || !expired) return;
+    const lapsed = [...current.querySelectorAll<HTMLElement>('.post-row')].filter(
+      (row) => certStatus(row.dataset.expires ?? 'Never') === 'Expired'
+    );
+    if (!lapsed.length) return;
+    const rows = [...expired.querySelectorAll<HTMLElement>('.post-row'), ...lapsed].sort(
+      (a, b) => new Date(b.dataset.achieved!).valueOf() - new Date(a.dataset.achieved!).valueOf()
+    );
+    expired.append(...rows);
+    expired.hidden = false;
+    current.hidden = !current.querySelector('.post-row');
+  });
+</script>
