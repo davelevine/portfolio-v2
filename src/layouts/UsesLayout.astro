@@ -19,8 +19,6 @@ const { title, description, heading, lede, sections = [] } = Astro.props.frontma
       {lede && <p class="lede">{lede}</p>}
     </header>
 
-    <div class="prose"><slot /></div>
-
     {sections.map((section) => (
       <section>
         <h2 class="section-rule"><span>{section.title}</span></h2>

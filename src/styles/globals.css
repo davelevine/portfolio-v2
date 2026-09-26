@@ -76,7 +76,6 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .app {
@@ -742,6 +741,12 @@ span.uses-row-title:hover {
   line-height: 28px;
   margin: 40px 0 16px;
 }
+.ail-badges .ail-heading {
+  margin: 0 0 8px;
+}
+.ail-badges .ail-example + .ail-example {
+  margin-top: 8px;
+}
 
 .ail-cards {
   display: flex;
@@ -979,16 +984,16 @@ span.uses-row-title:hover {
 .prose strong, .prose b {
   font-weight: 700;
 }
-.prose blockquote {
+.prose blockquote, .callout {
   margin: 16px 0;
   padding: 8px 16px;
   border-left: 4px solid var(--accent);
   background-color: var(--surface);
 }
-.prose blockquote p {
+.prose blockquote p, .callout p {
   margin-bottom: 0;
 }
-.prose blockquote p + p {
+.prose blockquote p + p, .callout p + p {
   margin-top: 16px;
 }
 .prose :not(pre) > code {
@@ -1227,6 +1232,11 @@ span.uses-row-title:hover {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* ---- theme toggle: no transitions while colors swap (see Navbar.astro) ---- */
+.theme-switching *, .theme-switching *::before, .theme-switching *::after {
+  transition: none !important;
 }
 
 /* ---- reduced motion ---- */
