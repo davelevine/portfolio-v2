@@ -558,6 +558,10 @@ h1, h2, h3, h4 {
 .post-row:hover {
   background-color: var(--surface);
 }
+/* Keeps the right-hand date/category off the edge of the hover highlight. */
+.post-row > :last-child {
+  padding-right: 12px;
+}
 /* Whole row is clickable: the title link's ::after covers the row. Other links in the row
    (the writing archive's category pill, links in a description) sit above it. /uses rows
    have an unlinked title, so they're unaffected. */
