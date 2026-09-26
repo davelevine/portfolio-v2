@@ -1,0 +1,32 @@
+---
+// Image lightbox: include once on a page, then mark image containers with data-lightbox.
+// Images inside a container open in Fancybox and page through as one gallery. Theme-only
+// images (light/dark screenshot pairs) get their own gallery so each theme shows one copy.
+---
+
+<script>
+  import { Fancybox } from '@fancyapps/ui';
+  import '@fancyapps/ui/dist/fancybox/fancybox.css';
+
+  document.addEventListener('astro:page-load', () => {
+    const imgs = document.querySelectorAll<HTMLImageElement>('[data-lightbox] img:not([data-fb])');
+    if (!imgs.length) return;
+    imgs.forEach((img) => {
+      img.setAttribute('data-fb', '');
+      const theme = img.classList.contains('theme-dark-only') ? 'dark' : img.classList.contains('theme-light-only') ? 'light' : '';
+      const a = document.createElement('a');
+      a.href = img.src;
+      a.dataset.fancybox = theme ? `page-${theme}` : 'page';
+      if (img.alt) a.dataset.caption = img.alt;
+      img.parentNode!.insertBefore(a, img);
+      a.appendChild(img);
+    });
+    Fancybox.unbind('[data-fancybox^="page"]');
+    Fancybox.bind('[data-fancybox^="page"]', {
+      // No #hash in the URL: closing would step back in history, and ClientRouter treats that
+      // as a navigation and re-renders the page (in dev, dropping Fancybox's injected CSS).
+      Hash: false,
+      Toolbar: { display: { left: ['counter'], middle: [], right: ['zoomIn', 'fullscreen', 'download'] } },
+    });
+  });
+</script>

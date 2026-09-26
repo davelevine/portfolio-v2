@@ -1,6 +1,7 @@
 ---
 // Project detail — article layout: tech tags, title, links, screenshot, prose.
 import Layout from '../../layouts/Layout.astro';
+import Lightbox from '../../components/Lightbox.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -17,7 +18,7 @@ const src = (img?: string) => (img?.startsWith('http') ? img : `${cdn}/${img}`);
 
 <Layout title={`${title} | Dave Levine`} description={description}>
   <main class="wrap">
-    <article>
+    <article data-lightbox>
       <header class="post-header">
         <div class="post-tags">
           {tech.map((t) => <span class="chip">{t}</span>)}
@@ -49,3 +50,5 @@ const src = (img?: string) => (img?.startsWith('http') ? img : `${cdn}/${img}`);
     </article>
   </main>
 </Layout>
+
+<Lightbox />
