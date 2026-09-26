@@ -1,5 +1,5 @@
 ---
-date: "2026-09-24T12:00:00Z"
+date: "2026-09-26T12:00:00Z"
 ---
 
 This is my [Now Page]: a brief update on what's currently happening in my life, inspired by [Derek Sivers].
@@ -8,19 +8,11 @@ This is my [Now Page]: a brief update on what's currently happening in my life, 
 
 ## Personal
 
-> **Update:** I've finished three books over the past year:
->
-> * [The Hitchhiker's Guide to the Galaxy] by Douglas Adams
-> * [Train Dreams] by Denis Johnson
-> * [The Sunset Limited] by Cormac McCarthy
->
-> A wildly different trio, but each one stuck with me for its own reasons.
-
 I've officially been in my house for 10 years now. Between that, my wife, and two kids, I have no problem staying busy. It's hard to believe I've been working remotely for 6 years, which allows me to maintain a healthy work-life balance. Watching my kids grow up so quickly has been both wonderful and surreal.
 
 A lot of my time outside of work goes to them, which is exactly how I want it. We spend hours building with Legos, drawing together, and whatever else they're into that week. I also love teaching them about things they're curious about, whether it's how something works, where rain comes from, or why leaves change color in the fall. They ask great questions, and I'm doing my best to keep up.
 
-I really enjoy reading, although I don't get to do it as often as I'd like.
+I really enjoy reading, although I don't get to do it as often as I'd like. Right now, I'm working through [Lonesome Dove] by Larry McMurtry, and I'm really enjoying it so far.
 
 Also, I've been getting back into exercising after a prolonged hiatus. It's been great to prioritize my health and well-being again. Small steps, but I'm feeling better for it.
 
@@ -40,11 +32,9 @@ Lately, I've been focusing on:
 * Designing multi-cloud architecture diagrams and a comprehensive service dependency matrix that maps upstream and downstream relationships across all RAC services, giving the team a shared resource for incident impact assessments and strategic planning.
 
   [now page]: https://nownownow.com/about
-  [The Hitchhiker's Guide to the Galaxy]: https://en.wikipedia.org/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy_(novel)
-  [Train Dreams]: https://en.wikipedia.org/wiki/Train_Dreams
-  [The Sunset Limited]: https://en.wikipedia.org/wiki/The_Sunset_Limited
+  [Lonesome Dove]: https://en.wikipedia.org/wiki/Lonesome_Dove
   [original Journalistic app]: https://journalisticapp.com
   [homelab]: https://cdn.levine.io/uploads/images/gallery/2025-10/systems-architecture-diagram-dark-2025-10-10.webp
-  [Journalistic]: https://journal-dev.levine.io
+  [Journalistic]: /projects/journalistic/
   [Weill Cornell Medicine]: https://weill.cornell.edu/
   [Derek Sivers]: https://sive.rs/now
