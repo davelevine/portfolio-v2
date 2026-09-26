@@ -42,7 +42,7 @@ const filters = [{ slug: '', label: 'All' }, ...ADR_CATEGORIES.map((c) => ({ slu
         {adrs.filter((a) => a.data.date.getUTCFullYear() === y).map((a) => (
           <div class="post-row" data-category={adrCategorySlug(a.data.category)}>
             <a class="post-title" href={`/decisions/${a.id}/`}>{a.data.title}</a>
-            <span class="post-date">{a.data.status === 'Superseded' && 'Superseded · '}ADR {num(a.data.number)}</span>
+            <span class="post-date">ADR {num(a.data.number)}</span>
           </div>
         ))}
       </section>
