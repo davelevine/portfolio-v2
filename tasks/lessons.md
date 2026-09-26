@@ -191,3 +191,12 @@ whole intro, so the box had nothing to set it apart from.
 
 **How to apply next time:** before proposing "make X match page Y," check that X does the same job
 as the thing on Y. If it only sits in the same spot, say so and recommend leaving it.
+
+## Flag reputational risk once, then defer to Dave's read
+
+**Context:** Porting "Career Advice," I flagged its Weill Cornell paragraphs as risky on a portfolio
+site, and the edits that followed went from cutting them to anonymizing them. Dave's view was that
+naming WCM is fine; the only problem was the "dry and stuffy" framing.
+
+**How to apply next time:** name the specific phrase that carries the risk, not the whole passage,
+and propose the smallest change to that phrase. Dave knows his workplace; one flag is enough.

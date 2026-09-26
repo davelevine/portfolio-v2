@@ -7,6 +7,7 @@ categories:
 date: "2026-09-24T12:00:00Z"
 description: This post covers a secrets decision I got wrong in my homelab, and why resolving secrets at deploy time turned out to be the better trade.
 ail: 3
+isFeatured: true
 ---
 
 ## Summary
