@@ -1093,7 +1093,7 @@ span.uses-row-title:hover {
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow-x: auto;
-  font-size: 15px; /* Pitch's short x-height (0.424em) read small at 14px */
+  font-size: 16px; /* Pitch's short x-height (0.424em) read small at 14px */
   line-height: 1.5;
 }
 .prose pre code {
