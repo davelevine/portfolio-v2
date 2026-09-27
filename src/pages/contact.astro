@@ -3,6 +3,9 @@
 import Layout from '../layouts/Layout.astro';
 
 const endpoint = 'https://formspree.io/f/xzbloaed';
+// Cloudflare Turnstile sitekey (public). Formspree verifies the token; the secret lives in
+// the Formspree form settings (Cloudflare Turnstile).
+const turnstileSitekey = '0x4AAAAAAFE4sbtlDVsHJpzy';
 ---
 
 <Layout title="Contact | Dave Levine" description="Get in touch with Dave Levine.">
@@ -23,6 +26,8 @@ const endpoint = 'https://formspree.io/f/xzbloaed';
       {/* Formspree honeypot: bots fill it, people never see it. */}
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
 
+      <div class="turnstile" id="turnstile" data-sitekey={turnstileSitekey}></div>
+
       <div class="form-actions">
         <button type="submit" class="btn">Send message</button>
         <p class="form-status" id="form-status" role="status"></p>
@@ -42,37 +47,107 @@ const endpoint = 'https://formspree.io/f/xzbloaed';
 </Layout>
 
 <script>
+  declare global {
+    interface Window {
+      turnstile?: {
+        render: (el: HTMLElement, opts: Record<string, unknown>) => string;
+        execute: (id: string) => void;
+        reset: (id: string) => void;
+        remove: (id: string) => void;
+      };
+    }
+  }
+
+  // Turnstile renders explicitly: ClientRouter doesn't re-run its implicit render when
+  // /contact is reached by client-side navigation. The API script loads once per visit.
+  let turnstileApi: Promise<void> | undefined;
+  const loadTurnstile = () =>
+    (turnstileApi ??= new Promise<void>((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true;
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error('Turnstile failed to load'));
+      document.head.append(s);
+    }));
+
   // Bound per astro:page-load (bundled scripts run once under ClientRouter).
   document.addEventListener('astro:page-load', () => {
     const form = document.getElementById('contact-form') as HTMLFormElement | null;
     const status = document.getElementById('form-status');
-    if (!form || !status) return;
+    const box = document.getElementById('turnstile');
+    if (!form || !status || !box) return;
     const button = form.querySelector('button')!;
+    const show = (text: string, kind = '') => {
+      status.className = `form-status ${kind}`.trim();
+      status.textContent = text;
+    };
+
+    // The check runs only when Send is clicked, and the widget stays hidden unless
+    // Cloudflare needs the visitor to click a checkbox.
+    // ponytail: theme is read once at render; toggling the site theme doesn't restyle an
+    // already-rendered widget until the next visit.
+    let widget: string | undefined;
+    let pending: { resolve: (token: string) => void; reject: () => void } | undefined;
+    const ready = loadTurnstile().then(() => {
+      widget = window.turnstile!.render(box, {
+        sitekey: box.dataset.sitekey,
+        theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+        execution: 'execute',
+        appearance: 'interaction-only',
+        callback: (token: string) => pending?.resolve(token),
+        'error-callback': () => pending?.reject(),
+        'before-interactive-callback': () => {
+          box.classList.add('shown');
+          show("Please confirm you're not a bot.");
+        },
+        'after-interactive-callback': () => box.classList.remove('shown'),
+      });
+    });
+    ready.catch(() => {}); // surfaced on send
+    document.addEventListener('astro:before-swap', () => widget && window.turnstile?.remove(widget), { once: true });
+
+    const verify = () =>
+      ready.then(
+        () =>
+          new Promise<string>((resolve, reject) => {
+            pending = { resolve, reject };
+            window.turnstile!.execute(widget!);
+          })
+      );
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       button.disabled = true;
-      status.className = 'form-status';
-      status.textContent = 'Sending…';
+      show('Sending…');
       try {
+        let token: string;
+        try {
+          token = await verify();
+        } catch {
+          show('The spam check failed. Please refresh and try again.', 'error');
+          return;
+        }
+        const data = new FormData(form);
+        data.set('cf-turnstile-response', token);
         const res = await fetch(form.action, {
           method: 'POST',
-          body: new FormData(form),
+          body: data,
           headers: { Accept: 'application/json' },
         });
         if (res.ok) {
           form.reset();
-          status.classList.add('ok');
-          status.textContent = "Thanks for reaching out! I'll get back to you soon.";
+          show("Thanks for reaching out! I'll get back to you soon.", 'ok');
         } else {
-          const data = await res.json().catch(() => ({}));
-          status.classList.add('error');
-          status.textContent = data?.errors?.[0]?.message || 'Something went wrong. Please try again.';
+          const body = await res.json().catch(() => ({}));
+          show(body?.errors?.[0]?.message || 'Something went wrong. Please try again.', 'error');
         }
       } catch {
-        status.classList.add('error');
-        status.textContent = 'Could not send your message. Please try again.';
+        show('Could not send your message. Please try again.', 'error');
       } finally {
+        // Tokens are single-use: clear it so the next send runs a fresh check.
+        pending = undefined;
+        if (widget) window.turnstile?.reset(widget);
         button.disabled = false;
       }
     });
