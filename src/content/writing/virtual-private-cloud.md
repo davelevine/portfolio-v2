@@ -68,7 +68,7 @@ The main points to remember are:
 
 ### Bastion Hosts
 
-I've never heard this terminology prior to this course. I've always known them as `jump boxes`, but I understand why `bastion host` is used. This section didn't give me much trouble as I was already familiar with them, but I just wanted to point a real world example for future reference...
+I've never heard this terminology prior to this course. I've always known them as `jump boxes`, but I understand why `bastion host` is used. This section didn't give me much trouble as I was already familiar with them, but I just wanted to point out a real-world example for future reference...
 
 At my job, I often have to run a SQL query to obtain foreign grant sponsors for reporting. Because I have to run the query from a Production database, the security around it is tight. The jump box lives on a server and hosts MS SQL Server with access to the Production database. I have access to RDP into the server and appropriate credentials to run these queries.
 

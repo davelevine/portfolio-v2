@@ -13,7 +13,7 @@ ail: 0
 
 I meant to get to finishing this up shortly after my last post, but life comes at you fast sometimes. No excuses though, as I've been continuing with my course and should be finished within the next day or two. In the meantime, I still have a bunch of content to write, so let's get to it.
 
-The link to the post about Aurora can be found [here](../blog/databases-part-2).
+The link to the post about Aurora can be found [here](/writing/databases-part-2/).
 
 ## NoSQL
 
@@ -53,7 +53,7 @@ There are two capacity modes — `provisioned throughput` (default) and `on-dema
 * One WCU is 1 KB of data or less written to a table.
   * An operation that writes 200 bytes consumes 1 WCU.
   * An operation that writes 2 KB consumes 2 WCU.
-  * Five operations of 200 bytes consumes 5 WCU.
+  * Five operations of 200 bytes consume 5 WCU.
 * Atomic transactions require 2x the WCU to complete.
 
 ![Screen Shot 2020-06-05 at 11.42.46 PM](https://cdn.levine.io/uploads/images/gallery/2022-09//06/Screen-Shot-2020-06-05-at-11.42.46-PM.png)

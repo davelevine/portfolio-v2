@@ -7,10 +7,9 @@ tech:
   - Python
   - Sass
   - YAML
-description: A knowledge base I started in 2016. It has since amassed to hundreds of articles, guides and documents that serve as a source of truth, second brain and a labor of love.
+description: A knowledge base I started in 2016. It has since amassed hundreds of articles, guides and documents that serve as a source of truth, second brain and a labor of love.
 summary: "A knowledge base built with MkDocs, now archived as legacy documentation."
 liveLink: https://kb.levine.io
-githubLink: https://github.com/davelevine/docs-public
 image: atw.webp
 isFeatured: true
 
@@ -20,7 +19,7 @@ isFeatured: true
 
 ## Description
 
-A knowledge base I started in 2016. It has since amassed to hundreds of articles, guides and documents that serve as a source of truth, second brain and a labor of love. The site was initially created to provide me with a better understanding of the projects I was working on at the time. It now serves as a container for all of my life projects.
+A knowledge base I started in 2016. It has since amassed hundreds of articles, guides and documents that serve as a source of truth, second brain and a labor of love. The site was initially created to provide me with a better understanding of the projects I was working on at the time. It later served as a container for all of my life projects.
 
 ## Key Takeaways
 

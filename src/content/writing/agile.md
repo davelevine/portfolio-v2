@@ -40,7 +40,7 @@ Atlassian has a great write-up of the differences between [Scrum and Kanban](htt
 
 * Each team member has certain roles and responsibilities.
 * Sprints, or set periods of time set aside for work, are heavily used.
-* Modifications during a sprint are discouraged.  # Fixed typo from "spring" to "sprint"
+* Modifications during a sprint are discouraged.
 * Best for teams with stable priorities.
 
 #### Kanban

@@ -4,7 +4,7 @@ categories:
     - Serverless
     - APIs
 title: API Gateway
-date: "2020-04-06T17:21:00Z"  # Removed seconds from the date
+date: "2020-04-06T17:21:00Z"
 description: A beginner's exploration of AWS API Gateway and its role in enabling communication between services.
 ail: 0
 ---
@@ -55,7 +55,7 @@ _Obtained from [AWS](https://docs.aws.amazon.com/apigateway/latest/developerguid
 
 ![Screen Shot 2020-04-06 at 12.17.13 AM](https://cdn.levine.io/uploads/images/gallery/2022-09/04/Screen-Shot-2020-04-06-at-12.17.13-AM.png)
 
-_Obtained from the [Orion Papers](https://interactive.linuxacademy.com/diagrams/AWSCSA.html)_
+_Obtained from the [Orion Papers](https://web.archive.org/web/20190916070017/https://interactive.linuxacademy.com/diagrams/AWSCSA.html)_
 
 ### Wrapping Up
 

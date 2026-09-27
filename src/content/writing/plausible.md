@@ -15,7 +15,7 @@ ail: 0
 
 Analytics has been something that I've had mixed feelings about for as long as I've been aware of them. I understand the obvious benefits that come from having them in place. I also understand the privacy implications that come from having them in place. For me personally, I generally block as much analytics and telemetry as I can.
 
-However, because I see the appeal in having them, I wanted to setup my own to understand them a bit better. I figured that if I setup my own on my own personal sites, it would give me a better idea of how they work. The sites I run are all visited by me, except my portfolio, which is public (not sure how much traffic that one is currently getting, but I'll find out now).
+However, because I see the appeal in having them, I wanted to set up my own to understand them a bit better. I figured that if I set up my own on my own personal sites, it would give me a better idea of how they work. The sites I run are all visited by me, except my portfolio, which is public (not sure how much traffic that one is currently getting, but I'll find out now).
 
 ## Finding a Solution
 
@@ -34,11 +34,11 @@ Each of these had their own appeal, and I'll go through what ultimately caused m
 
 I had given Fathom a try probably a year ago, but I didn't have any sites to add to it at the time. What I didn't realize at the time, but realized this go-around was that Fathom has deprecated their self-hosted option, so it's ultimately a very stripped down version of their hosted option.
 
-When looking at the other alternatives and the amount of work to get Fathom setup, I knew I could do better.
+When looking at the other alternatives and the amount of work to get Fathom set up, I knew I could do better.
 
 ### Matomo
 
-Matomo literally bills itself as "Google Analytics alternative that protects your data and your customers' privacy". On it's face, this is a pretty good draw. If you're looking for a slightly less complicated solution than Google Analytics, but still want a slick interface and the increased privacy, it's a great solution.
+Matomo literally bills itself as "Google Analytics alternative that protects your data and your customers' privacy". On its face, this is a pretty good draw. If you're looking for a slightly less complicated solution than Google Analytics, but still want a slick interface and the increased privacy, it's a great solution.
 
 Since I run nearly all my self-hosted apps in Docker containers, this would be no exception. The problem was that for some reason, I couldn't figure out how to get it running with an external MySQL database. It's possible I just didn't stick with it long enough, but frankly, I don't want to spend hours on a service to get it to work, especially one like this that's purely just satisfying my own curiosity.
 

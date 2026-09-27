@@ -65,7 +65,7 @@ Install Docker and the following containers:
   - Adjust file/folder paths as necessary and ensure they all work as they should.
   - Make absolutely sure that all files/folders have the proper permissions to work, especially regarding the Google Photos backup.
 - Migrate Nagios XI to Raspberry Pi
-  - This may not even be is not necessary as Glances will likely cover what's needed. May need to take health notifications for disk, RAM, etc. into consideration.
+  - This may not even be necessary as Glances will likely cover what's needed. May need to take health notifications for disk, RAM, etc. into consideration.
     - Edit: After looking into this further, I will install Smartmontools from the Ubuntu package repository and run it every month with a cron job. Reports will be sent to healthchecks.io.
       - Instructions to do this can be found [here](https://brismuth.com/scheduling-automated-storage-health-checks-d470b4283e3e)
   - Reimage the current Raspberry Pi that displays Nagios

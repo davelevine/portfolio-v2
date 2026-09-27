@@ -18,7 +18,7 @@ Good employees quit for a lot of reasons, and in most cases, it has nothing to d
 
 This is something I personally struggle with. I often joke that I know the exact moment where I took a wrong turn in life — in the guidance office my freshman year of college when I was asked if I wanted to major in Computer Science or Information Management & Technology, which was what general IT was called at the time. Because I was lazy and because coding seemed hard, I chose Information Management & Technology. 15 years have passed and the decision has haunted me ever since.
 
-Not going into Computer Science really hobbled my career prospects, because it left me with a large gap in my skill-set. Nowadays, you can't even get your foot in the door doing without having some coding knowledge.
+Not going into Computer Science really hobbled my career prospects, because it left me with a large gap in my skill-set. Nowadays, you can't even get your foot in the door without having some coding knowledge.
 
 But I digress, that's not the point of this post.
 

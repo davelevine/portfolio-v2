@@ -47,7 +47,7 @@ There are a handful of constraints and quotas that are imposed on RDS. Instead o
 
 ### Multi-AZ Deployment
 
-One of the biggest benefits of using RDS is that it can be deployed using a number of Availability Zones (AZs). This provides an increased amount of availability and durability. When a database is deployed to multiple AZs, the data is synchronously replicated to a standby note in a different AZ.
+One of the biggest benefits of using RDS is that it can be deployed using a number of Availability Zones (AZs). This provides an increased amount of availability and durability. When a database is deployed to multiple AZs, the data is synchronously replicated to a standby node in a different AZ.
 
 Some additional benefits of [Multi-AZ architecture](https://aws.amazon.com/rds/features/multi-az/) are:
 
@@ -70,4 +70,4 @@ Read replicas are something that I've seen before as an offering in my own envir
 
 I don't want this post to become unmanageable by writing in detail about all the AWS database offerings. To accomplish this, I'm going to split this post into a few parts so that it doesn't become overwhelming.
 
-Part 2 can be found [here](../blog/databases-part-2).
+Part 2 can be found [here](/writing/databases-part-2/).

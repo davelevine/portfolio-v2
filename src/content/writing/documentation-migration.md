@@ -4,9 +4,7 @@ categories:
     - Documentation
 title: Documentation Migration
 date: "2021-03-09T00:31:00Z"
-# Start of Selection
 description: Migrating my documentation to Markdown has proven to be more challenging than I thought.
-# End of Selection
 ail: 0
 ---
 
@@ -52,12 +50,12 @@ The Notion export is fine if all you do is document things without tables, but f
 
 My solution ended up being a weird one, but it ultimately worked.
 
-There's a service called Gitbook that allows you to import documentation from another service and will turn it into Markdown. One of the services happens to be Confluence. What I did was I exported the three spaces I work with (shelves in Bookstack) and imported them all into Gitbook. The result was pretty good, but the organization was largely lost. This is because of the ridiculous way that Confluence chooses for documentation. Because it doesn't allow you to group sections like Bookstack does with chapters, you're left with nesting pages upon pages underneath one another. This is fine if you never leave Confluence, but once you do, your documentation is unstructured. Not to mention that there were some formatting differences between the services.
+There's a service called Gitbook that allows you to import documentation from another service and will turn it into Markdown. One of the services happens to be Confluence. What I did was I exported the three spaces I work with (shelves in Bookstack) and imported them all into Gitbook. The result was pretty good, but the organization was largely lost. This is because of the ridiculous way that Confluence chooses to organize documentation. Because it doesn't allow you to group sections like Bookstack does with chapters, you're left with nesting pages upon pages underneath one another. This is fine if you never leave Confluence, but once you do, your documentation is unstructured. Not to mention that there were some formatting differences between the services.
 
-It took awhile, but I was able to get the documentation structured and the formatting straightened out. The problem was that I didn't want to use Gitbook. It's not particularly polished, and it's a bit clunky to work with. What it does have in its favor is the ability to leverage the GitHub API. I was able to connect my GitHub account to Gitbook, create a documentation repo and shuttle all my documentation into it in Markdown.
+It took a while, but I was able to get the documentation structured and the formatting straightened out. The problem was that I didn't want to use Gitbook. It's not particularly polished, and it's a bit clunky to work with. What it does have in its favor is the ability to leverage the GitHub API. I was able to connect my GitHub account to Gitbook, create a documentation repo and shuttle all my documentation into it in Markdown.
 
 Problem solved.
 
 ## Conclusion
 
-Although it took awhile, it was an incredibly worthwhile exercise to allow for portability of all my documentation. Not that I'm necessarily going to be leaving the aforementioned services (Confluence may be on the chopping block), but I'd like the option to in case the day arises.
+Although it took a while, it was an incredibly worthwhile exercise to allow for portability of all my documentation. Not that I'm necessarily going to be leaving the aforementioned services (Confluence may be on the chopping block), but I'd like the option to in case the day arises.

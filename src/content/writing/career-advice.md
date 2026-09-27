@@ -9,7 +9,7 @@ description: Reflections on Moxie Marlinspike's "Career Advice" and what you sho
 ail: 2
 ---
 
-I read an incredibly well written blog post this evening by Moxie Marlinspike titled ["Career Advice"](https://moxie.org/2013/01/07/career-advice.html). It provided just that, but also some real insight into what you should strive for before you settle into a career. It's been awhile since I've read something that really resonated with me.
+I read an incredibly well written blog post this evening by Moxie Marlinspike titled ["Career Advice"](https://moxie.org/2013/01/07/career-advice.html). It provided just that, but also some real insight into what you should strive for before you settle into a career. It's been a while since I've read something that really resonated with me.
 
 ## The Chase is Better Than the Catch
 
@@ -53,7 +53,7 @@ Reading this made me feel a number of different things. Scared, sad, and bummed 
 
 I currently work at Weill Cornell Medicine, and while it does have its perks and there are a lot of great people there, it's a big place with a lot of red tape. The gears of progress turn pretty slowly.
 
-For a lot of people, this isn't a bad life. When I was hired, I thought it would be a place I'd retire from. I mean, I really didn't think I could move any higher than that. The longer I stayed, however, the less prospects I saw for my career. I've now been here for 6 years, and keeping my skills sharp has been on me, not the job. I often wonder if others who work in places like this run into the same problem. I can assume the answer is a resounding "yes", which may be the reason why people get comfortable and stick around.
+For a lot of people, this isn't a bad life. When I was hired, I thought it would be a place I'd retire from. I mean, I really didn't think I could move any higher than that. The longer I stayed, however, the fewer prospects I saw for my career. I've now been here for 6 years, and keeping my skills sharp has been on me, not the job. I often wonder if others who work in places like this run into the same problem. I can assume the answer is a resounding "yes", which may be the reason why people get comfortable and stick around.
 
 ## Chasing a Phantom
 

@@ -94,6 +94,6 @@ At this point, the droplet was beginning to show signs of slowing down, so I nee
 
 I should also mention I installed a number of miscellaneous apps that I was hosting on my homelab. The decision to migrate them had more to do with their value than anything else. If I had something catastrophic happen to my homelab, I'd like to know those are safe.
 
-I currently have three cron jobs running daily and weekly to backup everything to B2. This ensures complete peace of mind in my setup. Anything in my homelab is nearly 'take it or leave it', and my cloud environment can be restored with a single Docker compose file, and a handful of rclone commands. Because I'm so neurotic, I ever wrote a [knowledge article](https://knowledge.davelevine.io/books/digitalocean/page/how-to-restore-digitalocean-environment) on it.
+I currently have three cron jobs running daily and weekly to back up everything to B2. This ensures complete peace of mind in my setup. Anything in my homelab is nearly 'take it or leave it', and my cloud environment can be restored with a single Docker compose file, and a handful of rclone commands. Because I'm so neurotic, I even wrote a [knowledge article](https://knowledge.davelevine.io/books/digitalocean/page/how-to-restore-digitalocean-environment) on it.
 
 I know that sounds almost silly because, what if everything is lost? Well, I also copy every article I write into Confluence, which is hosted by Atlassian. That way, I have complete redundancy of my knowledge base, so if disaster should strike, I'll be ready for it.

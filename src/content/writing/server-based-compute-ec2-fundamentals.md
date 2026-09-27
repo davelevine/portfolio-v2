@@ -14,7 +14,7 @@ As I mentioned in my first post, I'm working my way through the [AWS Certified S
 
 * This course is ultimately teaching me to look at system architecture differently — to break down an entire machine into tangible bits and fully understand the purpose of every part. A few examples...
   * EC2 instances are just base images without any attributes other than the defaults. Configuration is performed as necessary before or after an instance is created.
-  * EBS volumes are just that... storage volumes. They can be attached and remove at will, the same way as hard drives.
+  * EBS volumes are just that... storage volumes. They can be attached and removed at will, the same way as hard drives.
 
 Learning about system architecture this way is making me think differently about computing and what's possible.
 

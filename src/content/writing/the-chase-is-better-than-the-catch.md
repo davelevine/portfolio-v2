@@ -16,7 +16,7 @@ I'm a bit of a strange case in the sense that I greatly prefer setting up and co
 
 Where did it all begin?
 
-The short answer is that, it's hard to say. I've always been fascinated with having a project of some sort — building a computer, playing guitar, learning something new, etc, so the idea of keeping busy is comfortable for me. The thing is, I like being busy, but only with the things that I enjoy doing.
+The short answer is that it's hard to say. I've always been fascinated with having a project of some sort — building a computer, playing guitar, learning something new, etc, so the idea of keeping busy is comfortable for me. The thing is, I like being busy, but only with the things that I enjoy doing.
 
 I guess that's everyone though. Moving on...
 
@@ -36,9 +36,9 @@ I think what it comes down to is give and take. Devoting your time to something 
 
 ## Time Well Spent?
 
-Is any of this time well spent? The answer is, it depends on the project. Most of my projects result in me learning something, so I personally think the answer is yes, although not without sone caveats.
+Is any of this time well spent? The answer is, it depends on the project. Most of my projects result in me learning something, so I personally think the answer is yes, although not without some caveats.
 
-Not all projects where something is learned are worth the time spent on it. In my case, I live learning because it's fulfilling, but the things that I've learned don't necessarily translate to being able to move me forward. If I learn how to properly configure vLANs on a pfSense router with Ubiquiti access points, is that going to help me with anything else that may come my way, or is it a completely niche scenario?
+Not all projects where something is learned are worth the time spent on it. In my case, I love learning because it's fulfilling, but the things that I've learned don't necessarily translate to being able to move me forward. If I learn how to properly configure vLANs on a pfSense router with Ubiquiti access points, is that going to help me with anything else that may come my way, or is it a completely niche scenario?
 
 In my case, I don't do networking for a living, nor do I know anyone with this kind of setup, so the answer becomes two-fold:
 
