@@ -16,7 +16,7 @@ original, so the copies drop the family and style names and are loaded as
 | Brand Mono | base64 WOFF2 inlined in `src/styles/globals.css` | weight 550, glyphs ` /<>DLaeinv` (~1 KB) |
 | Code Mono | `code-mono.woff2`, bundled by Vite | variable weight 400–700, Latin (~26 KB) |
 
-Code uses weight 450 and `font-feature-settings: "cv01" 2`, the slashed zero (the
+Code blocks use weight 450 (inline code 400, matching body text) and `font-feature-settings: "cv01" 2`, the slashed zero (the
 default zero is close to `O`). Xenon's `calt` only does texture healing, not
 symbol ligatures, so ligatures stay on.
 

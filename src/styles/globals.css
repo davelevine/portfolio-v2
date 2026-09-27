@@ -1078,6 +1078,7 @@ span.uses-row-title:hover {
 .prose :not(pre) > code {
   font-family: var(--font-mono);
   font-size: 0.85em; /* mono glyphs are wide; keeps inline code in step with body text */
+  font-weight: 400; /* body weight: the red and tint already mark it as code */
   background-color: var(--surface);
   color: var(--accent);
   border-radius: 4px;
