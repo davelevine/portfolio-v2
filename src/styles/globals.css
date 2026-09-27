@@ -288,10 +288,13 @@ h1, h2, h3, h4 {
   padding: 10px 0;
 }
 
+/* Five links plus the theme toggle: tighter gaps fit a 375px phone on one line, and the
+   narrowest screens wrap instead of pushing items off the edge. */
 .mobile-secondary {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 24px;
+  gap: 0 16px;
   margin-top: 4px;
   border-top: 1px solid var(--border);
 }
