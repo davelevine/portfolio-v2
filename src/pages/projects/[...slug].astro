@@ -16,7 +16,7 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public/images/projects';
 const src = (img?: string) => (img?.startsWith('http') ? img : `${cdn}/${img}`);
 ---
 
-<Layout title={`${title} | Dave Levine`} description={description}>
+<Layout title={`${title} | Dave Levine`} description={description} image={image && src(image)}>
   <main class="wrap">
     <article data-lightbox>
       <header class="post-header">

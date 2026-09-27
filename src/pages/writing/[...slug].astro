@@ -15,6 +15,8 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const { title, description, date, category, categories = [], isFeatured, ail, ailImages } = post.data;
+// Fancybox is ~100 KB; only ship it to posts that have images.
+const hasImages = /!\[|<img/.test(post.body ?? '');
 const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
 ---
 
@@ -44,7 +46,7 @@ const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
   </main>
 </Layout>
 
-<Lightbox />
+{hasImages && <Lightbox />}
 
 <script>
   // Code-copy buttons.
@@ -69,7 +71,7 @@ const topics = [...new Set(categories.map((c) => c.toLowerCase()))];
       btn.setAttribute('aria-label', 'Copy code to clipboard');
       container.append(btn, pre);
       btn.addEventListener('click', () => {
-        navigator.clipboard.writeText(pre.innerText).then(() => {
+        navigator.clipboard.writeText((pre as HTMLElement).innerText).then(() => {
           btn.innerHTML = CHECK;
           setTimeout(() => (btn.innerHTML = COPY), 2000);
         });
