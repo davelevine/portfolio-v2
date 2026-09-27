@@ -161,6 +161,9 @@ h1, h2, h3, h4 {
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
+  /* TODO: stand-in weight. Only Pitch Regular is licensed and it reads too thin; */
+  /* drop this and set font-weight: 600 once the SemiBold subset replaces it. */
+  -webkit-text-stroke: 0.3px currentColor;
   letter-spacing: -0.025em;
   color: var(--fg);
 }
