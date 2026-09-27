@@ -21,5 +21,25 @@ f.flavor = 'woff2'; f.save('brand-mono.woff2')
 print(base64.b64encode(open('brand-mono.woff2', 'rb').read()).decode())
 ```
 
-Everything else uses system fonts: serif for headings, sans for body text and
-labels, and system monospace for code (IBM Plex Mono if it's installed locally).
+## Code
+
+Inline code and code blocks use **Pitch Regular** from
+[Klim Type Foundry](https://klim.co.nz), as the `@font-face` "Code Mono" in
+`src/styles/globals.css`, with system monospace as the fallback.
+
+Pitch is commercial, under Klim's [web font licence](https://klim.co.nz/licences/web-fonts/)
+for dave.levine.io. The licence requires reasonable measures against unlicensed
+access and direct download, so **the font file must never be committed to this
+public repo** (`*.woff2` is gitignored as a guard). The full, unmodified file lives
+in the `levine` R2 bucket at `uploads/portfolio/public/fonts/webfonts/pitch-regular.woff2`,
+served from `https://cdn.levine.io`. The bucket's CORS policy (homelab-iac,
+`terraform/modules/cloudflare/data/r2_cors.yaml`) lists which origins browsers let
+use it; `https://dave.levine.io` must stay in that list, and local dev only gets
+Pitch from an origin that's listed there too.
+
+Pitch has contextual alternates that turn `->` and `<-` into arrows, so code sets
+`font-variant-ligatures: none`. It has no slashed or dotted zero; `0` and `O` rarely
+share a token in this site's code, so that's accepted.
+
+Everything else uses system fonts: serif for headings and sans for body text and
+labels.

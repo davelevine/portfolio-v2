@@ -14,7 +14,7 @@
   --border-strong: #89847a; /* 3:1 boundary for form inputs (WCAG 1.4.11) */
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-mono: "IBM Plex Mono", Menlo, Monaco, Consolas, monospace;
+  --font-mono: "Code Mono", Menlo, Monaco, Consolas, monospace;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --transition-fast: 0.15s ease;
   /* Small text steps; one notch larger on phones for legibility. */
@@ -50,6 +50,17 @@
   font-weight: 600;
   font-display: block;
   src: url("data:font/woff2;base64,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") format("woff2");
+}
+/* Code font: Klim's Pitch Regular, used for inline code and code blocks. Commercial */
+/* web licence for dave.levine.io: the file must not be in this public repo, so it's */
+/* served from cdn.levine.io, whose R2 CORS policy only lets allowed origins use it. */
+/* swap: code stays readable in the fallback mono while the font loads. */
+/* Pitch's calt turns -> and <- into arrows, so code sets font-variant-ligatures: none. */
+@font-face {
+  font-family: "Code Mono";
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://cdn.levine.io/uploads/portfolio/public/fonts/webfonts/pitch-regular.woff2") format("woff2");
 }
 /* ---- base ---- */
 * {
@@ -1070,6 +1081,7 @@ span.uses-row-title:hover {
 }
 .prose :not(pre) > code {
   font-family: var(--font-mono);
+  font-variant-ligatures: none;
   background-color: var(--surface);
   color: var(--accent);
   border-radius: 4px;
@@ -1081,11 +1093,12 @@ span.uses-row-title:hover {
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow-x: auto;
-  font-size: 14px;
+  font-size: 15px; /* Pitch's short x-height (0.424em) read small at 14px */
   line-height: 1.5;
 }
 .prose pre code {
   font-family: var(--font-mono);
+  font-variant-ligatures: none;
   white-space: pre;
 }
 .prose img {
