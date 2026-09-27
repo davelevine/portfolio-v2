@@ -1,0 +1,74 @@
+---
+// Note — a reference how-to / lookup snippet.
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import { formatDate, readingTime } from '../../lib/format';
+import Lightbox from '../../components/Lightbox.astro';
+import AilBadge from '../../components/AilBadge.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const { title, date, description, topics, ail, ailImages } = note.data;
+const hasImages = /!\[|<img/.test(note.body ?? '');
+---
+
+<Layout title={`${title} | Dave Levine`} description={description}>
+  <main class="wrap">
+    <article data-pagefind-body>
+      <header class="post-header">
+        <div class="post-tags">
+          {topics.map((t) => <a class="tag-text" href={`/notes/?q=${t}`}>#{t}</a>)}
+          <AilBadge ail={ail} ailImages={ailImages} />
+        </div>
+        <h1>{title}</h1>
+        <p class="post-meta">
+          <time datetime={date.toISOString()}>{formatDate(date)}</time> in <a href={`/notes/#topic-${topics[0]}`}>{topics[0]}</a> · {readingTime(note.body)} min read
+        </p>
+      </header>
+
+      <div class="prose writing-post" data-lightbox>
+        <Content />
+      </div>
+      <div class="end-mark" aria-hidden="true"></div>
+      <a class="more-link" href="/notes/">&larr; All notes</a>
+    </article>
+  </main>
+</Layout>
+
+{hasImages && <Lightbox />}
+
+<script>
+  // Code-copy buttons (shared with writing posts).
+  const COPY =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+  const CHECK =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+  document.addEventListener('astro:page-load', () => {
+    if (!document.querySelector('.writing-post')) return;
+    document.querySelectorAll('.writing-post pre.astro-code:not([data-cb])').forEach((pre) => {
+      pre.setAttribute('data-cb', '');
+      const container = document.createElement('div');
+      container.className = 'code-block';
+      pre.parentNode!.insertBefore(container, pre);
+      const btn = document.createElement('button');
+      btn.className = 'copy-code-button';
+      btn.type = 'button';
+      btn.innerHTML = COPY;
+      btn.title = 'Copy code to clipboard';
+      btn.setAttribute('aria-label', 'Copy code to clipboard');
+      container.append(btn, pre);
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText((pre as HTMLElement).innerText).then(() => {
+          btn.innerHTML = CHECK;
+          setTimeout(() => (btn.innerHTML = COPY), 2000);
+        });
+      });
+    });
+  });
+</script>

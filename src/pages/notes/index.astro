@@ -1,0 +1,56 @@
+---
+// Notes — Heap's /til/ layout: Writing pills with Notes active, search (⌘K),
+// up to five notes from the last two years, then every note under its first tag.
+// Tags link to ?q=<tag>.
+import Layout from '../../layouts/Layout.astro';
+import WritingPills from '../../components/WritingPills.astro';
+import NotesSearch from '../../components/NotesSearch.astro';
+import { getCollection } from 'astro:content';
+
+const notes = (await getCollection('notes')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const twoYearsAgo = new Date();
+twoYearsAgo.setUTCFullYear(twoYearsAgo.getUTCFullYear() - 2);
+const recent = notes
+  .filter((n) => n.data.date >= twoYearsAgo)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
+const topics = [...new Set(notes.map((n) => n.data.topics[0]))].sort();
+---
+
+<Layout title="Notes | Dave Levine" description="Reference notes — short how-tos and lookup snippets I keep coming back to.">
+  <main class="wrap">
+    <header class="page-header">
+      <h1>Notes</h1>
+      <p class="lede">Short how-tos and lookup snippets I keep coming back to, organized by topic.</p>
+    </header>
+    <WritingPills active="notes" />
+
+    <NotesSearch />
+
+    {recent.length > 0 && (
+      <section>
+        <h2 class="section-rule"><span>Recently Added</span></h2>
+        {recent.map((n) => (
+          <div class="post-row">
+            <a class="post-title" href={`/notes/${n.id}/`}>{n.data.title}</a>
+            <span class="post-meta-group">{n.data.topics.map((t) => <a class="post-category note-tag" href={`/notes/?q=${t}`}>#{t}</a>)}</span>
+          </div>
+        ))}
+      </section>
+    )}
+
+    <h2 class="section-rule"><span>All Entries</span></h2>
+    {topics.map((t) => (
+      <section>
+        <h3 class="section-rule topic-rule" id={`topic-${t}`}><span>{t}</span></h3>
+        {notes.filter((n) => n.data.topics[0] === t).map((n) => (
+          <div class="post-row">
+            <a class="post-title" href={`/notes/${n.id}/`}>{n.data.title}</a>
+            <span class="post-meta-group">{n.data.topics.map((t) => <a class="post-category note-tag" href={`/notes/?q=${t}`}>#{t}</a>)}</span>
+          </div>
+        ))}
+      </section>
+    ))}
+  </main>
+</Layout>
+

@@ -691,6 +691,44 @@ a.post-category:hover {
   white-space: nowrap;
 }
 
+/* ---- /notes (Heap's /til/): full-width search, muted mono topic rules, mono #tags ---- */
+/* Pagefind component UI (search trigger + modal), themed from site tokens. */
+pagefind-modal-trigger, pagefind-modal {
+  --pf-font: var(--font-sans);
+  --pf-text: var(--fg);
+  --pf-text-secondary: var(--fg);
+  --pf-text-muted: var(--muted);
+  --pf-background: var(--surface);
+  --pf-border: var(--border);
+  --pf-border-focus: var(--accent);
+  --pf-outline-focus: var(--accent);
+  --pf-hover: var(--surface-alt);
+  --pf-mark: var(--accent);
+  --pf-border-radius: 8px;
+  /* Loading placeholders and the selected result: unset, these stay Pagefind's light grey and
+     flash on every keystroke in dark mode. */
+  --pf-skeleton: var(--surface-alt);
+  --pf-skeleton-shine: var(--border);
+  --pf-scroll-shadow: rgb(0 0 0 / 0.15);
+  --pf-modal-backdrop: rgb(0 0 0 / 0.5);
+}
+.notes-search {
+  display: block;
+  margin: 32px 0 8px;
+}
+.section-rule.topic-rule {
+  margin: 24px 0 8px;
+}
+.section-rule.topic-rule span {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 20px;
+  color: var(--muted);
+}
+.note-tag {
+  font-family: var(--font-mono);
+}
+
 /* ---- pills ---- */
 .category-switcher {
   display: flex;

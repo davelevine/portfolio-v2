@@ -1,0 +1,39 @@
+---
+// Notes search: Pagefind's component UI (trigger bar + modal, ⌘K / Ctrl+K) over the index
+// `pagefind --site dist` builds from note pages (the only pages with data-pagefind-body).
+// The index only exists in a build, so under `astro dev` the trigger doesn't render.
+// /notes/?q=<term> (tag links) opens the modal with that search.
+//
+// Speed: `preload` fetches the engine and index with the page instead of on first open,
+// and the modal's children are Pagefind's defaults except the input's debounce (300ms -> 100ms).
+---
+
+<link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
+<script is:inline type="module" src="/pagefind/pagefind-component-ui.js"></script>
+
+<pagefind-config preload></pagefind-config>
+<pagefind-modal-trigger class="notes-search" placeholder="Search notes"></pagefind-modal-trigger>
+<pagefind-modal reset-on-close>
+  <pagefind-modal-header><pagefind-input debounce="100" placeholder="Search notes"></pagefind-input></pagefind-modal-header>
+  <pagefind-modal-body><pagefind-summary></pagefind-summary><pagefind-results></pagefind-results></pagefind-modal-body>
+  <pagefind-modal-footer><pagefind-keyboard-hints></pagefind-keyboard-hints></pagefind-modal-footer>
+</pagefind-modal>
+
+<script>
+  // Pagefind's shared instance never unregisters elements that leave the page, and it opens the
+  // first modal ever registered. After a client-side round trip (note -> /notes/) that's the old,
+  // detached modal, so ⌘K and the bar do nothing. Drop the instance before each swap; the new
+  // page's elements register with a fresh one.
+  document.addEventListener('astro:before-swap', () => {
+    (window as any).PagefindComponents?.getInstanceManager().removeInstance('default');
+  });
+
+  document.addEventListener('astro:page-load', async () => {
+    const q = new URLSearchParams(location.search).get('q');
+    if (!q || !document.querySelector('pagefind-modal')) return;
+    await customElements.whenDefined('pagefind-modal');
+    const modal = document.querySelector('pagefind-modal') as any;
+    modal.open();
+    modal.instance.triggerSearch(q);
+  });
+</script>

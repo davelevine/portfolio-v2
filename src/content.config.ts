@@ -61,6 +61,22 @@ const now = defineCollection({
   schema: z.object({ date: z.coerce.date() }),
 });
 
+// Reference notes (how-tos, configs, lookup snippets) migrated from the private docs repo.
+// Organized by topic, not date — see /notes.
+const notes = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/notes' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    description: z.string(),
+    // Lowercase topic tags (docker, linux, nginx, aws, …). The first is the note's heading on /notes.
+    topics: z.array(z.string().regex(/^[a-z0-9-]+$/)).min(1),
+    // AI Influence Level (see /ail): 0–5 for the writing, optional separate level for images.
+    ail: z.number().int().min(0).max(5),
+    ailImages: z.number().int().min(0).max(5).optional(),
+  }),
+});
+
 // Scrubbed copies of selected ADRs from the private homelab-iac repo (rendered under /decisions/).
 const adr = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/adr' }),
@@ -91,4 +107,4 @@ const home = defineCollection({
   }),
 });
 
-export const collections = { writing, projects, certs, now, adr, home };
+export const collections = { writing, projects, certs, now, notes, adr, home };

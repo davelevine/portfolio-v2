@@ -1,0 +1,22 @@
+---
+// Writing pills: real routes, shared by the writing archive and /notes (Heap's /til/ pattern).
+import { CATEGORIES, categoryHref, type Category } from '../lib/writing';
+
+interface Props {
+  active: 'all' | 'favorites' | 'notes' | Category;
+}
+
+const { active } = Astro.props;
+const pills = [
+  { key: 'favorites', label: '❤️', href: '/writing/favorites/', title: 'Favorites' },
+  { key: 'all', label: 'All', href: '/writing/' },
+  ...CATEGORIES.map((c) => ({ key: c, label: c, href: categoryHref(c) })),
+  { key: 'notes', label: 'Notes', href: '/notes/' },
+];
+---
+
+<nav class="category-switcher" aria-label="Categories">
+  {pills.map((p) => (
+    <a href={p.href} class:list={{ active: p.key === active }} title={p.title} aria-label={p.title} aria-current={p.key === active ? 'page' : undefined}>{p.label}</a>
+  ))}
+</nav>
