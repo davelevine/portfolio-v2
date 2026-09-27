@@ -44,13 +44,13 @@
 /* src/styles/fonts/OFL-MonaspaceXenon.txt), a slab-serif mono that echoes the serif */
 /* headings. The licence reserves the name "Monaspace", so these trimmed copies go by */
 /* "Brand Mono" and "Code Mono". See src/styles/fonts/README.md to regenerate them. */
-/* Brand: weight 650, subset to the glyphs in "</Dave Levine>" (~1 KB) and embedded */
+/* Brand: weight 550, subset to the glyphs in "</Dave Levine>" (~1 KB) and embedded */
 /* so the brand looks identical everywhere and never flashes a fallback. */
 @font-face {
   font-family: "Brand Mono";
-  font-weight: 650;
+  font-weight: 550;
   font-display: block;
-  src: url("data:font/woff2;base64,d09GMgABAAAAAATEAAsAAAAACKgAAAR4AAFmZgAAAAAAAAAAAAAAAAAAAAAAAAAAHDAGYACBBAqHBIVhATYCJAMaCxoABCAFhH4HIBsmBwguBmNnWRgrm5DSZlwva85u6r6NAJKLnL2XUYHqQLiCmAz/u/dPg9jjBbmtGdVkfD6AaBye2Vz9DxBuuX2Zn7X9/OX0xtIDvNpkCSZ4g9792pStRZPG1gADi06gtu0BEmmYBSCJZ9sSH/mqcSBSl0gUG4OeJiC2vOhMK+iRGODWsq68EAR0QiuLQQAz+F90DlGj3otMEE3MaEmjbsMcaxU5pFXENE4sYBss1LB6fBg4KKPqGNj/bk7GaAF9ZQVRXkbbNTkjc0QQBUmZUkJSZrp9rpScmIopIwYpOS0EKkueYtX/C/E+3SLstdIyi803owAyQVxWLwYkwF/CLEBUBEWKMxhFnpkobrwYqVMRHOKlT+hmFjNm4/gY69g4yH7io1uG3XsYO25L24G7d8LIBzax6w+d31GDxnV2uGNMsm1CbYOP+fA712NPuBVTMC75xt04E29fE7VcLMiI/fDOnTD87pPGDa9C0LDj12rwbrizXiD2o8fV//DJTIGEIUEZKEmiidshTfnYmDKpMR5jHotBJTyLRihw+pMqRT1g2AjXNV4U/HyVcZcwfsUKwo0NsEYeuy5UiWVsHITzgLuvDjysSIPGqbbpznq1NrEN9rXxFVB5fBWoHFgKyhpUQzW89jXBsry3KD57d7y9nHjpaP7zl2MauO26+rb09mk1C/pDTbfF3WLPtHV7wQz/rmSHP4PU8Tq4RAEwr9cAbZqKkAuql7L+FgYpNGz1r6IVuGEJgZKwMu380NZJmGzSfNaZ7P16NkvQmV637YfIE23x2SdjTykT157evXpyrvJDEn19LHfmKIlUEVqQ2XxFX8F33d8NrjLBDgFPU0Qf0v15Y+OW0Sevnzhb1OHh+rrOQwU1cxPoDbgmPKIuRLuovlaza6KwPKJcxLCcnVHzvnn2LdkwMDpiba4s/1XJGmsEHfULfHeUyF+T2/Hc59bTujlpIWwET4yMwhIRBEuKApcOvFEbb47hULZCWT6/42XSkcebrCU08ur8RanFOkZbi0Ml268M7riXJ6Ms5DUuFJzRFvc7/u9/26/op0HMnlcbvtCQ7yMP5uffXJXgzapIh4m2xvaOyWBFvmfF1UcmnSVkb4QJHo1gy6WaM3Gx39gD37Oc/56ZukKOj2W+SxYApT8KCG2y0wPXDE93lH6LGSXGNXh2vfhMO3fjdID/P1G3Ri8EiCECAjfsiXqP4pCa3xIE4tRmgOL48sQbUwbfkF1WC4irSGYLmBVFbqZC1Fgi4uMZY4Rl4r9WPGvCFvVkyVGlEKqcRolSdcrlyZGrEoyNiY0DZpCnklEVDBUsSDEcHYwYgcqM0gpiDAw5QuZqo8OVKOpaF8tSqxKKqEnFUBVKoXBZSGucNSEV3laihCzlqiFTkT4qVIKFoSJOI4wgVCZBaE3kwlTK5Wj7dHdhshRP6KxY7KOgMntDFcsMVYYoV6dUZTCbLloQRIVwpbIaviODyIN3UUXKb2KhY4F/CBhcplAJTL8QKk8xBkQQDZ0w0XRMgf9XFQA=") format("woff2");
+  src: url("data:font/woff2;base64,d09GMgABAAAAAATIAAsAAAAACKQAAAR7AAFmZgAAAAAAAAAAAAAAAAAAAAAAAAAAHDAGYACBBAqHAIVmATYCJAMaCxoABCAFhH4HIBsrB1GUDU6F5IsCu+FYVLOJyIHAiUsD9r5eJ2Ip/iI+ka8tERYPn7f3t7/b1YVBmEEWB5RmnFEIiQ3+bfc22aSA6/apy2JJKWlgXT4TnMDBxzbYBznkseXFHeFlszWZNAWMB3j3AvI/HGDomrooPZ1Fkk2wRD7o/9ZF7yuM0gIZ2Gig0QUy0uFAYOIzt9YS9xoxiiE6jyGSED18mYDZBsgeNk4YNO+c1HjoPSHpidCTA+M/vIDMGxQy8rJx5TLwWoXyCS+UFCaqHDpeJ+ECf8TYPfSf6l8c6Au2R/2p14FdHgpUWGVZAjn3e22qstIAWrZq2zEMhSOzB9zP+Ue75aJzDtgyZtiAHq0hUD4CJuDxQSIrAPwBqCc5qIAgRdYjg9Mr2ZmYaQX4ZVmYRdi4qOjoiDuMHr9FzHUPb0LxjQcMTGGFOvJtVHaLgcGzYyNWwIgcJqKCPTF6u3kC1CUkElZ7DVPzIsjkwCTXrwOVxQ0EMzwgkVAJ+TGBX1MTFLeQdohMwLnSzfDwkVhvP+6XBzbEapYuKWOoBd2aOJb7EQRGjeMoaYLGCwO23wPRmAmK27ykO4ToF5KwbT1iakqWPJ3mVZcp8Q6jxW9R2ARw18i8peIAIwIYg4rNshnwgDH7Lg2l3mVAel4ypGCZKGsxc8ZOK+DDjVwHZz0gcU2V6j14WObBfeDaA+Xhzoqleoxuh/sg85nOjMvQD35oRbj4s56X/0U0UAfQ30Z67eUSUlq1XqovI9A4NERWcNTFgyQswCfXVtI5uEJE/qvvPCmXU71k7NdZLnb8pEyFj48wiaHJDC/2r1juUDZ7xUJTmFBdkC72dlRQsHCX0rft0rbRTHhbbNOu5ghPeCG/7MNfakaodrLxTHz8rXEn2bKIZBlfnYJ4S3ffCnf7yfw8x53e2DS/XGMJm6OVwuYvcekNmVDoyFwK0Qn5pW+7opllHvx6VSdkMSTrloDVR3vJWyvb+Lg5OPi62Vj7ejgAacGLlehL2X2UV48TNBcOqaLIaykIWsrm6WQK6fsmWWoUBe/qBM/aZV2NzDQdtAPYDWzJiuU+Pq8P3P3n0ebCrwH959OOYdD2z7O27VTC7u+wftiBsC67rNWsfjujMJ6jp09D80m5E/n/n0lgd1/tZabaK5njf7X6t8D8WmINMNdeptVDBAAAph8AAQCKpO8RpKEgVqOvdFnaSwAATy/rtNmFCWEw/K+XszR6xaR0DgR22JQ3AB4g+y4R4bp9pc7+SxTvftlZ92HPNE4tjnE5dFi1ZFnSg+soJRHDWN6rebHIA4VhEWF0WxQqj47DYJkGEBAEamAPx7TPgps3cEBGAAxMp/omlWERCMQcTLY2AEEhOYoyist0S5RKfYxBhSFQZmbonQAcvBQBBBSdTZAMd2MC08AplJAaB6acGMeYyu1GDmzQMZw/WNkpiun3hcmkeglDVoeRkYHEIzqPygyFA64cOGbBGRWV8RWI5+UQDI0BvwkGgA1+hwARQnRIXFABHLnvsQNbdpy6siNLtY1OdgAA") format("woff2");
 }
 /* Code: variable weight 400-700 (bold tokens get a true bold), Latin subset (~26 KB). */
 @font-face {
@@ -168,7 +168,7 @@ h1, h2, h3, h4 {
   /* step above the 14px nav links instead of shrinking with the small-text scale. */
   font-size: 17px;
   line-height: 24px;
-  font-weight: 650;
+  font-weight: 550;
   letter-spacing: -0.025em;
   color: var(--fg);
 }
