@@ -31,7 +31,8 @@ This is the `v2` rewrite: the previous site was a Next.js
 piece by piece. Several source comments reference that lineage where the
 behaviour is intentionally preserved (CDN images, View Transitions). The
 visual design follows [michaelheap.com](https://michaelheap.com/): warm
-light palette, one red accent, system fonts with mono labels.
+light palette, one red accent, system fonts for headings and text, and
+[Monaspace Xenon](https://monaspace.githubnext.com/) for the brand and code.
 
 All imagery lives on [`cdn.levine.io`](https://cdn.levine.io)
 and are referenced by URL — the repo stays free of large binaries.
@@ -69,7 +70,7 @@ markdown             SCSS + Shiki    static    dave.levine.io
 | Concern | How it works |
 |---|---|
 | [Theme](./src/layouts/Layout.astro) | Light/dark is owned on `<html data-theme>`: the saved choice (`localStorage`) or the OS preference, set before first paint and re-applied across View Transitions so navigation never flashes. |
-| [Code blocks](./astro.config.mjs) | [Shiki](https://shiki.style/) with GitHub Light / Dark Dimmed, fitted to the site palette (site backgrounds, token colours nudged to WCAG AA) in `astro.config.mjs`; `globals.css` switches themes with `[data-theme]`. Writing posts get a copy button. |
+| [Code blocks](./astro.config.mjs) | [Shiki](https://shiki.style/) with GitHub Light / Dark Default, fitted to the site palette (site backgrounds, token colours nudged to at least 5.5:1 contrast) in `astro.config.mjs`; `globals.css` switches themes with `[data-theme]`. Writing posts get a copy button. |
 | Images | Served from `cdn.levine.io` by URL; root-relative `/images/*` paths in cert markdown are rewritten to the CDN by a rehype plugin at build time. |
 | Lightbox | Writing-post images open in a [Fancybox](https://fancyapps.com/fancybox/) gallery (`@fancyapps/ui`) with zoom, pan, and a counter. |
 | [Feeds](./src/pages/rss.xml.js) | An RSS feed and a sitemap (`@astrojs/sitemap`) are generated on every build. |
@@ -128,7 +129,7 @@ portfolio-v2/
 │   ├── pages/              # File-based routes (index, about, now, uses, contact, decisions/, writing/, certs/, projects/, rss.xml.js)
 │   ├── layouts/            # Base layout (head, theme, analytics) + PageLayout for Markdown pages
 │   ├── components/         # Astro components (Navbar, Footer, Hero, WritingArchive)
-│   └── styles/             # globals.css (plain CSS: tokens + all shared styles), fonts/ (brand font license)
+│   └── styles/             # globals.css (plain CSS: tokens + all shared styles), fonts/ (mono font files, licence, regeneration notes)
 │   ├── lib/                # Date formatting, reading time, writing and decision categories
 ├── public/                 # Static assets served as-is (manifest, robots.txt, résumé, _redirects)
 ├── astro.config.mjs        # Astro config: site, Shiki, rehype plugins, sitemap

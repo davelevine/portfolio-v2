@@ -14,7 +14,7 @@
   --border-strong: #89847a; /* 3:1 boundary for form inputs (WCAG 1.4.11) */
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-mono: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
+  --font-mono: "Code Mono", Menlo, Monaco, Consolas, monospace;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --transition-fast: 0.15s ease;
   /* Small text steps; one notch larger on phones for legibility. */
@@ -40,16 +40,24 @@
     --text-sm: 14px;
   }
 }
-/* Brand font: JetBrains Mono SemiBold (instanced from the v2.304 variable font), */
-/* subset to the glyphs in "</Dave Levine>" (~1 KB) and embedded so the brand looks */
-/* identical everywhere, including Android, whose system mono has no bold. */
-/* SIL Open Font License 1.1, see src/styles/fonts/OFL-JetBrainsMono.txt. */
-/* If the brand text changes, re-subset it (see the note in that folder's README). */
+/* Mono fonts: Monaspace Xenon (GitHub; SIL Open Font License 1.1, see */
+/* src/styles/fonts/OFL-MonaspaceXenon.txt), a slab-serif mono that echoes the serif */
+/* headings. The licence reserves the name "Monaspace", so these trimmed copies go by */
+/* "Brand Mono" and "Code Mono". See src/styles/fonts/README.md to regenerate them. */
+/* Brand: weight 650, subset to the glyphs in "</Dave Levine>" (~1 KB) and embedded */
+/* so the brand looks identical everywhere and never flashes a fallback. */
 @font-face {
   font-family: "Brand Mono";
-  font-weight: 600;
+  font-weight: 650;
   font-display: block;
-  src: url("data:font/woff2;base64,d09GMgABAAAAAAP4ABAAAAAAByAAAAOdAAJN0wAAAAAAAAAAAAAAAAAAAAAAAAAAGhwbIBwqBmA/U1RBVEQAgQQRCAqFfIRFATYCJAM4Cx4ABCAFgQIHIAwHGzUFUdQkwagA5IsDu+HzQ0SssXI4CKvOzysQRn7GT3qRuEkDETy/Rjrv7x7Q5gLEoAhkhENQ7Cpbxa5so7D/yxoL/59dztx5/m0k7IXsDozRgZtyNxBaqNLroXNTp08e8kZngvq/T3+q5mVzOJYLTrEgrtk1wYotNaQVLNCnrgHYC3eR9gpYoJq7ykK0spjdtZ+nuwpUA5IklAhlyoVApRZaiQmTZixQLofvAIbSSRdpuWLH2gO7NOEBKU9L0hIlpIuejOmrY5V+MYZEBbOHjdPG4a02DmVfvpnQXvRgVSV1Sj+jjVIhlEtoIKGDdHjzlgOR8wGmsqgRcrUCojItQSakKECAFB/TAPW9Xym3B03UypRro7cRRplghrU22mqXQ9+h3ys9Dl/ePXlw4tCebSsMwe4X4jt1EArQAnXxA1GDAtUgk4QkfSeqRNw+z7L1MiIKBj9CvCgBRcmAEsqMvYIWIQVC4MxmlGZMJqICzor5jIWQ+FUCCilZC2asVgDMfBD2zYfcUo5dIpjEz7yaVH0OE/YLnblZneqJn65FFiwD9+kPJpMer+2sCVEDBj7BFA8QCPdeDCNjPvOTxkHeuwG028e+u6f+ejAox2FEjVsvH703HqJacDMabMGtqOnszmP9PrK5h33GzAtwT2gm3ZnjrPwynpYX0vIENN/xVtWdRbeW+ZfS7d1ZVY2NTfLyMrk/fbxQE5py9I4UtaA/ipaG+ozkenUcvRWT3JiZshrcIygfVjd1DDapR3o63VxjxqqCPTT5FXRa5VJ8SEzcEIpX2paZ1VI6W5bV7L59aVlrRlZDcasqkf7PTrwy9JJyu4fmtRrfbsSIccOGjhw3sskn5q57s+7uusYfH62zoNP2rc1ejZ0zbcK8tVuW7tqxauidfv0fDFvur9cd9+1Z/eD//um/Xt29et+rjsbvbJTd2zOJ5gzf1O3qkOFnb8xoMqe3PP9pr9LhzZF0I0CNoKYTrul+of3t1m1uty9v06b1baWdlKJMTdpCDnNJPbLi868CaeaPbZ/zfHWdEZ/Ks+xv+OPvTUfhz1/uzv7m+03+oVEolUDw2JppCS7qsUCwSZGWWDYwH6cwCjO5uViAnphQh3wQ3wgUusk0kjIHEWuJcTKRV6Dwb5rIVSvUSrWapTXCdfvTCpUGmWejzQ7aYa19Fttoq822OGC+jXbaapzddthgqgPW2mGr9ebZbae1dsmA7+mHYLOvwh7lBwA=") format("woff2");
+  src: url("data:font/woff2;base64,d09GMgABAAAAAATEAAsAAAAACKgAAAR4AAFmZgAAAAAAAAAAAAAAAAAAAAAAAAAAHDAGYACBBAqHBIVhATYCJAMaCxoABCAFhH4HIBsmBwguBmNnWRgrm5DSZlwva85u6r6NAJKLnL2XUYHqQLiCmAz/u/dPg9jjBbmtGdVkfD6AaBye2Vz9DxBuuX2Zn7X9/OX0xtIDvNpkCSZ4g9792pStRZPG1gADi06gtu0BEmmYBSCJZ9sSH/mqcSBSl0gUG4OeJiC2vOhMK+iRGODWsq68EAR0QiuLQQAz+F90DlGj3otMEE3MaEmjbsMcaxU5pFXENE4sYBss1LB6fBg4KKPqGNj/bk7GaAF9ZQVRXkbbNTkjc0QQBUmZUkJSZrp9rpScmIopIwYpOS0EKkueYtX/C/E+3SLstdIyi803owAyQVxWLwYkwF/CLEBUBEWKMxhFnpkobrwYqVMRHOKlT+hmFjNm4/gY69g4yH7io1uG3XsYO25L24G7d8LIBzax6w+d31GDxnV2uGNMsm1CbYOP+fA712NPuBVTMC75xt04E29fE7VcLMiI/fDOnTD87pPGDa9C0LDj12rwbrizXiD2o8fV//DJTIGEIUEZKEmiidshTfnYmDKpMR5jHotBJTyLRihw+pMqRT1g2AjXNV4U/HyVcZcwfsUKwo0NsEYeuy5UiWVsHITzgLuvDjysSIPGqbbpznq1NrEN9rXxFVB5fBWoHFgKyhpUQzW89jXBsry3KD57d7y9nHjpaP7zl2MauO26+rb09mk1C/pDTbfF3WLPtHV7wQz/rmSHP4PU8Tq4RAEwr9cAbZqKkAuql7L+FgYpNGz1r6IVuGEJgZKwMu380NZJmGzSfNaZ7P16NkvQmV637YfIE23x2SdjTykT157evXpyrvJDEn19LHfmKIlUEVqQ2XxFX8F33d8NrjLBDgFPU0Qf0v15Y+OW0Sevnzhb1OHh+rrOQwU1cxPoDbgmPKIuRLuovlaza6KwPKJcxLCcnVHzvnn2LdkwMDpiba4s/1XJGmsEHfULfHeUyF+T2/Hc59bTujlpIWwET4yMwhIRBEuKApcOvFEbb47hULZCWT6/42XSkcebrCU08ur8RanFOkZbi0Ml268M7riXJ6Ms5DUuFJzRFvc7/u9/26/op0HMnlcbvtCQ7yMP5uffXJXgzapIh4m2xvaOyWBFvmfF1UcmnSVkb4QJHo1gy6WaM3Gx39gD37Oc/56ZukKOj2W+SxYApT8KCG2y0wPXDE93lH6LGSXGNXh2vfhMO3fjdID/P1G3Ri8EiCECAjfsiXqP4pCa3xIE4tRmgOL48sQbUwbfkF1WC4irSGYLmBVFbqZC1Fgi4uMZY4Rl4r9WPGvCFvVkyVGlEKqcRolSdcrlyZGrEoyNiY0DZpCnklEVDBUsSDEcHYwYgcqM0gpiDAw5QuZqo8OVKOpaF8tSqxKKqEnFUBVKoXBZSGucNSEV3laihCzlqiFTkT4qVIKFoSJOI4wgVCZBaE3kwlTK5Wj7dHdhshRP6KxY7KOgMntDFcsMVYYoV6dUZTCbLloQRIVwpbIaviODyIN3UUXKb2KhY4F/CBhcplAJTL8QKk8xBkQQDZ0w0XRMgf9XFQA=") format("woff2");
+}
+/* Code: variable weight 400-700 (bold tokens get a true bold), Latin subset (~26 KB). */
+@font-face {
+  font-family: "Code Mono";
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("./fonts/code-mono.woff2") format("woff2");
 }
 /* ---- base ---- */
 * {
@@ -158,9 +166,9 @@ h1, h2, h3, h4 {
   font-family: "Brand Mono", var(--font-mono);
   /* Fixed size on every device: the brand is the site's identity, so it sits a */
   /* step above the 14px nav links instead of shrinking with the small-text scale. */
-  font-size: 16px;
+  font-size: 17px;
   line-height: 24px;
-  font-weight: 600;
+  font-weight: 650;
   letter-spacing: -0.025em;
   color: var(--fg);
 }
@@ -1069,10 +1077,15 @@ span.uses-row-title:hover {
 }
 .prose :not(pre) > code {
   font-family: var(--font-mono);
+  font-size: 0.85em; /* mono glyphs are wide; keeps inline code in step with body text */
   background-color: var(--surface);
   color: var(--accent);
   border-radius: 4px;
   padding: 0.15em 0.35em;
+}
+.prose code {
+  font-weight: 450;
+  font-feature-settings: "cv01" 2; /* slashed zero, so 0 and O stay distinct */
 }
 .prose pre {
   margin: 24px 0;

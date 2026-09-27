@@ -4,11 +4,14 @@ import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import rehypeExternalLinks from 'rehype-external-links';
 import githubLight from '@shikijs/themes/github-light';
-import githubDark from '@shikijs/themes/github-dark-dimmed';
+import githubDark from '@shikijs/themes/github-dark-default';
 
-// Code theme: GitHub Light / Dark Dimmed (red keywords echo the site accent), fitted to the site palette. Backgrounds become the site's
-// code surfaces, and any token colour below WCAG AA (4.5:1) against its surface is
+// Code theme: GitHub Light / Dark Default (red keywords echo the site accent), fitted to the site palette. Backgrounds become the site's
+// code surfaces, and any token colour below MIN_CONTRAST against its surface is
 // nudged toward black (light) or white (dark) until it passes, keeping its hue.
+// 5.5:1 rather than WCAG AA's 4.5:1: small monospace text reads better with margin,
+// and WCAG 2's colour-only formula ignores stroke weight.
+const MIN_CONTRAST = 5.5;
 /** @param {string} hex */
 const luminance = (hex) =>
   [1, 3, 5]
@@ -29,7 +32,7 @@ const mix = (hex, target, t) =>
 /** @param {string} hex @param {string} bg @param {string} toward */
 const fit = (hex, bg, toward) => {
   let c = hex.slice(0, 7).toLowerCase();
-  for (let t = 0; contrast(c, bg) < 4.5 && t <= 1; t += 0.01) c = mix(hex.slice(0, 7), toward, t);
+  for (let t = 0; contrast(c, bg) < MIN_CONTRAST && t <= 1; t += 0.01) c = mix(hex.slice(0, 7), toward, t);
   return c;
 };
 /** @param {any} theme @param {string} name @param {string} bg @param {string} toward */
