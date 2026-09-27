@@ -1242,6 +1242,11 @@ span.uses-row-title:hover {
   resize: vertical;
 }
 
+/* Turnstile widget: hidden unless Cloudflare asks the visitor to click the checkbox. */
+.turnstile.shown {
+  margin-bottom: 20px;
+}
+
 .form-actions {
   display: flex;
   align-items: center;
