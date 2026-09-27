@@ -6,8 +6,9 @@ tech:
   - Markdown
   - CSS
   - Cloudflare Pages
+stack: ['Astro']
 description: My personal portfolio, built as a fully static Astro site. Writing, projects, certs, and decision records are written in Markdown and rendered at build time.
-summary: "This site."
+summary: "This site: static pages written in Markdown."
 
 liveLink: https://dave.levine.io
 githubLink: https://github.com/davelevine/portfolio-v2

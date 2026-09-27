@@ -27,6 +27,8 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     tech: z.array(z.string()),
+    // One or two main technologies, shown on the right of the /projects row.
+    stack: z.array(z.string()).optional(),
     description: z.string(),
     // One-line blurb for the /projects list; falls back to description.
     summary: z.string().optional(),

@@ -5,13 +5,13 @@ tech:
   - Prisma
   - SvelteKit
   - Tailwind CSS
+stack: ['SvelteKit', 'PostgreSQL']
 description: This project is a proof-of-concept on how to transfer large files over the internet asynchronously and in the most secure way possible, using zero-knowledge encryption.
-summary: "Proof-of-concept for transferring large files asynchronously with zero-knowledge encryption."
+summary: "Proof-of-concept for zero-knowledge encrypted file transfers."
 
 liveLink: https://share.levine.io
 githubLink: https://github.com/davelevine/sharrr-svelte
 image: sharrr1.webp
-isFeatured: true
 
 ---
 

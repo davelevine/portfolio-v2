@@ -582,6 +582,36 @@ h1, h2, h3, h4 {
   z-index: 1;
 }
 
+/* /projects rows: title with main tech on the right, summary on its own line underneath
+   at full width (so the tech label never squeezes it on phones). */
+.project-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.project-row > .post-date {
+  padding-right: 12px;
+}
+.project-summary {
+  grid-column: 1 / -1;
+  padding-left: 12px;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+/* Wider screens: the tech label centers against the whole row (title + summary). Phones keep
+   it on the title line so the summary gets the full width. */
+@media (min-width: 640px) {
+  .project-row > .post-date {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+  .project-row > .project-summary {
+    grid-column: 1;
+  }
+}
+
 .post-fav-slot {
   flex-shrink: 0;
   width: 1.75rem;
@@ -1144,8 +1174,7 @@ span.uses-row-title:hover {
   margin-top: 4px;
 }
 
-/* Chips: project tech. Outlined in border-strong so they still read against the
-   row's hover background. */
+/* Chips: project tech on project pages. */
 .chip {
   border: 1px solid var(--border-strong);
   border-radius: 9999px;
@@ -1157,16 +1186,6 @@ span.uses-row-title:hover {
   padding: 1px 8px;
   white-space: nowrap;
 }
-.chip-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  /* Bottom margin offsets the title's line-height leading so the row looks even. */
-  margin: 8px 0 6px;
-  padding: 0;
-  list-style: none;
-}
-
 /* ---- contact form ---- */
 .contact-form {
   display: flex;

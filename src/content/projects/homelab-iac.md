@@ -9,8 +9,9 @@ tech:
   - Cloudflare
   - Bitwarden Secrets Manager
   - Renovate
+stack: ['Ansible', 'OpenTofu']
 description: My homelab, defined in code. More than 70 self-hosted services across a bare-metal server and a Hetzner VPS, managed with Ansible, OpenTofu, and GitHub Actions.
-summary: "My homelab and its self-hosted services, defined in code."
+summary: "My homelab, defined in code."
 
 image: https://cdn.levine.io/uploads/images/gallery/2025-10/systems-architecture-diagram-dark-2025-10-10.webp
 isFeatured: true

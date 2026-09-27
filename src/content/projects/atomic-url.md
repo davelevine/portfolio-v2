@@ -5,13 +5,13 @@ tech:
   - Nuxt.js
   - Tailwind CSS
   - Vue
+stack: ['Cloudflare Workers']
 description: A proof of concept for a URL shortener run entirely on Cloudflare, demonstrating the ability to create a fully functional URL shortening service using serverless architecture.
-summary: "A URL shortener running entirely on Cloudflare, using serverless architecture."
+summary: "A serverless URL shortener running entirely on Cloudflare."
 
 liveLink: https://dl.is
 githubLink: https://github.com/davelevine/atomic-url
 image: atomic-url.webp
-isFeatured: true
 
 ---
 

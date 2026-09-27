@@ -9,8 +9,9 @@ tech:
   - Node.js
   - SQLite
   - Docker
+stack: ['Nuxt.js', 'SQLite']
 description: A self-hosted micro-journaling app where your data stays yours. Capture daily thoughts as bullet points, organize with #tags and @mentions, and rediscover old memories as they resurface over time.
-summary: "A micro-journaling PWA written from scratch to capture daily thoughts and reflections."
+summary: "A micro-journaling app for capturing daily thoughts."
 
 githubComingSoon: true
 image: https://cdn.levine.io/uploads/portfolio/public/images/projects/journalistic-write.webp

@@ -5,13 +5,13 @@ tech:
   - Node.js
   - React
   - Tailwind CSS
+stack: ['Next.js']
 description: A sleek, terminal-inspired browser start page that offers extensive customization options for tech enthusiasts. It includes a built-in editor for seamless personalization.
-summary: "A terminal-inspired browser start page with a built-in editor for personalization."
+summary: "A terminal-style browser start page with a built-in editor."
 
 liveLink: https://daves-start-page.vercel.app/
 githubLink: https://github.com/davelevine/start-page
 image: start-page.webp
-isFeatured: true
 
 ---
 
