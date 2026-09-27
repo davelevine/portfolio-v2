@@ -4,7 +4,6 @@ categories:
     - Hardware
     - Virtualization
     - Backups
-isFeatured: true
 title: Homelab Overhaul
 date: "2021-08-07T00:23:00Z"
 description: I've decided to downsize my extensive homelab setup and my reasons are outlined below.
