@@ -28,7 +28,7 @@ const range = (earned: string, expires: string) =>
       <section data-cert-group={g.key} hidden={!g.certs.length}>
         <h2 class="section-rule"><span>{g.title}</span></h2>
         {g.certs.map((c) => (
-          <div class="post-row" data-expires={c.data.expirationDate} data-achieved={c.data.achievedDate}>
+          <div class="post-row cert-row" data-expires={c.data.expirationDate} data-achieved={c.data.achievedDate}>
             <a class="post-title" href={`/certs/${c.id}/`}>{c.data.title}</a>
             <span class="post-date">{range(c.data.achievedDate, c.data.expirationDate)}</span>
           </div>

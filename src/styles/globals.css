@@ -612,6 +612,21 @@ h1, h2, h3, h4 {
   }
 }
 
+/* /certs on phones: the date range can't wrap, so it moves under the title and the title
+   gets the full row width. */
+@media (max-width: 639px) {
+  .cert-row {
+    flex-direction: column;
+  }
+  .cert-row > .post-title {
+    flex: none;
+  }
+  .cert-row > .post-date {
+    margin: 2px 0 0;
+    padding-left: 12px;
+  }
+}
+
 .post-fav-slot {
   flex-shrink: 0;
   width: 1.75rem;
