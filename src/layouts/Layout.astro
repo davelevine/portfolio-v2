@@ -8,16 +8,20 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title?: string;
   description?: string;
+  // Share-card image (Open Graph / Twitter); defaults to the profile photo.
+  image?: string;
   lcpImages?: string[];
 }
 
 const {
   title = 'Dave Levine | Solutions Engineer',
   description = "Dave Levine's Portfolio",
+  image = 'https://cdn.levine.io/uploads/portfolio/public/images/profile-pic-1.webp',
   lcpImages = [],
 } = Astro.props;
 
 const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -29,6 +33,15 @@ const cdn = 'https://cdn.levine.io/uploads/portfolio/public';
     <meta name="description" content={description} />
     <meta name="author" content="Dave Levine" />
     <meta name="theme-color" content="#faf6ef" id="theme-color-meta" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dave Levine" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary" />
 
     {/* SPA-style client-side navigation (no full reload / white flash). */}
     <ClientRouter />

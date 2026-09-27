@@ -9,12 +9,9 @@ description: A simple breakdown of the different types of storage options availa
 ail: 0
 ---
 
-
-## Instance Store vs. Elastic Block Store
-
 ## Preface
 
-Since I'm currently going through the [AWS Certified Solutions Architect course](https://linuxacademy.com/course/aws-certified-solutions-architect-2019-associate-level/) offered by [Linux Academy](https://linuxacademy.com), I'm going to need to write things out so that they make a bit more sense to me. Today, it's going to be the differences between Instance Stores and Elastic Block Stores.
+Since I'm currently going through the [AWS Certified Solutions Architect course](https://web.archive.org/web/20200511013823/https://linuxacademy.com/course/aws-certified-solutions-architect-2019-associate-level/) offered by [Linux Academy](https://web.archive.org/web/20200809120138/https://linuxacademy.com/), I'm going to need to write things out so that they make a bit more sense to me. Today, it's going to be the differences between Instance Stores and Elastic Block Stores.
 
 ### Instance Store
 
@@ -30,7 +27,7 @@ More information can be found in the [Instance Store documentation](https://docs
 * Provides either SSD or traditional HDD backed volumes, depending on need, performance requirements and/or price.
   * SSD volumes:
     * Best for transactional workloads such as frequent read / write operations.
-    * Two types of SSDs — General purposed (gp2) and Provisioned IOPS (io1).
+    * Two types of SSDs — General purpose (gp2) and Provisioned IOPS (io1).
       * General purpose favors balance of price and performance.
       * IOPS favors high performance (mission-critical low-latency / high-throughput)
   * HDD volumes:

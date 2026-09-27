@@ -24,7 +24,7 @@ My NAS backup architecture is fairly simple, but I suppose a bit more complex th
 
 ![Backup Diagram](https://cdn.levine.io/uploads/images/gallery/2022-09//06/Backup_Diagram.png)
 
-As can be seen from this diagram, all machines in one way or another all backup to my NAS. I'll break it down in broad strokes.
+As can be seen from this diagram, all machines in one way or another all back up to my NAS. I'll break it down in broad strokes.
 
 * `XCP-NG`: All VMs, configs and metadata
 * `Dave's Computers`:
@@ -72,11 +72,11 @@ I reviewed a lot of information on different types of RAID. I've run a few diffe
 
 The [Synology RAID calculator](https://www.synology.com/en-global/support/RAID_calculator) was a huge help in figuring out how exactly to best achieve what I'm looking for. The conclusion is to use RAID 5. It has exactly what I want — one disk fault tolerance, maximizes space, no loss in performance, etc.
 
-Not that I know what I want, how do I go about doing it?
+Now that I know what I want, how do I go about doing it?
 
 ## Breaking New Ground
 
-Converting away from SHR-2 is something I've wondered about for awhile now on and off. This is mostly because I'll need to get rid of the existing volume and migrate everything to a new volume, all while maintaining uptime and now losing data in the process. I thought it out and came to the following conclusion of how to make it happen:
+Converting away from SHR-2 is something I've wondered about for a while now on and off. This is mostly because I'll need to get rid of the existing volume and migrate everything to a new volume, all while maintaining uptime and not losing data in the process. I thought it out and came to the following conclusion of how to make it happen:
 
 * Break the existing RAID by removing and reinserting one drive.
 * Create a new basic volume on this drive.
@@ -90,6 +90,6 @@ Converting away from SHR-2 is something I've wondered about for awhile now on an
 
 I put this into play this weekend, and it has been relatively smooth. The biggest drawback is by far the amount of time it takes to rebuild the RAID array. As of the time of this writing, the array has been building for around 48 hours and is only ~50% complete.
 
-Once the array finishes rebuilding, my NAS will have 24TB raw usable storage with one drive being reserved for parity. Gaining an additional 8TB of storage space will definitely hold me over for years (it has to, since double-digit TB storage still isn't that cheap).
+Once the array finishes rebuilding, my NAS will have 24TB usable storage with one drive being reserved for parity. Gaining an additional 8TB of storage space will definitely hold me over for years (it has to, since double-digit TB storage still isn't that cheap).
 
 Overall, this has been a good experience, but my takeaway is that I really need to carefully consider the convenience I'm trading for added reliability. In this case, although it served me well, I'm not sure if it was the best decision. Of course, this is looking at it in hindsight. With fresh eyes, I believe this new configuration will serve me even better going forward.

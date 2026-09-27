@@ -25,11 +25,11 @@ One of the biggest challenges I encountered while digging into this project was 
 
 What was happening was that the app was attempting to make direct PUT requests from the browser, but the preflight checks were failing. I didn't want to spend too much time troubleshooting, but it seemed that there were some compatibility limitations with presigned POST operations. I decided to create an upload proxy to completely bypass CORS and upload the chunks directly to S3.
 
-At the time, I was using [Backblaze B2](https://backblaze.com/b2), and after implementing this change, the uploads started working seamlessly. I also use Storj for my NAS backups so I tried it there as well, which worked like a charm. However, what I didn't want was to incur costs from all of this. Since I already have a server with ample storage space, I decided to setup [MinIO](https://min.io).
+At the time, I was using [Backblaze B2](https://backblaze.com/b2), and after implementing this change, the uploads started working seamlessly. I also use Storj for my NAS backups so I tried it there as well, which worked like a charm. However, what I didn't want was to incur costs from all of this. Since I already have a server with ample storage space, I decided to set up [MinIO](https://min.io).
 
 ## The Challenge
 
-I recently noticed that my MinIO storage was growing rapidly with temporary files that were no longer needed. The project is configured with a cleanup script that triggers GitHub Actions to cleanup the S3 bucket. However, as I have [my instance](https://share.levine.io) protected with [Cloudflare Access](https://www.cloudflare.com/zero-trust/products/access/), it was causing a redirect issue and sending the request to the authentication page. While this likely could've been solved with Cloudflare Access Service Tokens, I decided to take the GitHub Actions workflow entirely out of the equation and instead use a local cleanup script that leverages the MinIO Client (mc).
+I recently noticed that my MinIO storage was growing rapidly with temporary files that were no longer needed. The project is configured with a cleanup script that triggers GitHub Actions to clean up the S3 bucket. However, as I have [my instance](https://share.levine.io) protected with [Cloudflare Access](https://www.cloudflare.com/zero-trust/products/access/), it was causing a redirect issue and sending the request to the authentication page. While this likely could've been solved with Cloudflare Access Service Tokens, I decided to take the GitHub Actions workflow entirely out of the equation and instead use a local cleanup script that leverages the MinIO Client (mc).
 
 ## Setting up the MinIO Client
 
@@ -98,7 +98,7 @@ I saved it in my $HOME directory and made it executable:
 chmod +x /home/<user>/scripts/minio-cleanup.sh
 ```
 
-I set the retention period to 7 days because the app is configured by default to retain files for 7 days. This giving recipients ample time to download their files while ensuring my storage doesn't become cluttered with abandoned transfers.
+I set the retention period to 7 days because the app is configured by default to retain files for 7 days. This gives recipients ample time to download their files while ensuring my storage doesn't become cluttered with abandoned transfers.
 
 ## Permissions Issue
 

@@ -73,7 +73,7 @@ After running `docker-compose up -d`, everything was installed successfully. The
 
 Since there were only a few configuration files and one crontab to migrate, I decided that I'd just create them manually as it would've been more work to set up a way to shuttle them over.
 
-After creating the configuration files, I restarted the respective containers and confirmed all apps were now running with the appropriate configurations. The `crontab` was just a simple cut/paste. The next thing to do, which I had no choice but to find a way to migrate it was to migrate the SQLite database.
+After creating the configuration files, I restarted the respective containers and confirmed all apps were now running with the appropriate configurations. The `crontab` was just a simple cut/paste. The next thing to do was to migrate the SQLite database, which I had no choice but to find a way to do.
 
 I decided to leverage *rclone* to shuttle the SQLite database to [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html). This would make it easy to get it off the server on DigitalOcean and allow me to either use `wget` or `curl` to download it.
 

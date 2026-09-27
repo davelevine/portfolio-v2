@@ -60,4 +60,4 @@ A few things I learned through this:
 * I need to properly document all reverse proxy settings, configurations and locations of the config files.
 * There were a few outliers I hadn't accounted for that slowed me down.
 
-All in all, the migration was a success. I'm happy with the new domain, and hopefully I'll stick with it for awhile.
+All in all, the migration was a success. I'm happy with the new domain, and hopefully I'll stick with it for a while.

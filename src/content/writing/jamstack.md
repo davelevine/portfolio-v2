@@ -16,7 +16,7 @@ This article will be a quick write-up on my static website hosting on [Cloudflar
 
 ## Site Migration
 
-I decided to go through the exercise of exporting both my knowledge base and my blog into Markdown to host them as static websites. Static sites have a much lower attack surface, and have a lot less dependencies. In my case, both Bookstack and Ghost rely on MySQL, and are both currently living inside Docker containers.
+I decided to go through the exercise of exporting both my knowledge base and my blog into Markdown to host them as static websites. Static sites have a much lower attack surface, and have a lot fewer dependencies. In my case, both Bookstack and Ghost rely on MySQL, and are both currently living inside Docker containers.
 
 Because of Jamstack, static sites are incredibly easy to host, and even easier to work with. There's no worrying about the setup and maintenance of underlying infrastructure or having to scale up or down based on load. All of this is done for you behind the scenes.
 
@@ -28,7 +28,7 @@ Easily the biggest challenge was to export the content for both of these.
 
 Bookstack was a nightmare because it doesn't allow you to export to Markdown. I was forced to leverage Gitbook, which is convenient in that it writes content by default in Markdown and can automatically shuttle the content to a GitHub repo. The challenge though, was that because there was no easy or clean way to do this, I had to export everything an article at a time and create the entire site hierarchy.
 
-Speaking of creating the site hierarchy, although everything was exported appropriately, it's not that simple to just take your markdown and sent it up to a Jamstack host. It needs to first be worked into a static site generator.
+Speaking of creating the site hierarchy, although everything was exported appropriately, it's not that simple to just take your markdown and send it up to a Jamstack host. It needs to first be worked into a static site generator.
 
 For Bookstack, I chose to use MkDocs, particularly because it allows for quick and easy editing and rebuilding. It's Python based and as long as the hierarchy is right, it just works. The hard part is that the hierarchy isn't automatically created for you. It needs to be written out using the folder hierarchy in YAML with each line displaying the relative path of the file.
 
@@ -48,7 +48,7 @@ Ideally, I wanted to host everything on GitHub Pages, but this is problematic fo
 
 There were a few other hosting providers I looked into — Netlify, Cloudflare Pages & DigitalOcean Apps. I even tried hosting in an S3 bucket, but although it's by far the most robust solution, it's clunky at best and requires a lot of moving parts and work.
 
-I figured I would try DigitalOcean Apps because I already use DigitalOcean heavily. It's got a super slick interface and is easy to connect the repos to, but ultimately, it was annoying to get setup. I kept running into issues where the build would complete successfully, but the site would return a 404 error.
+I figured I would try DigitalOcean Apps because I already use DigitalOcean heavily. It's got a super slick interface and is easy to connect the repos to, but ultimately, it was annoying to get set up. I kept running into issues where the build would complete successfully, but the site would return a 404 error.
 
 I didn't want to use Netlify if I didn't have to because I really just didn't want to sign up for another site. Because of that, I chose Cloudflare Pages. I already run my DNS and all my domains through them, so this would just be another extension of it.
 
@@ -60,7 +60,7 @@ Because Cloudflare Pages is still in open beta, I'll forgive it for the clunkine
 
 After getting everything up and running, I'm really happy with how easy it is to maintain. All the heavy lifting is done at this point, unless I want to change a theme or a submodule, so at this point, all I have to do is write content.
 
-I'm not going to decommission Bookstack, Ghost or the managed MySQL DB on DigitalOcean for awhile. I want to really make sure this works well for me, because once I get rid of them, there's no going back.
+I'm not going to decommission Bookstack, Ghost or the managed MySQL DB on DigitalOcean for a while. I want to really make sure this works well for me, because once I get rid of them, there's no going back.
 
 Something I could do now that I think about it is just export the DBs and run MySQL locally. I've said it before, and I'll say it again — I'm not a DB administrator, plain and simple. If a DB gets hosed for any reason, there's little I can do to fix it.
 

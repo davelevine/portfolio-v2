@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 import { CATEGORIES } from './lib/writing';
 import { ADR_CATEGORIES } from './lib/decisions';
@@ -36,7 +37,6 @@ const projects = defineCollection({
     // Optional dark-theme variant of `image`, shown when the site is in dark mode.
     imageDark: z.string().optional(),
     isFeatured: z.boolean().optional().default(false),
-    date: z.coerce.date().optional(),
   }),
 });
 
@@ -51,7 +51,6 @@ const certs = defineCollection({
     excerpt: z.string(),
     isFeatured: z.boolean().optional().default(false),
     tech: z.array(z.string()).optional(),
-    originalTitle: z.string().optional(),
   }),
 });
 

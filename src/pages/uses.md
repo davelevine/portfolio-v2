@@ -68,7 +68,7 @@ sections:
           machines share one tailnet, from hosts like the Hetzner VPS and pfSense to services like
           Gluetun that join on their own. It's how I reach everything from anywhere, and for private
           services, it's the only way in. The ACLs are
-          [managed as code](/decisions/0022-adopt-opentofu-for-infrastructure/) like everything else.
+          [managed as code](/decisions/0034-terraform-to-opentofu-migration/) like everything else.
       - name: Cloudflare
         text: >-
           All my DNS is hosted here, along with the tunnels that get traffic into my homelab. The

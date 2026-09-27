@@ -43,7 +43,7 @@ Something I didn't understand until I had a kid. You don't realize how fast life
 
 ## Success
 
-How can you measure success? By being happy? Have nice things? An exciting career? Having children? All of the above?
+How can you measure success? By being happy? Having nice things? An exciting career? Having children? All of the above?
 
 I think to some degree, it's all of the above, but really, there's no one definition of success. Ralph Waldo Emerson wrote a poem on success, aptly titled "Success."
 
@@ -115,7 +115,7 @@ Always try to consider if what you're doing is the best approach. Often enough, 
 
 Part of learning life lessons is also learning from cautionary tales. They can come in different forms, leading to an unpleasant outcome if you lose perspective. Learn from others and take stock in the lessons below.
 
-### Never judge a book by it's cover
+### Never judge a book by its cover
 
 Some of the best people I've ever known are unconventional. Whether it be their haircut (or lack thereof), tattoos, piercings, or anything else that isn't standard, don't judge based on what's on the outside. It's always what's on the inside that counts.
 

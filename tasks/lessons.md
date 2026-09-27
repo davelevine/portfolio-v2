@@ -228,3 +228,12 @@ seeing it and wanted it fixed; it needed a second PR.
 **How to apply next time:** when a fix leaves an obvious mirror-image gap (the other side, the
 sibling page), ask about it at the top of the reply, before saying the work is ready. Still don't
 apply it without a yes.
+
+## Old posts are historical record; don't unlink dead links
+
+**Context:** In the site audit cleanup, dead links in old posts were swapped for Wayback snapshots,
+or turned into plain text when no snapshot existed. Dave wanted none unlinked: the links were
+accurate when the posts were written, and he doesn't maintain links in old posts.
+
+**How to apply next time:** leave dead links in /writing posts (and similar archival pages) as they
+are. Typo fixes are still fine. Don't list dead links in old posts as audit findings.

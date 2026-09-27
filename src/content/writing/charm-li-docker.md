@@ -5,15 +5,15 @@ categories:
     - Self-Hosting
 title: Running Charm.li in Docker Compose
 date: "2025-05-14T11:14:00Z"
-description: This post explains how to run Charm.li in Docker Compose on Ubuntu Server 24.04.02 LTS.
+description: This post explains how to run Charm.li in Docker Compose on Ubuntu Server 24.04.2 LTS.
 ail: 0
 ---
 
 ## Summary
 
-Over the last few days, I've been working on seting up a new computer for my dad. As he's a mechanic, one of the things he'll be using it for is to lookup information on different makes and models of cars and trucks. He's been using [Alldata](https://alldata.com) for some time now, but I tipped him off to [charm.li](https://charm.li) and he was interested.
+Over the last few days, I've been working on setting up a new computer for my dad. As he's a mechanic, one of the things he'll be using it for is to look up information on different makes and models of cars and trucks. He's been using [Alldata](https://alldata.com) for some time now, but I tipped him off to [charm.li](https://web.archive.org/web/20250522223746/https://charm.li/) and he was interested.
 
-Now, I could've just gave him the url and stopped here, but since the [data](https://charm.li/operation-charm.torrent) itsself has kindly been provided by the creator of the site, I wanted to see if I could self host it. While looking into how I could make this work, I came across a [thread in r/mechanic](https://www.reddit.com/r/mechanic/comments/1iq0qjh/operation_charmli_is_down_but_not_lost/) about the site recently being down for an extended period. These things happen, but with the ability to obtain the data, I figured I'd take a shot at running this myself.
+Now, I could've just given him the url and stopped here, but since the [data](https://web.archive.org/web/20250709062045/https://charm.li/operation-charm.torrent) itself has kindly been provided by the creator of the site, I wanted to see if I could self host it. While looking into how I could make this work, I came across a [thread in r/mechanic](https://www.reddit.com/r/mechanic/comments/1iq0qjh/operation_charmli_is_down_but_not_lost/) about the site recently being down for an extended period. These things happen, but with the ability to obtain the data, I figured I'd take a shot at running this myself.
 
 I currently have my version hosted at [https://manuals.haroldsauto.com/](https://manuals.haroldsauto.com/).
 
@@ -21,7 +21,7 @@ I currently have my version hosted at [https://manuals.haroldsauto.com/](https:/
 
 Before diving into the technical setup, I'm doing all of this on Ubuntu Server 24 LTS. This will work on other distributions, but may need to be adapted accordingly. With this in mind, let's understand what we're dealing with:
 
-[charm.li](https://charm.li) is built on Node.js that serves content from a Lightning Memory-Mapped Database (LMDB). The database itself is packaged in a squashfs file - a compressed, read-only file system that's commonly used in Linux distributions.
+[charm.li](https://web.archive.org/web/20250522223746/https://charm.li/) is built on Node.js that serves content from a Lightning Memory-Mapped Database (LMDB). The database itself is packaged in a squashfs file - a compressed, read-only file system that's commonly used in Linux distributions.
 
 There are essentially three components needed to make this work properly:
 
@@ -40,13 +40,13 @@ However, making this run in Docker and persistent across reboots requires additi
 
 ## The Challenge
 
-One thing to understand before attempting this is the challenge of obtaining the data. In total, it's slightly over 700GB, which can be prohibitive without a dedicated storage medium to host it. For my needs, I'm hosting it on my NAS, so some things going forwrard will need to be adapted accordingly to your own environment should you decide to proceed.
+One thing to understand before attempting this is the challenge of obtaining the data. In total, it's slightly over 700GB, which can be prohibitive without a dedicated storage medium to host it. For my needs, I'm hosting it on my NAS, so some things going forward will need to be adapted accordingly to your own environment should you decide to proceed.
 
 I posted the link earlier in the thread, but in case it was missed, here it is again - https://charm.li/operation-charm.torrent
 
 ## Understanding the Directory Structure
 
-As I mentioned before, my setup involves hosting the data on my NAS with the charm.li files stored at `/mnt/backup/operation-charm`. Adjust the paths accordingly to match your setup. Setting up this mount is outside the scope of this article, but here is my `/etc/fstab` entry for reference:
+As I mentioned before, my setup involves hosting the data on my NAS with the charm.li files stored at `/mnt/Backup/operation-charm`. Adjust the paths accordingly to match your setup. Setting up this mount is outside the scope of this article, but here is my `/etc/fstab` entry for reference:
 
 ```ini
 # NAS Directory Mount
@@ -57,17 +57,17 @@ First, we need to ensure the squashfs file gets properly mounted:
 
 ```bash
 # Create the mount point if it doesn't exist
-sudo mkdir -p /mnt/backup/operation-charm/lmdb-pages
+sudo mkdir -p /mnt/Backup/operation-charm/lmdb-pages
 
 # Mount the squashfs file
-sudo mount -o loop -t squashfs /mnt/backup/operation-charm/lmdb-pages.sqsh /mnt/backup/operation-charm/lmdb-pages
+sudo mount -o loop -t squashfs /mnt/Backup/operation-charm/lmdb-pages.sqsh /mnt/Backup/operation-charm/lmdb-pages
 ```
 
 This mounts the compressed data, but it's important to note that this mount won't survive a system restart. We'll get into this later.
 
 ## Creating the Docker Configuration
 
-THe GitHub post I referenced earlier seems to get this going with Node.js version 18, which has now officially reached [end of life](https://endoflife.date/nodejs). Initially, when I first got this working, I ran it with Node.js 18 and it worked fine, but it doesn't make sense to do this now as there are much newer LTS versions available.
+The GitHub post I referenced earlier seems to get this going with Node.js version 18, which has now officially reached [end of life](https://endoflife.date/nodejs). Initially, when I first got this working, I ran it with Node.js 18 and it worked fine, but it doesn't make sense to do this now as there are much newer LTS versions available.
 
 I decided to use Node.js 22, which is an LTS version supported until April 2027. Assuming you already have a `docker-compose.yml` file (create one if you don't), add the following to it:
 
@@ -86,7 +86,7 @@ services:
     ports:
       - "28080:8080"
     volumes:
-      - /mnt/backup/operation-charm:/app
+      - /mnt/Backup/operation-charm:/app
     restart: unless-stopped
 ```
 
@@ -144,7 +144,7 @@ sudo systemctl start mount-charm.service
 With the persistent mount ready to go, start the Docker container:
 
 ```bash
-cd /path/to/docker-compose.yml
+cd /path/to/
 docker-compose up -d
 ```
 
@@ -162,7 +162,7 @@ Setting up Cloudflare Tunnel is well outside the scope of this article, but if t
 
 I think it's worth mentioning that during my testing, I discovered that Node.js version compatibility can be tricky. charm.li relies on `node-lmdb`, a native module that needs to be compiled specifically for your Node.js version.
 
-While I originally tested Node.js 18 and got it to work reliably, I needed to use the newer Node.js 20. However, when changing the version number and rebuilding the container, I encountered this error:
+While I originally tested Node.js 18 and got it to work reliably, I needed to use the newer Node.js 22. However, when changing the version number and rebuilding the container, I encountered this error:
 
 ```log
 Error: The module '/app/node_modules/node-lmdb/build/Release/node-lmdb.node'
@@ -206,6 +206,6 @@ While this is by no means the only way to get this going, I found this approach 
 
 This was a quick and dirty afternoon project, and I learned a lot in doing it. Running it in Docker Compose seemed like a complex task at first glance, but breaking it down into manageable steps made it accessible.
 
-What started as a simple idea to help my dad access repair manuals grew into an interesting challenge. Probably the most valuable takeaway from this project is how to handle applications with specialized storage requirements in Docker. While Docker genereally leans toward complete isolation, there are legitimate cases where the host system needs to handle certain tasks (like mounting specialized filesystems) while the container focuses on application execution.
+What started as a simple idea to help my dad access repair manuals grew into an interesting challenge. Probably the most valuable takeaway from this project is how to handle applications with specialized storage requirements in Docker. While Docker generally leans toward complete isolation, there are legitimate cases where the host system needs to handle certain tasks (like mounting specialized filesystems) while the container focuses on application execution.
 
 If you're considering implementing this for yourself, remember that the ~700GB data requirement is substantial, but the payoff is worth it for anyone who regularly needs access to automotive repair information. The setup process takes time, but the result is robust and requires minimal maintenance once configured.

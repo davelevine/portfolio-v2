@@ -14,7 +14,7 @@ ail: 0
 
 A few weeks ago, I was reading an article on [Scott Helme's blog](https://scotthelme.co.uk/) about [caching Ghost with Nginx](https://scotthelme.co.uk/caching-ghost-with-nginx/). In doing this, I made this blog and a number of other services that I use kick into overdrive, but that whole endeavor is best left for its own article.
 
-While reading that article, I noticed in the sidebar a service that he operates called [Security Headers](https://securityheaders.com/). Essentially, this measures measure how secure the headers of a web server are for a particular website. For kicks, I tried this site and my knowledge base; was I ever surprised by what I found.
+While reading that article, I noticed in the sidebar a service that he operates called [Security Headers](https://securityheaders.com/). Essentially, this measures how secure the headers of a web server are for a particular website. For kicks, I tried this site and my knowledge base; was I ever surprised by what I found.
 
 Both sites came back with a sobering 'D' rating out of 'A' through 'F'. I wish I had taken a screenshot of this at the time to illustrate what I'm referring to, but unfortunately, I didn't.
 
@@ -55,7 +55,7 @@ For reference, the resources I used in order to make things work the way I wante
 * <https://www.keycdn.com/blog/http-security-headers>
 * <https://gist.github.com/plentz/6737338>
 * <https://8gwifi.org/docs/nginx-secure.jsp>
-* <https://www.keycdn.com/support..-security-policy>
+* <https://www.keycdn.com/support/content-security-policy>
 
 ## Finish Line
 

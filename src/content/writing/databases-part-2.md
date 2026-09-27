@@ -9,7 +9,7 @@ ail: 0
 ---
 
 
-This will be a continuation in the Database series covering the AWS offerings as part of the AWS Solutions Architect: Associate exam. I covered RDS in [part 1](../blog/databases-part-1) and will continue with Aurora in this part.
+This will be a continuation in the Database series covering the AWS offerings as part of the AWS Solutions Architect: Associate exam. I covered RDS in [part 1](/writing/databases-part-1/) and will continue with Aurora in this part.
 
 ## Aurora
 
@@ -67,4 +67,4 @@ There are additional topics that lend to database migration and working with que
 
 ## To Be Continued
 
-This marks the end of part 2, and the SQL end of AWS databases. [Part 3](../blog/databases-part-3) will focus on NoSQL databases, specifically DynamoDB.
+This marks the end of part 2, and the SQL end of AWS databases. [Part 3](/writing/databases-part-3/) will focus on NoSQL databases, specifically DynamoDB.

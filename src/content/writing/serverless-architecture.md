@@ -10,7 +10,7 @@ ail: 0
 
 ## Introduction
 
-Serverless architecture is the current topic I'm learning in the [AWS Certified Solutions Architect: Associate](https://linuxacademy.com/course/aws-certified-solutions-architect-2019-associate-level/) course from [Linux Academy](https://linuxacademy.com). It's a bit of a challenge for me because I don't have any real experience with it, but I understand the concepts at a 30,000 ft level.
+Serverless architecture is the current topic I'm learning in the [AWS Certified Solutions Architect: Associate](https://web.archive.org/web/20200511013823/https://linuxacademy.com/course/aws-certified-solutions-architect-2019-associate-level/) course from [Linux Academy](https://web.archive.org/web/20200407190027/https://linuxacademy.com/). It's a bit of a challenge for me because I don't have any real experience with it, but I understand the concepts at a 30,000 ft level.
 
 I'll start with what I know and then get into some theory I've compiled.
 
@@ -52,7 +52,7 @@ In lieu of writing out the concepts one-by-one, the page below from Linux Academ
 
 ![Serverless Architecture Concepts](https://cdn.levine.io/uploads/images/gallery/2022-09//04/Screen-Shot-2020-04-02-at-9.56.54-PM.png)
 
-Obtained from the [Orion papers](https://interactive.linuxacademy.com/diagrams/AWSCSA.html)
+Obtained from the [Orion papers](https://web.archive.org/web/20190916070017/https://interactive.linuxacademy.com/diagrams/AWSCSA.html)
 
 ### Lambda
 
@@ -63,7 +63,7 @@ Lambda is without question the most popular example of serverless architecture a
 * Every function is stateless — each run is completely clean, meaning that functions are isolated from other functions.
 * Lambda can integrate seamlessly with other AWS services such as S3, as well as 3rd party hardware and services.
 * Lambda can leverage virtually any type of codebase.
-* Serverless architecture uses such low amounts of compute power than its scaling potential is infinite.
+* Serverless architecture uses such low amounts of compute power that its scaling potential is infinite.
 
 ### Bringing It All Together
 

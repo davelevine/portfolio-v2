@@ -1,3 +1,5 @@
-# Cloudflare Pages redirects. /blog moved to /writing; keep old links and bookmarks working.
+# Cloudflare Pages redirects. /blog moved to /writing and /docs to /decisions; keep old links and bookmarks working.
 /blog /writing/ 301
 /blog/* /writing/:splat 301
+/docs /decisions/ 301
+/docs/* /decisions/ 301

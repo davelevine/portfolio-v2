@@ -34,7 +34,7 @@ Here's what the stack looks like:
 
 ## Ansible
 
-Something that I often have a hard time with is just starting. There often never really feels like a good time to do anything, and I know I'm not alone in this. I did a casual look around on YouTube for some sort of tutorials to get me going. I'd heard that [Jeff Geerling's Ansible 101](https://www.youtube.com/watch?v=goclfp6a2IQ&list=PL2_OBreMn7FqZkvMYt6ATmgC0KAGGJNAN) course was fantastic so I started there. Personally, I couldn't get into it for some reason. It's not a dig against the course itself, but lets just say it wasn't for me.
+Something that I often have a hard time with is just starting. There often never really feels like a good time to do anything, and I know I'm not alone in this. I did a casual look around on YouTube for some sort of tutorials to get me going. I'd heard that [Jeff Geerling's Ansible 101](https://www.youtube.com/watch?v=goclfp6a2IQ&list=PL2_OBreMn7FqZkvMYt6ATmgC0KAGGJNAN) course was fantastic so I started there. Personally, I couldn't get into it for some reason. It's not a dig against the course itself, but let's just say it wasn't for me.
 
 I looked for a different course and found the [Getting Started with Ansible](https://youtube.com/playlist?list=PLT98CRl2KxKEUHie1m24-wkyHpEsa4Y70&si=kemKLmTPirXDCgKN) course from Learn Linux TV and that was it for me. I finished the course in a few days and I already felt like I had a good foundation.
 

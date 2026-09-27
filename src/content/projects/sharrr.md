@@ -5,7 +5,7 @@ tech:
   - Prisma
   - SvelteKit
   - Tailwind CSS
-description: This project is proof-of-concept on how to transfer large files over the internet asynchronously and in the most secure way possible, using zero-knowledge encryption.
+description: This project is a proof-of-concept on how to transfer large files over the internet asynchronously and in the most secure way possible, using zero-knowledge encryption.
 summary: "Proof-of-concept for transferring large files asynchronously with zero-knowledge encryption."
 
 liveLink: https://share.levine.io
@@ -17,7 +17,7 @@ isFeatured: true
 
 ## Description
 
-This project is proof-of-concept on how to transfer large files over the internet asynchronously and in the most secure way possible, using zero-knowledge encryption.
+This project is a proof-of-concept on how to transfer large files over the internet asynchronously and in the most secure way possible, using zero-knowledge encryption.
 
 Original project can be found at [sharrr.com].
 

@@ -13,7 +13,7 @@ ail: 0
 
 ## Preface
 
-This is going to be a pretty long post as the project has span almost an entire week. I think in order to understand where I am today, it's worth knowing where I started.
+This is going to be a pretty long post as the project has spanned almost an entire week. I think in order to understand where I am today, it's worth knowing where I started.
 
 ## Gmail
 
@@ -45,11 +45,11 @@ This has been a giant leap forward, but I still wanted to take it a step further
 
 ## Pretty Good Privacy
 
-Making use of PGP is not an easy task, and I'm sure that people much better than I am also struggle with it. It's not so much getting setup, but managing encryption keys is not an easy task. Admittedly, when I started this project, I had very little understanding of PGP. I knew it was a way of encrypting your email with a cryptographic key, but that's basically as far as it went.
+Making use of PGP is not an easy task, and I'm sure that people much better than I am also struggle with it. It's not so much getting set up, but managing encryption keys is not an easy task. Admittedly, when I started this project, I had very little understanding of PGP. I knew it was a way of encrypting your email with a cryptographic key, but that's basically as far as it went.
 
 Probably the most important thing about PGP is being able to verify that the information being sent to you has not been modified along the way. Also, very important is ensuring that the information being sent to you is from whom it claims to be from. Both of these points can be accomplished by using PGP. Again, since I knew very little, I didn't really know where to create a PGP key pair (public and private key).
 
-The more I looked around, the more I kept seeing [Mailvelope](https://www.mailvelope.com/en/). It's basically a browser extension that allows you to encrypt emails with PGP. It integrates with a number of email providers, including Gmail. What's great about this is that it doesn't require you to trust anyone with key management or the use of the PGP keys as everything runs directly on the browser itself. The downside of this is that in my case, I have multiple computers, so I needed to setup Mailvelope manually on both computers.
+The more I looked around, the more I kept seeing [Mailvelope](https://www.mailvelope.com/en/). It's basically a browser extension that allows you to encrypt emails with PGP. It integrates with a number of email providers, including Gmail. What's great about this is that it doesn't require you to trust anyone with key management or the use of the PGP keys as everything runs directly on the browser itself. The downside of this is that in my case, I have multiple computers, so I needed to set up Mailvelope manually on both computers.
 
 Mailvelope allowed me to create a key pair, to which I took the public key and added it to SimpleLogin. Once PGP was enabled in SimpleLogin and the public key was added, it automatically enabled PGP on all aliases so everything coming into my inbox that isn't sent directly to my Gmail account is now encrypted and signed with my public key.
 
@@ -57,6 +57,6 @@ Mailvelope also allows for API integration into Gmail so that I can send encrypt
 
 ## Closing Thoughts
 
-This has been a long overdue exercise that I feel has really brought my email into the 21st century. The only caveat to having this setup is that I'm not really able to view these encrypted emails on my phone. I'm in the process of working on this, although at the moment with being home all the time, it's not really that big of a deal. To be honest, if I never got it figured out and had to rely on my desktop or laptop to these emails, I'd be alright with that.
+This has been a long overdue exercise that I feel has really brought my email into the 21st century. The only caveat to having this setup is that I'm not really able to view these encrypted emails on my phone. I'm in the process of working on this, although at the moment with being home all the time, it's not really that big of a deal. To be honest, if I never got it figured out and had to rely on my desktop or laptop to read these emails, I'd be alright with that.
 
 Although the idea of privacy is more of a myth nowadays, it should always be something to strive for. If I can freely give out less information and keep some more of it private, I'll put in the work. Even though I've only had this setup for a few days, I feel that it's already a huge improvement.

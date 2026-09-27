@@ -4,14 +4,14 @@ categories:
     - DNS
     - Networking
 title: Choosing a Routing Policy
-date: "2020-04-29T00:02:00Z"  # Changed date format to use hyphens instead of periods
+date: "2020-04-29T00:02:00Z"
 description: A high-level overview of DNS and the various routing policies available in AWS Route 53.
 ail: 0
 ---
 
 ## Baseline
 
-I'll start by saying I have a very general understanding of DNS. I know it's often dubbed the "*internet phone book*" and that it translates IP addresses into URLs. I know some of the various DNS record types off the top of my head — A, AAAA, CNAME, MX, TXT — along with how each of them is used, but mostly at a high level.
+I'll start by saying I have a very general understanding of DNS. I know it's often dubbed the "*internet phone book*" and that it translates domain names into IP addresses. I know some of the various DNS record types off the top of my head — A, AAAA, CNAME, MX, TXT — along with how each of them is used, but mostly at a high level.
 
 As a baseline...
 
@@ -70,7 +70,7 @@ This is one that I'm not entirely clear on and wasn't covered in much detail in 
 
 ### Weighted Routing
 
-Weighted routing is used to route traffic based on proportions that you specify. This is best used in testing and not necessarily in production. An example of this works by specifying two values for two separate instances that combined add up to an arbitrary number. For example, one instance is assigned the number 90, while the other instance is assigned the number 10. Whichever instance has the highest numerical value will receive the most traffic.
+Weighted routing is used to route traffic based on proportions that you specify. This is best used in testing and not necessarily in production. An example of this works by specifying two values for two separate instances that combined add up to an arbitrary number. For example, one instance is assigned the number 90, while the other instance is assigned the number 10. Whichever instance has the higher numerical value will receive the most traffic.
 
 ## Re-baselining
 
