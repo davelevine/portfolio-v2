@@ -9,9 +9,10 @@ const endpoint = 'https://formspree.io/f/xzbloaed';
   <main class="wrap">
     <header class="page-header">
       <h1>Contact</h1>
-      <p class="lede">Questions, ideas, or just want to compare homelab notes? Send a message and I'll get back to you.</p>
+      <p class="lede">Questions, ideas, or just want to compare homelab notes?</p>
     </header>
 
+    <h2 class="section-rule"><span>Send a message</span></h2>
     <form class="contact-form" id="contact-form" action={endpoint} method="POST">
       <label for="email">Your email</label>
       <input id="email" type="email" name="email" required autocomplete="email" placeholder="Where can I send a response?" />

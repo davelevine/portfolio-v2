@@ -1208,15 +1208,12 @@ span.uses-row-title:hover {
 .contact-form {
   display: flex;
   flex-direction: column;
-  max-width: 640px;
 }
 .contact-form label {
   font-family: var(--font-sans);
   font-size: var(--text-xs);
   line-height: 16px;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: var(--muted);
   margin-bottom: 6px;
 }
