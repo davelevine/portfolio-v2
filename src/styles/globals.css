@@ -1082,6 +1082,9 @@ span.uses-row-title:hover {
 .prose :not(pre) > code {
   font-family: var(--font-mono);
   font-variant-ligatures: none;
+  /* body sets antialiased, which thins Pitch's strokes on macOS; code opts out */
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
   background-color: var(--surface);
   color: var(--accent);
   border-radius: 4px;
@@ -1099,6 +1102,8 @@ span.uses-row-title:hover {
 .prose pre code {
   font-family: var(--font-mono);
   font-variant-ligatures: none;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
   white-space: pre;
 }
 .prose img {
