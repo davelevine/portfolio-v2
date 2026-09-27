@@ -4,9 +4,9 @@ import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import rehypeExternalLinks from 'rehype-external-links';
 import githubLight from '@shikijs/themes/github-light';
-import githubDark from '@shikijs/themes/github-dark-dimmed';
+import githubDark from '@shikijs/themes/github-dark-default';
 
-// Code theme: GitHub Light / Dark Dimmed (red keywords echo the site accent), fitted to the site palette. Backgrounds become the site's
+// Code theme: GitHub Light / Dark Default (red keywords echo the site accent), fitted to the site palette. Backgrounds become the site's
 // code surfaces, and any token colour below MIN_CONTRAST against its surface is
 // nudged toward black (light) or white (dark) until it passes, keeping its hue.
 // 5.5:1 rather than WCAG AA's 4.5:1: the code font (Pitch Regular) has thin strokes,

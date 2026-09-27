@@ -69,7 +69,7 @@ markdown             SCSS + Shiki    static    dave.levine.io
 | Concern | How it works |
 |---|---|
 | [Theme](./src/layouts/Layout.astro) | Light/dark is owned on `<html data-theme>`: the saved choice (`localStorage`) or the OS preference, set before first paint and re-applied across View Transitions so navigation never flashes. |
-| [Code blocks](./astro.config.mjs) | [Shiki](https://shiki.style/) with GitHub Light / Dark Dimmed, fitted to the site palette (site backgrounds, token colours nudged to WCAG AA) in `astro.config.mjs`; `globals.css` switches themes with `[data-theme]`. Writing posts get a copy button. |
+| [Code blocks](./astro.config.mjs) | [Shiki](https://shiki.style/) with GitHub Light / Dark Default, fitted to the site palette (site backgrounds, token colours nudged to at least 5.5:1 contrast) in `astro.config.mjs`; `globals.css` switches themes with `[data-theme]`. Writing posts get a copy button. |
 | Images | Served from `cdn.levine.io` by URL; root-relative `/images/*` paths in cert markdown are rewritten to the CDN by a rehype plugin at build time. |
 | Lightbox | Writing-post images open in a [Fancybox](https://fancyapps.com/fancybox/) gallery (`@fancyapps/ui`) with zoom, pan, and a counter. |
 | [Feeds](./src/pages/rss.xml.js) | An RSS feed and a sitemap (`@astrojs/sitemap`) are generated on every build. |
