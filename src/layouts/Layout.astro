@@ -71,6 +71,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
     <link rel="preconnect" href="https://cdn.levine.io" />
     <link rel="dns-prefetch" href="https://cdn.levine.io" />
+    <!-- Brand font (see src/styles/fonts/README.md); preloaded so the header doesn't wait on the CSS. -->
+    <link rel="preload" href={`${cdn}/fonts/pitch-brand.woff2`} as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://stats.levine.io" />
     <link rel="dns-prefetch" href="https://stats.levine.io" />
 

@@ -14,7 +14,7 @@
   --border-strong: #89847a; /* 3:1 boundary for form inputs (WCAG 1.4.11) */
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-mono: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
+  --font-mono: Menlo, Monaco, Consolas, monospace;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --transition-fast: 0.15s ease;
   /* Small text steps; one notch larger on phones for legibility. */
@@ -40,16 +40,16 @@
     --text-sm: 14px;
   }
 }
-/* Brand font: JetBrains Mono SemiBold (instanced from the v2.304 variable font), */
-/* subset to the glyphs in "</Dave Levine>" (~1 KB) and embedded so the brand looks */
-/* identical everywhere, including Android, whose system mono has no bold. */
-/* SIL Open Font License 1.1, see src/styles/fonts/OFL-JetBrainsMono.txt. */
-/* If the brand text changes, re-subset it (see the note in that folder's README). */
+/* Brand font: Klim's Pitch Regular, subset to the glyphs in "</Dave Levine>" so the */
+/* brand looks identical everywhere, including Android. Commercial web licence for */
+/* dave.levine.io: the file must not be in this public repo, so it's served from */
+/* cdn.levine.io, whose R2 CORS policy only lets allowed origins use it. */
+/* If the brand text changes, re-subset and re-upload it (see src/styles/fonts/README.md). */
 @font-face {
   font-family: "Brand Mono";
-  font-weight: 600;
+  font-weight: 400;
   font-display: block;
-  src: url("data:font/woff2;base64,d09GMgABAAAAAAP4ABAAAAAAByAAAAOdAAJN0wAAAAAAAAAAAAAAAAAAAAAAAAAAGhwbIBwqBmA/U1RBVEQAgQQRCAqFfIRFATYCJAM4Cx4ABCAFgQIHIAwHGzUFUdQkwagA5IsDu+HzQ0SssXI4CKvOzysQRn7GT3qRuEkDETy/Rjrv7x7Q5gLEoAhkhENQ7Cpbxa5so7D/yxoL/59dztx5/m0k7IXsDozRgZtyNxBaqNLroXNTp08e8kZngvq/T3+q5mVzOJYLTrEgrtk1wYotNaQVLNCnrgHYC3eR9gpYoJq7ykK0spjdtZ+nuwpUA5IklAhlyoVApRZaiQmTZixQLofvAIbSSRdpuWLH2gO7NOEBKU9L0hIlpIuejOmrY5V+MYZEBbOHjdPG4a02DmVfvpnQXvRgVSV1Sj+jjVIhlEtoIKGDdHjzlgOR8wGmsqgRcrUCojItQSakKECAFB/TAPW9Xym3B03UypRro7cRRplghrU22mqXQ9+h3ys9Dl/ePXlw4tCebSsMwe4X4jt1EArQAnXxA1GDAtUgk4QkfSeqRNw+z7L1MiIKBj9CvCgBRcmAEsqMvYIWIQVC4MxmlGZMJqICzor5jIWQ+FUCCilZC2asVgDMfBD2zYfcUo5dIpjEz7yaVH0OE/YLnblZneqJn65FFiwD9+kPJpMer+2sCVEDBj7BFA8QCPdeDCNjPvOTxkHeuwG028e+u6f+ejAox2FEjVsvH703HqJacDMabMGtqOnszmP9PrK5h33GzAtwT2gm3ZnjrPwynpYX0vIENN/xVtWdRbeW+ZfS7d1ZVY2NTfLyMrk/fbxQE5py9I4UtaA/ipaG+ozkenUcvRWT3JiZshrcIygfVjd1DDapR3o63VxjxqqCPTT5FXRa5VJ8SEzcEIpX2paZ1VI6W5bV7L59aVlrRlZDcasqkf7PTrwy9JJyu4fmtRrfbsSIccOGjhw3sskn5q57s+7uusYfH62zoNP2rc1ejZ0zbcK8tVuW7tqxauidfv0fDFvur9cd9+1Z/eD//um/Xt29et+rjsbvbJTd2zOJ5gzf1O3qkOFnb8xoMqe3PP9pr9LhzZF0I0CNoKYTrul+of3t1m1uty9v06b1baWdlKJMTdpCDnNJPbLi868CaeaPbZ/zfHWdEZ/Ks+xv+OPvTUfhz1/uzv7m+03+oVEolUDw2JppCS7qsUCwSZGWWDYwH6cwCjO5uViAnphQh3wQ3wgUusk0kjIHEWuJcTKRV6Dwb5rIVSvUSrWapTXCdfvTCpUGmWejzQ7aYa19Fttoq822OGC+jXbaapzddthgqgPW2mGr9ebZbae1dsmA7+mHYLOvwh7lBwA=") format("woff2");
+  src: url("https://cdn.levine.io/uploads/portfolio/public/fonts/pitch-brand.woff2") format("woff2");
 }
 /* ---- base ---- */
 * {
@@ -160,7 +160,7 @@ h1, h2, h3, h4 {
   /* step above the 14px nav links instead of shrinking with the small-text scale. */
   font-size: 16px;
   line-height: 24px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -0.025em;
   color: var(--fg);
 }

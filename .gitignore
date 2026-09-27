@@ -11,3 +11,5 @@ npm-debug.log*
 .env.production
 # macOS
 .DS_Store
+# licensed fonts: never commit (see src/styles/fonts/README.md)
+*.woff2

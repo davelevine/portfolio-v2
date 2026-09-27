@@ -128,7 +128,7 @@ portfolio-v2/
 │   ├── pages/              # File-based routes (index, about, now, uses, contact, decisions/, writing/, certs/, projects/, rss.xml.js)
 │   ├── layouts/            # Base layout (head, theme, analytics) + PageLayout for Markdown pages
 │   ├── components/         # Astro components (Navbar, Footer, Hero, WritingArchive)
-│   └── styles/             # globals.css (plain CSS: tokens + all shared styles), fonts/ (brand font license)
+│   └── styles/             # globals.css (plain CSS: tokens + all shared styles), fonts/ (brand font notes)
 │   ├── lib/                # Date formatting, reading time, writing and decision categories
 ├── public/                 # Static assets served as-is (manifest, robots.txt, résumé, _redirects)
 ├── astro.config.mjs        # Astro config: site, Shiki, rehype plugins, sitemap
