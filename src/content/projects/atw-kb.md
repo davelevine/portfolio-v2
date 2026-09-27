@@ -7,11 +7,11 @@ tech:
   - Python
   - Sass
   - YAML
+stack: ['MkDocs']
 description: A knowledge base I started in 2016. It has since amassed hundreds of articles, guides and documents that serve as a source of truth, second brain and a labor of love.
-summary: "A knowledge base built with MkDocs, now archived as legacy documentation."
+summary: "My knowledge base since 2016."
 liveLink: https://kb.levine.io
 image: atw.webp
-isFeatured: true
 
 ---
 

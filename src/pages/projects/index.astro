@@ -3,9 +3,12 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const projects = (await getCollection('projects')).sort(
-  (a, b) => Number(b.data.isFeatured) - Number(a.data.isFeatured)
-);
+const projects = (await getCollection('projects')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+// Grouped like /certs: a section rule over list rows, each group alphabetical.
+const groups = [
+  { title: 'Featured', projects: projects.filter((p) => p.data.isFeatured) },
+  { title: 'More projects', projects: projects.filter((p) => !p.data.isFeatured) },
+];
 ---
 
 <Layout title="Projects | Dave Levine" description="Projects Dave Levine has built.">
@@ -15,16 +18,17 @@ const projects = (await getCollection('projects')).sort(
       <p class="lede">Things I've built, mostly to solve problems I had or to learn how something works.</p>
     </header>
 
-    <div class="uses-group">
-      {projects.map((p) => (
-        <div class="uses-row">
-          <a class="uses-row-title" href={`/projects/${p.id}/`}>{p.data.title}</a>
-          <p class="uses-row-desc">{p.data.summary ?? p.data.description}</p>
-          <ul class="chip-list" aria-label="Tech">
-            {p.data.tech.map((t) => <li class="chip">{t}</li>)}
-          </ul>
-        </div>
-      ))}
-    </div>
+    {groups.map((g) => (
+      <section>
+        <h2 class="section-rule"><span>{g.title}</span></h2>
+        {g.projects.map((p) => (
+          <div class="post-row project-row">
+            <a class="post-title" href={`/projects/${p.id}/`}>{p.data.title}</a>
+            {p.data.stack && <span class="post-date">{p.data.stack.join(' · ')}</span>}
+            <p class="project-summary">{p.data.summary ?? p.data.description}</p>
+          </div>
+        ))}
+      </section>
+    ))}
   </main>
 </Layout>
