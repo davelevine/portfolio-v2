@@ -237,3 +237,80 @@ accurate when the posts were written, and he doesn't maintain links in old posts
 
 **How to apply next time:** leave dead links in /writing posts (and similar archival pages) as they
 are. Typo fixes are still fine. Don't list dead links in old posts as audit findings.
+
+## Work from the local repo, not the live site
+
+**Context:** While migrating notes out of the docs repo, triage found secrets in a few files. I then
+curled docs.levine.io to check whether they were publicly served. Dave: "You don't need to access
+the docs site, the information lives at ~/downloads/github/docs."
+
+**How to apply next time:** when the source of truth is a local repo, read the repo. Don't probe the
+live deployment (or other external services) unless asked; flag the exposure question instead.
+
+## Migrating content: curate for the destination, not just for safety
+
+**Context:** Moving the docs repo into /notes, I screened files only for secrets and duplicates and
+migrated 81, including AWS study guides, an acronym list and config dumps. Dave: "Some content doesn't
+make sense to add here (e.g. acronyms). I need you to be a bit more selective," and older content
+"should be treated as such."
+
+**How to apply next time:** judge each file against what the destination section *is* (for /notes:
+a specific "how do I do X" snippet, Heap-TIL style). Reference material, study notes, overviews and
+personal config dumps don't qualify even when they're clean. Mark old content as dated rather than
+presenting it as current.
+
+## Don't add editorial labels to Dave's content by rule
+
+**Context:** Asked to treat older notes "as such," I added an age-based "Written <date>, so parts
+may be out of date" banner to every note over three years old, including still-accurate ones like
+link aggregation. Dave: "This is not appropriate," then "If you added the banner, you should remove
+it from anything you added it to."
+
+**How to apply next time:** don't stamp content with a blanket editorial label (age warnings,
+disclaimers) derived from a heuristic. Propose the specific wording and which pages it lands on, and
+get approval, before it goes on anything.
+
+## Alignment fixes: predict from the code, then check the screenshot matches the code
+
+**Context:** The navbar brand looked high after the font change. I measured one screenshot, removed
+a 1px nudge, and made it worse. The next screenshot turned out to show the old CSS. Dave: "I think
+you should be measuring from the code too."
+
+**How to apply next time:**
+1. Compute the expected offset from CSS plus real font metrics (fontTools on the actual font file):
+   line-height, baseline alignment, cap and x-height centers per font size.
+2. Measure glyph extents in the screenshot and check they match the prediction for the *current*
+   code before acting. A mismatch means a stale page or the wrong server, not a new theory.
+3. Level to the optical center (cap/x-height centers), not just a shared baseline, when font sizes
+   differ.
+4. If the measurements say level and it still looks off, the cause is optical weight, not position.
+   The navbar brand measured level for several rounds and still "looked high"; what fixed it was
+   size (17 → 16px) and weight (550 → 500), not more nudging. Offer weight/size early.
+
+## Bulk content migrations: audit the output against the source before calling it done
+
+**Context:** The notes migration script looked right on a spot check, but Dave found broken
+formatting on /notes/how-to-use-a-root-domain-as-a-cname/. The script had deleted whole Summary
+sections (not just the heading) on 42 notes, cutting intro paragraphs from 14 of them and every
+page's opening paragraph (the description isn't rendered). A `^\s*` line-strip regex also ate the
+blank lines around tables, gluing them into lists.
+
+**How to apply next time:**
+1. Run a source-vs-output text-loss check: every substantial source line must appear in the output,
+   and every miss must be an intended scrub.
+2. Scan the *rendered* HTML for markdown that didn't render (table pipes in `<p>`, unresolved
+   `[ref]` links, stray `**`, leftover source-tool syntax).
+3. In line-level regexes use `[ \t]`, never `\s`, next to `^`/`$` with the m flag: `\s` crosses lines.
+4. Never cut content to build metadata unless the page renders that metadata.
+
+## Secret scans need provider credential patterns, not just the values you expect
+
+**Context:** The notes-migration scrubs and guards targeted things triage had named (private IPs,
+ping IDs, Cloudflare IDs, private keys). A real AWS access key and secret in an `aws configure`
+example slipped through and was only caught by GitHub push protection on the first push.
+
+**How to apply next time:** before any push of migrated or pasted content, scan for provider
+credential formats (AWS `AKIA`/`ASIA` + 40-char secrets, GitHub `ghp_`, Slack `xox*-`, Google
+`AIza`, OpenAI-style `sk-`, `-----BEGIN ... KEY`, `password|token|secret =`), not only the values
+the triage listed. If one is found in unpushed commits, fix and squash it out of history before
+pushing; never use the push-protection bypass.
