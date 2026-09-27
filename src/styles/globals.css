@@ -158,7 +158,8 @@ h1, h2, h3, h4 {
   font-family: "Brand Mono", var(--font-mono);
   /* Fixed size on every device: the brand is the site's identity, so it sits a */
   /* step above the 14px nav links instead of shrinking with the small-text scale. */
-  font-size: 16px;
+  /* 17px: Plex Mono's x-height (0.516em) is shorter than JetBrains Mono's (0.55em). */
+  font-size: 17px;
   line-height: 24px;
   font-weight: 600;
   letter-spacing: -0.025em;
