@@ -3,6 +3,7 @@
    serif headings, sans text, mono only for code and the brand, 896px column.
    Theme via [data-theme] on <html> (set before first paint in Layout.astro). */
 :root {
+  color-scheme: light; /* native scrollbars and form controls follow the theme */
   --bg: #faf6ef;
   --surface: #f3ede0;
   --surface-alt: #ece4d4;
@@ -23,6 +24,7 @@
 }
 
 [data-theme=dark] {
+  color-scheme: dark;
   --bg: #202122;
   --surface: #2a2b2c;
   --surface-alt: #323334;
