@@ -9,8 +9,8 @@ Pitch is commercial, under Klim's [web font licence](https://klim.co.nz/licences
 for dave.levine.io. The licence requires reasonable measures against unlicensed
 access and direct download, so **the font file must never be committed to this
 public repo**, not even inlined as base64. It lives in the `levine` R2 bucket at
-`uploads/portfolio/public/fonts/pitch-brand.woff2`, served as
-`https://cdn.levine.io/uploads/portfolio/public/fonts/pitch-brand.woff2`. The
+`uploads/portfolio/public/fonts/webfonts/pitch-brand.woff2`, served as
+`https://cdn.levine.io/uploads/portfolio/public/fonts/webfonts/pitch-brand.woff2`. The
 bucket's CORS policy (homelab-iac, `terraform/modules/cloudflare/data/r2_cors.yaml`)
 lists which origins browsers let use it; `https://dave.levine.io` must stay in
 that list.
