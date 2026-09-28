@@ -132,7 +132,7 @@ portfolio-v2/
 │   ├── content.config.ts   # Typed collection schemas (Zod)
 │   ├── pages/              # File-based routes (index, about, now, uses, contact, decisions/, writing/, notes/, certs/, projects/, rss.xml.js)
 │   ├── layouts/            # Base layout (head, theme, analytics) + PageLayout for Markdown pages
-│   ├── components/         # Astro components (Navbar, Footer, Hero, WritingArchive, WritingPills, NotesSearch)
+│   ├── components/         # Astro components (Navbar, Footer, Hero, WritingArchive, WritingPills, JumpSidebar, NotesSearch)
 │   └── styles/             # globals.css (plain CSS: tokens + all shared styles), fonts/ (mono font files, licence, regeneration notes)
 │   ├── lib/                # Date formatting, reading time, writing and decision categories
 ├── public/                 # Static assets served as-is (manifest, robots.txt, résumé, _redirects)

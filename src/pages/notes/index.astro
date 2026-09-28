@@ -1,10 +1,12 @@
 ---
 // Notes — Heap's /til/ layout: Writing pills with Notes active, search (⌘K),
-// up to five notes from the last two years, then every note under its first tag.
+// up to five notes from the last two years, then every note under its first tag
+// (with a topic jump list in the left margin on wide screens).
 // Tags link to ?q=<tag>.
 import Layout from '../../layouts/Layout.astro';
 import WritingPills from '../../components/WritingPills.astro';
 import NotesSearch from '../../components/NotesSearch.astro';
+import JumpSidebar from '../../components/JumpSidebar.astro';
 import { getCollection } from 'astro:content';
 
 const notes = (await getCollection('notes')).sort((a, b) => a.data.title.localeCompare(b.data.title));
@@ -26,6 +28,7 @@ const topics = [...new Set(notes.map((n) => n.data.topics[0]))].sort();
     <WritingPills active="notes" />
 
     <NotesSearch />
+    <JumpSidebar label="Jump to topic" items={topics.map((t) => ({ id: `topic-${t}`, text: t }))} />
 
     {recent.length > 0 && (
       <section>

@@ -3,6 +3,7 @@
 // Used by /writing/, /writing/favorites/ and /writing/category/<cat>/.
 import type { CollectionEntry } from 'astro:content';
 import WritingPills from './WritingPills.astro';
+import JumpSidebar from './JumpSidebar.astro';
 import { categoryHref, type Category } from '../lib/writing';
 
 interface Props {
@@ -17,9 +18,7 @@ const years = [...new Set(sorted.map((p) => p.data.date.getUTCFullYear()))];
 
 <WritingPills active={active} />
 
-<nav class="year-sidebar" aria-label="Jump to year">
-  {years.map((y, i) => <a href={`#year-${y}`} class:list={{ active: i === 0 }}>{y}</a>)}
-</nav>
+<JumpSidebar label="Jump to year" items={years.map((y) => ({ id: `year-${y}`, text: y }))} />
 
 {years.map((y) => (
   <>
@@ -36,21 +35,3 @@ const years = [...new Set(sorted.map((p) => p.data.date.getUTCFullYear()))];
   </>
 ))}
 
-<script>
-  // Year sidebar scroll-spy. Bound per astro:page-load: bundled scripts run once
-  // under ClientRouter, so top-level code would not re-run on a revisit.
-  document.addEventListener('astro:page-load', () => {
-    const links = document.querySelectorAll<HTMLAnchorElement>('.year-sidebar a');
-    if (!links.length) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          links.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
-        });
-      },
-      { rootMargin: '-20% 0px -60% 0px' }
-    );
-    document.querySelectorAll('.section-rule[id^="year-"]').forEach((el) => io.observe(el));
-  });
-</script>
