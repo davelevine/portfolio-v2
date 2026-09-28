@@ -28,7 +28,7 @@ const topics = [...new Set(notes.map((n) => n.data.topics[0]))].sort();
     <WritingPills active="notes" />
 
     <NotesSearch />
-    <JumpSidebar label="Jump to topic" items={topics.map((t) => ({ id: `topic-${t}`, text: t }))} />
+    <JumpSidebar label="Jump to topic" heading="Topics" items={topics.map((t) => ({ id: `topic-${t}`, text: t }))} />
 
     {recent.length > 0 && (
       <section>

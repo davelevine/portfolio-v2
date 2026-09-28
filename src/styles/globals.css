@@ -721,7 +721,7 @@ pagefind-modal-trigger, pagefind-modal {
 }
 .notes-search {
   display: block;
-  margin: 32px 0 8px;
+  margin: 40px 0 16px; /* Heap's /til/ spacing: ~40px under the pills, ~60px to the first rule */
 }
 .section-rule.topic-rule {
   margin: 24px 0 8px;
@@ -968,6 +968,17 @@ span.uses-row-title:hover {
   }
   .jump-sidebar a:hover, .jump-sidebar a.active {
     color: var(--accent);
+  }
+  /* Caption, not a link: small caps weight so it can't be mistaken for an entry. */
+  .jump-sidebar-heading {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    line-height: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    padding-bottom: 8px;
   }
 }
 /* ---- page + article headers ---- */

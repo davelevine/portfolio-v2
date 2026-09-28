@@ -1,15 +1,18 @@
 ---
 // Jump list pinned in the left margin on wide screens (≥1280px), with scroll-spy.
-// Used by the writing archive (years) and /notes (topics).
+// Used by the writing archive (years) and /notes (topics). `heading` captions the list
+// when its entries aren't self-explanatory (topics could read as more filter pills).
 interface Props {
   label: string;
+  heading?: string;
   items: { id: string; text: string | number }[];
 }
 
-const { label, items } = Astro.props;
+const { label, heading, items } = Astro.props;
 ---
 
 <nav class="jump-sidebar" aria-label={label}>
+  {heading && <span class="jump-sidebar-heading" aria-hidden="true">{heading}</span>}
   {items.map((it, i) => <a href={`#${it.id}`} class:list={{ active: i === 0 }}>{it.text}</a>)}
 </nav>
 
