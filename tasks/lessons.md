@@ -337,3 +337,14 @@ was caught only while scanning the next PR.
 **How to apply next time:** any script, config or test that names the values it redacts is itself
 sensitive. Keep it out of git (gitignored local path) or express its rules as generic patterns. Run
 the secret scan over *every* file in the diff, scripts included, not just the content.
+
+## Never quote removed personal information in public text
+
+**Context:** Dave removed his town and phone number from his résumé. In the public PR #90, I quoted
+exactly those values as "what changed." The repo is public, and GitHub keeps PR description edit
+history, so scrubbing the body afterward didn't fully undo it. Dave: "Not cool."
+
+**How to apply next time:** describe removals of personal details generically ("drops location
+and phone"). Before posting a PR body, commit message or issue, scan it for personal values
+(phone numbers, addresses, towns, names, personal emails), and drop the old values from test
+evidence too. Checking a diff locally is fine; publishing its contents is not.
