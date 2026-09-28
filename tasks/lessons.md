@@ -314,3 +314,24 @@ credential formats (AWS `AKIA`/`ASIA` + 40-char secrets, GitHub `ghp_`, Slack `x
 `AIza`, OpenAI-style `sk-`, `-----BEGIN ... KEY`, `password|token|secret =`), not only the values
 the triage listed. If one is found in unpushed commits, fix and squash it out of history before
 pushing; never use the push-protection bypass.
+
+## When the user reframes the criteria, re-run the earlier decisions under it
+
+**Context:** Midway through the notes migration Dave said the documents are legacy and "the date on
+the page says it all." I stopped adding dated banners but kept excluding files for being outdated
+or deprecated, the very reason the reframe removed. He later listed notes that "have been missed."
+
+**How to apply next time:** when a user's statement changes what counts (e.g. "legacy, treat as
+such"), go back through every earlier include/exclude decision and re-apply the new rule, then show
+the diff, instead of applying it only to what comes next.
+
+## A scrub list is a list of the secrets: never commit it
+
+**Context:** The notes migration script replaced identifiers with placeholders, and each rule held
+the literal it removed (home WAN IP, tailnet and LAN IPs, internal hostnames, usernames, database
+hosts). PR #86 committed the script to the public repo, publishing exactly what the notes hid. It
+was caught only while scanning the next PR.
+
+**How to apply next time:** any script, config or test that names the values it redacts is itself
+sensitive. Keep it out of git (gitignored local path) or express its rules as generic patterns. Run
+the secret scan over *every* file in the diff, scripts included, not just the content.

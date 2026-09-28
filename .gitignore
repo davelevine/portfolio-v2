@@ -11,3 +11,7 @@ npm-debug.log*
 .env.production
 # macOS
 .DS_Store
+
+# Local-only scripts. migrate-notes.mjs scrubs identifiers from the docs repo, so its rules
+# contain those identifiers and must never be committed.
+scripts/local/
