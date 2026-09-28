@@ -3,6 +3,7 @@
    serif headings, sans text, mono only for code and the brand, 896px column.
    Theme via [data-theme] on <html> (set before first paint in Layout.astro). */
 :root {
+  color-scheme: light; /* native scrollbars and form controls follow the theme */
   --bg: #faf6ef;
   --surface: #f3ede0;
   --surface-alt: #ece4d4;
@@ -23,6 +24,7 @@
 }
 
 [data-theme=dark] {
+  color-scheme: dark;
   --bg: #202122;
   --surface: #2a2b2c;
   --surface-alt: #323334;
@@ -44,13 +46,13 @@
 /* src/styles/fonts/OFL-MonaspaceXenon.txt), a slab-serif mono that echoes the serif */
 /* headings. The licence reserves the name "Monaspace", so these trimmed copies go by */
 /* "Brand Mono" and "Code Mono". See src/styles/fonts/README.md to regenerate them. */
-/* Brand: weight 550, subset to the glyphs in "</Dave Levine>" (~1 KB) and embedded */
+/* Brand: weight 500, subset to the glyphs in "</Dave Levine>" (~1 KB) and embedded */
 /* so the brand looks identical everywhere and never flashes a fallback. */
 @font-face {
   font-family: "Brand Mono";
-  font-weight: 550;
+  font-weight: 500;
   font-display: block;
-  src: url("data:font/woff2;base64,d09GMgABAAAAAATIAAsAAAAACKQAAAR7AAFmZgAAAAAAAAAAAAAAAAAAAAAAAAAAHDAGYACBBAqHAIVmATYCJAMaCxoABCAFhH4HIBsrB1GUDU6F5IsCu+FYVLOJyIHAiUsD9r5eJ2Ip/iI+ka8tERYPn7f3t7/b1YVBmEEWB5RmnFEIiQ3+bfc22aSA6/apy2JJKWlgXT4TnMDBxzbYBznkseXFHeFlszWZNAWMB3j3AvI/HGDomrooPZ1Fkk2wRD7o/9ZF7yuM0gIZ2Gig0QUy0uFAYOIzt9YS9xoxiiE6jyGSED18mYDZBsgeNk4YNO+c1HjoPSHpidCTA+M/vIDMGxQy8rJx5TLwWoXyCS+UFCaqHDpeJ+ECf8TYPfSf6l8c6Au2R/2p14FdHgpUWGVZAjn3e22qstIAWrZq2zEMhSOzB9zP+Ue75aJzDtgyZtiAHq0hUD4CJuDxQSIrAPwBqCc5qIAgRdYjg9Mr2ZmYaQX4ZVmYRdi4qOjoiDuMHr9FzHUPb0LxjQcMTGGFOvJtVHaLgcGzYyNWwIgcJqKCPTF6u3kC1CUkElZ7DVPzIsjkwCTXrwOVxQ0EMzwgkVAJ+TGBX1MTFLeQdohMwLnSzfDwkVhvP+6XBzbEapYuKWOoBd2aOJb7EQRGjeMoaYLGCwO23wPRmAmK27ykO4ToF5KwbT1iakqWPJ3mVZcp8Q6jxW9R2ARw18i8peIAIwIYg4rNshnwgDH7Lg2l3mVAel4ypGCZKGsxc8ZOK+DDjVwHZz0gcU2V6j14WObBfeDaA+Xhzoqleoxuh/sg85nOjMvQD35oRbj4s56X/0U0UAfQ30Z67eUSUlq1XqovI9A4NERWcNTFgyQswCfXVtI5uEJE/qvvPCmXU71k7NdZLnb8pEyFj48wiaHJDC/2r1juUDZ7xUJTmFBdkC72dlRQsHCX0rft0rbRTHhbbNOu5ghPeCG/7MNfakaodrLxTHz8rXEn2bKIZBlfnYJ4S3ffCnf7yfw8x53e2DS/XGMJm6OVwuYvcekNmVDoyFwK0Qn5pW+7opllHvx6VSdkMSTrloDVR3vJWyvb+Lg5OPi62Vj7ejgAacGLlehL2X2UV48TNBcOqaLIaykIWsrm6WQK6fsmWWoUBe/qBM/aZV2NzDQdtAPYDWzJiuU+Pq8P3P3n0ebCrwH959OOYdD2z7O27VTC7u+wftiBsC67rNWsfjujMJ6jp09D80m5E/n/n0lgd1/tZabaK5njf7X6t8D8WmINMNdeptVDBAAAph8AAQCKpO8RpKEgVqOvdFnaSwAATy/rtNmFCWEw/K+XszR6xaR0DgR22JQ3AB4g+y4R4bp9pc7+SxTvftlZ92HPNE4tjnE5dFi1ZFnSg+soJRHDWN6rebHIA4VhEWF0WxQqj47DYJkGEBAEamAPx7TPgps3cEBGAAxMp/omlWERCMQcTLY2AEEhOYoyist0S5RKfYxBhSFQZmbonQAcvBQBBBSdTZAMd2MC08AplJAaB6acGMeYyu1GDmzQMZw/WNkpiun3hcmkeglDVoeRkYHEIzqPygyFA64cOGbBGRWV8RWI5+UQDI0BvwkGgA1+hwARQnRIXFABHLnvsQNbdpy6siNLtY1OdgAA") format("woff2");
+  src: url("data:font/woff2;base64,d09GMgABAAAAAATUAAsAAAAACKQAAASHAAFmZgAAAAAAAAAAAAAAAAAAAAAAAAAAHDAGYACBBAqHAIVpATYCJAMaCxoABCAFhH4HIBsuByAuCmNjWvQl1kzKSM5IvZILfgQB/541r00XWYA5kNkD02bhA4QvY8mvozJUl86mkOKjlE28OhQAXsYL+rf9D1BqOV/gMtuX+Vnb/3/vtLH0Y9HYnkCCS2is+19rPfvUHDgnYGBRoGNqx9uUYRhD6Kkbaj0VoAM5S6o7+DIEIFMLJu06dbH7Qf8BY4lWMHJkpoCAkbQHMICegSRliq9YcLB4S2eBzUMV000GmswxcKRpCvZau4ec4ArhlOzT/8cdC4uvNL650nLxUDgdABNgBrwFiUq0Z+z38qc37XAgHBZylOixkwGmCYSSAcDPaRRZhCsO2GuXbdYnaAKBMzx/at2AvyB2XmEJQabiEgOzvNLD2cU+MKCqq0uou7fk4KDr/i5WG+SyoiiLuZmFsvMApxUZOWJBtiz3xy/vhqaP7a67aQndYqeOH9ph3rt38ps3Wr1g6FmG04q3b5E6WEFaLnz3TszLKNGtjwPF3LdvlcrQeTANyEVmYZfgLtxaiUWGlhNxw4C/nNIH+DtZ06ExSkdbGuj9x8+Y1Zj7Rh6j+zvUaVeb6buPkDI2p9lw99G6b5kNGqCAAbfIGe9UhaYnuqVM3j+mq3VGt6l6HhqvF0FhBgZwbRw0oxW2X2WF/4rd3xV/meVzYp4kN39+34FXM7KVrVsXnl4Y7noz4KHXm639XsMm/hnw7/XFv3at1wA6DEj8824TCUHnNSmsv1bQcOyGDKWnOJKrMiXAJLXS4Z40gvI+LvJW9WlzTyrjVi2ovfs4epYnMPSNvLadf3JsxoVVnLYVLo7TF4pMZVmCm07v6KuRdd/YrLug5du8Livrdgdf/P7NnP/h+KlF/40ln39v+Mjn+2M4kydNJsWkkwidJzVfs+2dNcF5dndTIT1JVRmzbfYI9de+0aeqDgBrxh5J4sXLmnY6UX+cOPbqbMPEI0n444CvPztHktrTtQG70Riwa3UBhxG8GHtCZYentVBi1BW0BqOG6UZNv95uchA1qANpnLA4QhKLavmTUqcbJh5Q8UcD69pBok4vq872+F9df/oPKkC+cKdLKrwPfzfuqkpNf7rj9vkOqdv18JFxm1VJemDuxi023K++eeb3rgBcvLjimXMWjtluRB85hObguOXvXDZkjN5Wz1M5Io8AAG0/IgAxeHC0bxFKcWv1zcFs/wKg7GWTDcOz9RCgMJpJR+38AdhjAkDAKfZKmQQe7PanCQSI4wHxtII8MGvpiZEV3OY4PeZMQ5br0LCZGh0WkiON7mqZyuzFXlwv6sJhcZp+wDRQpJUMBDpQMMZC0EQDjRQohwubCDwDE4ALmB1OZ6FTjgWEHEzKIevqAhh5pLBg0RCYjcsxyYHSFlURYMZQgDbCKYQMeTAy5IChbOEa7UCWP6gxiWAISlCnyOgmKlCOE7VRliyHhIPlGKTOYGk5GggatHvifE5gpYdnQ0TbS4a6xTIg1DnU2iAYC0bBqZiJDwt2FbnAgFs+RdpOEzkA5RcATvolDuU/B1gUaAXIrBmNaAI5aceCDgNOfBhoRzNkLBUA") format("woff2");
 }
 /* Code: variable weight 400-700 (bold tokens get a true bold), Latin subset (~26 KB). */
 @font-face {
@@ -166,9 +168,11 @@ h1, h2, h3, h4 {
   font-family: "Brand Mono", var(--font-mono);
   /* Fixed size on every device: the brand is the site's identity, so it sits a */
   /* step above the 14px nav links instead of shrinking with the small-text scale. */
-  font-size: 17px;
+  /* 16px, not 17: the heavier slab Xenon read as floating above the links at 17. */
+  font-size: 16px;
   line-height: 24px;
-  font-weight: 550;
+  /* 500, not 550: heavier slab caps carried the brand's visual weight up top. */
+  font-weight: 500;
   letter-spacing: -0.025em;
   color: var(--fg);
 }
@@ -200,13 +204,15 @@ h1, h2, h3, h4 {
 .nav-link:hover {
   color: var(--fg);
 }
-/* Current page: normal text with an accent underline, like body links. */
+/* Current page: normal text with an accent underline, drawn the same way as body links. */
+/* On the inner span: the link itself is a flex item (desktop) or a padded block (mobile), */
+/* so a shadow on it would sit below the box instead of under the text. */
 .nav-link.active {
   color: var(--fg);
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 5px;
+}
+.nav-link.active > span {
+  box-shadow: 0 2px 0 0 var(--accent);
+  padding-bottom: 0.08em;
 }
 
 .nav-divider {
@@ -315,8 +321,9 @@ h1, h2, h3, h4 {
 
 @media (min-width: 640px) {
   /* Baseline, not center: the mono brand and sans links have different font */
-  /* metrics, so centered boxes leave the brand text sitting high. The 1px nudge */
-  /* offsets the taller mono caps and brackets. */
+  /* metrics, so centered boxes leave the brand text sitting high. Even on a */
+  /* shared baseline, the brand's larger caps (11.7px vs ~9.9px) center ~0.9px */
+  /* above the links'; 1px lowers it to level (measured against screenshots). */
   .nav-inner {
     padding: 16px 32px;
     align-items: baseline;
@@ -689,6 +696,44 @@ a.post-category:hover {
   line-height: 16px;
   color: var(--muted);
   white-space: nowrap;
+}
+
+/* ---- /notes (Heap's /til/): full-width search, muted mono topic rules, mono #tags ---- */
+/* Pagefind component UI (search trigger + modal), themed from site tokens. */
+pagefind-modal-trigger, pagefind-modal {
+  --pf-font: var(--font-sans);
+  --pf-text: var(--fg);
+  --pf-text-secondary: var(--fg);
+  --pf-text-muted: var(--muted);
+  --pf-background: var(--surface);
+  --pf-border: var(--border);
+  --pf-border-focus: var(--accent);
+  --pf-outline-focus: var(--accent);
+  --pf-hover: var(--surface-alt);
+  --pf-mark: var(--accent);
+  --pf-border-radius: 8px;
+  /* Loading placeholders and the selected result: unset, these stay Pagefind's light grey and
+     flash on every keystroke in dark mode. */
+  --pf-skeleton: var(--surface-alt);
+  --pf-skeleton-shine: var(--border);
+  --pf-scroll-shadow: rgb(0 0 0 / 0.15);
+  --pf-modal-backdrop: rgb(0 0 0 / 0.5);
+}
+.notes-search {
+  display: block;
+  margin: 32px 0 8px;
+}
+.section-rule.topic-rule {
+  margin: 24px 0 8px;
+}
+.section-rule.topic-rule span {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 20px;
+  color: var(--muted);
+}
+.note-tag {
+  font-family: var(--font-mono);
 }
 
 /* ---- pills ---- */

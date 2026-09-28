@@ -2,7 +2,8 @@
 // Writing archive — category pills (real routes), year-grouped rows, year sidebar.
 // Used by /writing/, /writing/favorites/ and /writing/category/<cat>/.
 import type { CollectionEntry } from 'astro:content';
-import { CATEGORIES, categoryHref, type Category } from '../lib/writing';
+import WritingPills from './WritingPills.astro';
+import { categoryHref, type Category } from '../lib/writing';
 
 interface Props {
   posts: CollectionEntry<'writing'>[];
@@ -12,18 +13,9 @@ interface Props {
 const { posts, active } = Astro.props;
 const sorted = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const years = [...new Set(sorted.map((p) => p.data.date.getUTCFullYear()))];
-const pills = [
-  { key: 'favorites', label: '❤️', href: '/writing/favorites/', title: 'Favorites' },
-  { key: 'all', label: 'All', href: '/writing/' },
-  ...CATEGORIES.map((c) => ({ key: c, label: c, href: categoryHref(c) })),
-];
 ---
 
-<nav class="category-switcher" aria-label="Categories">
-  {pills.map((p) => (
-    <a href={p.href} class:list={{ active: p.key === active }} title={p.title} aria-label={p.title} aria-current={p.key === active ? 'page' : undefined}>{p.label}</a>
-  ))}
-</nav>
+<WritingPills active={active} />
 
 <nav class="year-sidebar" aria-label="Jump to year">
   {years.map((y, i) => <a href={`#year-${y}`} class:list={{ active: i === 0 }}>{y}</a>)}

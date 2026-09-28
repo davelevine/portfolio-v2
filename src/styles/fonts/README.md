@@ -13,7 +13,7 @@ original, so the copies drop the family and style names and are loaded as
 
 | Face | Where | Contents |
 |---|---|---|
-| Brand Mono | base64 WOFF2 inlined in `src/styles/globals.css` | weight 550, glyphs ` /<>DLaeinv` (~1 KB) |
+| Brand Mono | base64 WOFF2 inlined in `src/styles/globals.css` | weight 500, glyphs ` /<>DLaeinv` (~1 KB) |
 | Code Mono | `code-mono.woff2`, bundled by Vite | variable weight 400–700, Latin (~26 KB) |
 
 Code blocks use weight 450 (inline code 400, matching body text) and `font-feature-settings: "cv01" 2`, the slashed zero (the
@@ -48,6 +48,6 @@ LATIN = [*range(0x20, 0x7F), *range(0xA0, 0x100), 0x2013, 0x2014, 0x2018, 0x2019
 open('code-mono.woff2', 'wb').write(
     build({'wdth': 100, 'slnt': 0, 'wght': (400, 700)}, LATIN,
           ['calt', 'cv01', 'kern', 'ccmp', 'locl', 'mark', 'mkmk']))
-brand = build({'wdth': 100, 'slnt': 0, 'wght': 550}, [ord(c) for c in set('</Dave Levine>')], [])
+brand = build({'wdth': 100, 'slnt': 0, 'wght': 500}, [ord(c) for c in set('</Dave Levine>')], [])
 print(base64.b64encode(brand).decode())  # paste into the "Brand Mono" @font-face
 ```
