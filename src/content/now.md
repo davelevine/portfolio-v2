@@ -4,8 +4,6 @@ date: "2026-09-26T12:00:00Z"
 
 This is my [Now Page]: a brief update on what's currently happening in my life, inspired by [Derek Sivers].
 
-![home-office](https://cdn.levine.io/uploads/portfolio/public/images/home-office.webp)
-
 ## Personal
 
 I've officially been in my house for 10 years now. Between that, my wife, and two kids, I have no problem staying busy. It's hard to believe I've been working remotely for 6 years, which allows me to maintain a healthy work-life balance. Watching my kids grow up so quickly has been both wonderful and surreal.
