@@ -103,8 +103,10 @@ files under `src/`. The dev server's watcher then rebuilt its content store with
 entry, and the home page crashed with "Cannot read properties of undefined (reading 'data')".
 
 **How to apply next time:**
-1. If the user's dev server is running, do branch work in a separate `git worktree`, not in their
-   working directory. The same goes for `npm run build`, which shares Astro's cache directory.
+1. Do the work in Dave's checkout, not a separate worktree: he reviews changes with `npm run dev`
+   there ("I'd rather just run it from the one we're working in"). When a branch switch is needed
+   with his dev server running, do it and tell him to restart it with the cache clear in step 3.
+   Builds for verification still go in a scratch copy, since `npm run build` shares Astro's cache.
 2. Never claim a checkout "doesn't touch files". Identical contents don't mean untouched files.
 3. If it happens anyway, the fix is: stop the dev server, `rm -rf .astro node_modules/.astro`, then restart.
 
