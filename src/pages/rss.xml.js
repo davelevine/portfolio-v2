@@ -28,8 +28,8 @@ export async function GET(context) {
       description: post.data.description,
       // Same HTML as the page (rehype plugins included: external-link rel, CDN image URLs).
       content: post.rendered?.html ?? '',
-      // GUIDs keep the pre-rename /blog/ URL so readers don't re-list every post as new.
-      customData: `<dc:creator>Dave Levine</dc:creator><guid isPermaLink="false">${context.site}blog/${post.id}/</guid>`,
+      // No custom <guid>: @astrojs/rss uses the item link as a permalink GUID.
+      customData: '<dc:creator>Dave Levine</dc:creator>',
     })),
   });
 }
