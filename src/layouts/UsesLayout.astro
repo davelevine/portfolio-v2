@@ -1,7 +1,7 @@
 ---
-// Layout for /uses (src/pages/uses.md): intro body, then boxed sections of rows:
+// Layout for /uses (src/pages/uses.md): intro, then sections of Projects-style rows:
 // a name with an optional writeup (inline Markdown; a blank line in the YAML folds to "\n"
-// and starts a new paragraph) underneath.
+// and starts a new paragraph) underneath in muted text.
 import Layout from './Layout.astro';
 import { inlineMd } from '../lib/markdown';
 
@@ -22,14 +22,12 @@ const { title, description, heading, lede, sections = [] } = Astro.props.frontma
     {sections.map((section) => (
       <section>
         <h2 class="section-rule"><span>{section.title}</span></h2>
-        <div class="uses-group">
-          {section.items.map((item) => (
-            <div class="uses-row">
-              <span class="uses-row-title">{item.name}</span>
-              {item.text?.split('\n').map((para) => <p class="uses-row-desc" set:html={inlineMd(para)} />)}
-            </div>
-          ))}
-        </div>
+        {section.items.map((item) => (
+          <div class="post-row project-row uses-row">
+            <span class="post-title">{item.name}</span>
+            {item.text?.split('\n').map((para) => <p class="project-summary uses-row-desc" set:html={inlineMd(para)} />)}
+          </div>
+        ))}
       </section>
     ))}
   </main>

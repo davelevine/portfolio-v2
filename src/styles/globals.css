@@ -587,15 +587,15 @@ h1, h2, h3, h4 {
 /* Whole row is clickable: the title link's ::after covers the row. Other links in the row
    (the writing archive's category pill, links in a description) sit above it. /uses rows
    have an unlinked title, so they're unaffected. */
-.post-row, .uses-row {
+.post-row {
   position: relative;
 }
-.post-row > a.post-title::after, .uses-row > a.uses-row-title::after {
+.post-row > a.post-title::after {
   content: "";
   position: absolute;
   inset: 0;
 }
-.post-row a:not(.post-title), .uses-row a:not(.uses-row-title) {
+.post-row a:not(.post-title) {
   position: relative;
   z-index: 1;
 }
@@ -831,16 +831,22 @@ a.tag-text:hover {
   background: var(--border);
 }
 
-/* ---- /uses boxes: unlinked name, writeup below ---- */
-span.uses-row-title {
-  display: block;
+/* ---- /uses: Projects-style rows, but the name isn't a link, so no hover affordance ---- */
+.uses-row:hover {
+  background-color: transparent;
 }
-span.uses-row-title:hover {
+span.post-title:hover {
   color: inherit;
 }
-
+/* Medium weight: long writeups (GitHub, Umami) make regular-weight names hard to spot. */
+.uses-row > .post-title {
+  font-weight: 500;
+}
+.uses-row-desc {
+  padding-right: 12px;
+}
 .uses-row-desc + .uses-row-desc {
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 /* ---- /ail page ---- */
@@ -1229,37 +1235,6 @@ span.uses-row-title:hover {
 .copy-code-button:hover {
   background-color: var(--surface);
   color: var(--fg);
-}
-
-/* ---- bordered row lists (projects, uses) ---- */
-.uses-group {
-  border: 1px solid var(--border);
-}
-
-.uses-row {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-  transition: background-color var(--transition-fast);
-}
-.uses-row:last-child {
-  border-bottom: none;
-}
-.uses-row:hover {
-  background-color: var(--surface);
-}
-
-.uses-row-title {
-  font-weight: 600;
-  transition: color var(--transition-fast);
-}
-.uses-row-title:hover {
-  color: var(--accent);
-}
-
-.uses-row-desc {
-  color: var(--muted);
-  line-height: 1.6;
-  margin-top: 4px;
 }
 
 /* Chips: project tech on project pages. */
