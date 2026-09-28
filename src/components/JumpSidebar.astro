@@ -1,0 +1,40 @@
+---
+// Jump list pinned in the left margin on wide screens (≥1280px), with scroll-spy.
+// Used by the writing archive (years) and /notes (topics). `heading` captions the list
+// when its entries aren't self-explanatory (topics could read as more filter pills).
+interface Props {
+  label: string;
+  heading?: string;
+  items: { id: string; text: string | number }[];
+}
+
+const { label, heading, items } = Astro.props;
+---
+
+<nav class="jump-sidebar" aria-label={label}>
+  {heading && <span class="jump-sidebar-heading" aria-hidden="true">{heading}</span>}
+  {items.map((it, i) => <a href={`#${it.id}`} class:list={{ active: i === 0 }}>{it.text}</a>)}
+</nav>
+
+<script>
+  // Scroll-spy: highlight the link whose section heading is in view. Bound per
+  // astro:page-load: bundled scripts run once under ClientRouter, so top-level
+  // code would not re-run on a revisit.
+  document.addEventListener('astro:page-load', () => {
+    const links = document.querySelectorAll<HTMLAnchorElement>('.jump-sidebar a');
+    if (!links.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          links.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px' }
+    );
+    links.forEach((l) => {
+      const target = document.getElementById(l.hash.slice(1));
+      if (target) io.observe(target);
+    });
+  });
+</script>
