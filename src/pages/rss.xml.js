@@ -10,7 +10,7 @@ export async function GET(context) {
   );
 
   return rss({
-    title: "Dave Levine's Writing",
+    title: 'Dave Levine',
     description: "Latest writing from Dave Levine.",
     site: context.site,
     xmlns: { dc: 'http://purl.org/dc/elements/1.1/' },
@@ -18,8 +18,8 @@ export async function GET(context) {
       '<language>en</language>',
       `<copyright>All rights reserved ${new Date().getFullYear()}, Dave Levine</copyright>`,
       '<ttl>60</ttl>',
-      `<image><url>${FAVICON}</url><title>Dave Levine's Writing</title><link>${context.site}</link></image>`,
-      "<generator>Dave Levine's Writing RSS Feed</generator>",
+      `<image><url>${FAVICON}</url><title>Dave Levine</title><link>${context.site}</link></image>`,
+      '<generator>Dave Levine</generator>',
     ].join(''),
     items: posts.map((post) => ({
       title: post.data.title,
