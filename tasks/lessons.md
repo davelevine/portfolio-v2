@@ -348,3 +348,11 @@ history, so scrubbing the body afterward didn't fully undo it. Dave: "Not cool."
 and phone"). Before posting a PR body, commit message or issue, scan it for personal values
 (phone numbers, addresses, towns, names, personal emails), and drop the old values from test
 evidence too. Checking a diff locally is fine; publishing its contents is not.
+
+## Link text uses the section's name, not its path
+
+**Context:** Dave suggested banner copy that mentioned "the /notes section." I used `/notes` as the
+link text. He meant the path as a pointer; the link should read "Notes."
+
+**How to apply next time:** when a user writes a path while describing a link, use the page's
+display name (the nav label or heading) as the link text and the path as the href.
