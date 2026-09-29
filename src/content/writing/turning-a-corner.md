@@ -65,4 +65,4 @@ I normally write in my journal, which is another amazing tool I've added to my a
 
 While this has been great, I really had been postponing actually writing about my journey to get to this point. It's been long overdue, but I'm glad I finally got it out. I'm not yet where I (think) I want to be, but I'm on the path that I'm supposed to be on, and for the first time in my life, I'm happy about where I am in the here and now. That's something I can be proud of, and something that I'm immensely grateful for.
 
-[Journalistic]: https://journal.levine.io
+[Journalistic]: /projects/journalistic/

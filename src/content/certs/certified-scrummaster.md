@@ -32,4 +32,4 @@ The CSM certification marks my ongoing quest to master Agile practices and make 
 
 ## Verification
 
-Verify this certification with [Scrum Alliance](https://bcert.me/sbppozyri).
+Verify this certification with [Scrum Alliance](https://app.badgecert.com/public/badges/bppozyri).

@@ -10,12 +10,11 @@ tech:
 stack: ['MkDocs']
 description: A knowledge base I started in 2016. It has since amassed hundreds of articles, guides and documents that serve as a source of truth, second brain and a labor of love.
 summary: "My knowledge base since 2016."
-liveLink: https://kb.levine.io
 image: atw.webp
 
 ---
 
-> **Archived.** This project is no longer maintained. The site stays online as legacy documentation.
+> **Archived.** This project is no longer maintained. The site has been retired and all content now lives in the [Notes](/notes/) section.
 
 ## Description
 
@@ -23,18 +22,16 @@ A knowledge base I started in 2016. It has since amassed hundreds of articles, g
 
 ## Key Takeaways
 
-* Documentation is stored on [GitHub].
+* Documentation is stored on GitHub.
 * Generated with [MkDocs Material Insiders].
 * Hosted with [Cloudflare Pages].
-* Site analytics by [Plausible].
+* Site analytics by Plausible.
 * DNS by [Cloudflare].
 * Media content hosted on [Backblaze] and served with [Cloudflare].
 * Written in [Cursor].
 
-  [GitHub]: https://github.com/davelevine/docs-public
   [MkDocs Material Insiders]: https://github.com/squidfunk/mkdocs-material
   [Cloudflare Pages]: https://pages.cloudflare.com
   [Cloudflare]: https://cloudflare.com
   [Backblaze]: https://www.backblaze.com
   [Cursor]: https://cursor.sh
-  [Plausible]: https://plausible.io/levine.io
