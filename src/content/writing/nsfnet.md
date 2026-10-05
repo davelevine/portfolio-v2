@@ -6,7 +6,7 @@ category: Personal
 categories:
     - Domains
 isFeatured: true
-ail: 1
+ail: 0
 ---
 
 ## Preface

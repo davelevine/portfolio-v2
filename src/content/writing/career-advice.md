@@ -6,7 +6,7 @@ categories:
 title: Career Advice
 date: "2021-04-27T12:00:00Z"
 description: Reflections on Moxie Marlinspike's "Career Advice" and what you should strive for before you settle into a career.
-ail: 2
+ail: 0
 ---
 
 I read an incredibly well written blog post this evening by Moxie Marlinspike titled ["Career Advice"](https://moxie.org/2013/01/07/career-advice.html). It provided just that, but also some real insight into what you should strive for before you settle into a career. It's been a while since I've read something that really resonated with me.
