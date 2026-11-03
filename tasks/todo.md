@@ -32,7 +32,7 @@ its design-system, AOS, modal and card items are superseded by this section.
 - [ ] Rotate Healthchecks ping URLs committed in private ADRs 0015/0057 (anyone holding them can ping those checks)
 - [ ] Screen-reader + keyboard pass on a real phone (static checks can't cover these)
 - [ ] Review scrubbed ADRs before publishing (0056 names CI workflows; 0070 outlines DR mechanics; 0076 states exact cooldowns)
-- [ ] Test the contact form end-to-end once deployed (Formspree may need the new /contact origin allowed)
+- [ ] Contact Worker cutover (README "First deploy order"): deploy + secrets, homelab-iac route, curl check, merge, real test message, delete the Formspree form
 - [ ] Visual review against michaelheap.com (screenshots from Dave)
 - [x] Retire the resume X-Frame-Options exception in homelab-iac once this ships (homelab-iac branch `fix/portfolio-astro-cache-rules`)
 - [x] Open Graph / Twitter / canonical meta (Heap has them; production never did)
