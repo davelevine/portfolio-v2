@@ -1,0 +1,10 @@
+# Deployed by .github/workflows/contact-worker.yml. The route (dave.levine.io/api/contact)
+# is owned by homelab-iac's terraform/modules/cloudflare/workers.tf, so none is declared here.
+name = "portfolio-contact"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = false
+preview_urls = false
+
+[observability]
+enabled = true

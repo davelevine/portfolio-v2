@@ -24,7 +24,8 @@ This is the source for my personal portfolio site. It's a fully static
 [Astro](https://astro.build/) build — every page is rendered at build
 time from markdown content collections, with no runtime server. The
 output deploys to [Cloudflare Pages](https://pages.cloudflare.com/) at
-[dave.levine.io](https://dave.levine.io).
+[dave.levine.io](https://dave.levine.io). The one dynamic piece, the
+contact form's backend, is a small Cloudflare Worker in [`worker/`](./worker/).
 
 This is the `v2` rewrite: the previous site was a Next.js
 (`output: 'export'`) static export, and the codebase was ported to Astro
@@ -52,7 +53,7 @@ and are referenced by URL — the repo stays free of large binaries.
 | [`/now`](./src/pages/now.astro) | [`content/now.md`](./src/content/now.md) | Current focus ([nownownow.com](https://nownownow.com/about)) |
 | [`/decisions`](./src/pages/decisions/index.astro) | [`content/adr/`](./src/content/adr/) | Selected ADRs from the homelab, edited for publishing, by year, filterable by category (`?category=<cat>`) |
 | [`/ail`](./src/pages/ail.md) | Markdown page | AI Influence Level scale used on posts and decisions |
-| [`/contact`](./src/pages/contact.astro) | static page | Formspree contact form, LinkedIn, PGP key, résumé |
+| [`/contact`](./src/pages/contact.astro) | static page | Contact form (posts to the [contact Worker](#-contact-form)), LinkedIn, PGP key, résumé |
 | [`/uses`](./src/pages/uses.md) | Markdown page | Colophon: code, writing, learning, planning, tools, gear, workspace |
 
 </div>
@@ -101,6 +102,7 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build    # production build → ./dist, then the Pagefind search index
 npm run preview  # serve the production build locally (search works here, not in dev)
+npm test         # contact Worker unit tests
 ```
 
 ## ✏️ Editing Content
@@ -117,6 +119,46 @@ npm run preview  # serve the production build locally (search works here, not in
   build time.
 - **External links** in markdown automatically open in a new tab with
   `rel="noopener noreferrer"`.
+
+## 📬 Contact Form
+
+[`/contact`](./src/pages/contact.astro) posts with `fetch` to `/api/contact`,
+served by the `portfolio-contact` Worker in [`worker/`](./worker/src/index.js).
+The Worker drops honeypot submissions, validates the email and message,
+verifies the Turnstile token (including that it was solved on this hostname),
+then emails the message through [Lettermint](https://lettermint.co/) from
+`contact@levine.io`, with the visitor as Reply-To. Nothing is stored. There's no
+backend under `npm run dev`, so sends only work in production.
+
+Infrastructure is split with the private homelab-iac repo, where ADR-0087 records the decision:
+
+| Piece | Where |
+|---|---|
+| Worker code and tests | this repo, `worker/` |
+| Deploys | [`.github/workflows/contact-worker.yml`](./.github/workflows/contact-worker.yml): tests on PRs, `wrangler deploy` on pushes to `main` that touch `worker/` |
+| Route `dave.levine.io/api/contact` | homelab-iac `terraform/modules/cloudflare/workers.tf` |
+| Turnstile widget "levine.io (Spin)" | homelab-iac `terraform/modules/cloudflare/turnstile.tf` |
+| Worker secrets | set by hand with `wrangler secret put`; rotation in homelab-iac's credential-rotation runbook |
+
+**Secrets.** Repo secrets `CLOUDFLARE_API_TOKEN` (Account: Workers Scripts: Edit
+only) and `CLOUDFLARE_ACCOUNT_ID` deploy the script. The Worker itself needs:
+
+```bash
+cd worker
+npx wrangler secret put TURNSTILE_SECRET   # homelab-iac: tofu output -raw portfolio_turnstile_secret
+npx wrangler secret put LETTERMINT_TOKEN   # the shared Lettermint project token (Bitwarden)
+npx wrangler secret put CONTACT_TO         # inbox that receives messages
+```
+
+**First deploy order.** Merging switches the live page to `/api/contact`, so the
+backend has to be in place first:
+
+1. From this branch, `npx wrangler deploy` in `worker/`, then set the three secrets.
+2. Apply the homelab-iac route.
+3. Check the route answers: `curl -si -F email=a@example.org -F message=test https://dave.levine.io/api/contact`
+   should return the Worker's `403` spam-check JSON, not a Pages page.
+4. Merge. The workflow redeploys the same script, and Pages ships the page.
+5. Send a real message, then delete the Formspree form.
 
 ## 📁 Project Structure
 
@@ -135,6 +177,7 @@ portfolio-v2/
 │   ├── components/         # Astro components (Navbar, Footer, Hero, WritingArchive, WritingPills, JumpSidebar, NotesSearch)
 │   └── styles/             # globals.css (plain CSS: tokens + all shared styles), fonts/ (mono font files, licence, regeneration notes)
 │   ├── lib/                # Date formatting, reading time, writing and decision categories
+├── worker/                 # Contact-form Worker (src/index.js, tests, wrangler.toml)
 ├── public/                 # Static assets served as-is (manifest, robots.txt, résumé, _redirects)
 ├── astro.config.mjs        # Astro config: site, Shiki, rehype plugins, sitemap
 └── tsconfig.json

@@ -1,10 +1,11 @@
 ---
-// Contact — Formspree form (plain POST without JS, inline status with JS) + other channels.
+// Contact — form posted by fetch to the contact Worker (worker/), plus other channels.
 import Layout from '../layouts/Layout.astro';
 
-const endpoint = 'https://formspree.io/f/xzbloaed';
-// Cloudflare Turnstile sitekey (public). Formspree verifies the token; the secret lives in
-// the Formspree form settings (Cloudflare Turnstile).
+// Served by the Worker's route in production; `npm run dev` has no backend, so sends fail there.
+const endpoint = '/api/contact';
+// Cloudflare Turnstile sitekey (public). The Worker verifies the token with the widget's
+// secret (a Worker secret).
 const turnstileSitekey = '0x4AAAAAAFE4sbtlDVsHJpzy';
 ---
 
@@ -23,7 +24,7 @@ const turnstileSitekey = '0x4AAAAAAFE4sbtlDVsHJpzy';
       <label for="message">Message</label>
       <textarea id="message" name="message" required rows="7" placeholder="What would you like to talk about?"></textarea>
 
-      {/* Formspree honeypot: bots fill it, people never see it. */}
+      {/* Honeypot: bots fill it, people never see it. */}
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
 
       <div class="turnstile" id="turnstile" data-sitekey={turnstileSitekey}></div>
@@ -140,7 +141,7 @@ const turnstileSitekey = '0x4AAAAAAFE4sbtlDVsHJpzy';
           show("Thanks for reaching out! I'll get back to you soon.", 'ok');
         } else {
           const body = await res.json().catch(() => ({}));
-          show(body?.errors?.[0]?.message || 'Something went wrong. Please try again.', 'error');
+          show(body?.error || 'Something went wrong. Please try again.', 'error');
         }
       } catch {
         show('Could not send your message. Please try again.', 'error');

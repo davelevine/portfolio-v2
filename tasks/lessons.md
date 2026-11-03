@@ -356,3 +356,14 @@ link text. He meant the path as a pointer; the link should read "Notes."
 
 **How to apply next time:** when a user writes a path while describing a link, use the page's
 display name (the nav label or heading) as the link text and the path as the href.
+
+## Check a feature's plan requirements against the user's actual plan before designing on it
+
+**Context:** I proposed Cloudflare Email Sending for the contact-form Worker and called it free because
+the pricing page says sending to verified destination addresses is free on all plans. Email Sending
+itself needs Workers Paid, which Dave doesn't have. The free path for verified addresses belongs to
+Email Routing, which needs Cloudflare MX records, and levine.io's MX points at SimpleLogin.
+
+**How to apply:** when a design depends on a paid or beta feature, name the exact plan it needs, ask
+or check which plan the user is on, and confirm that any "free" exception applies to their setup
+(DNS, MX, zone). Do this before starting to build.
