@@ -85,7 +85,7 @@ markdown             SCSS + Shiki    static    dave.levine.io
 | Collection | Source | Frontmatter |
 |---|---|---|
 | `writing` | `src/content/writing/*.md` | `title`, `date`, `description`, `category` (required: Homelab / AWS / Work / Personal), `categories` (topic tags), `isFeatured` (heart + home favorites), `ail` / `ailImages` (AI Influence Level badge, see `/ail`) |
-| `projects` | `src/content/projects/*.md` | `title`, `tech[]`, `liveLink`, `githubLink`, `image`, `isFeatured` |
+| `projects` | `src/content/projects/*.md` | `title`, `tech[]`, `liveLink`, `githubLink`, `image` / `imageDark` (light/dark screenshots), `imageBorder` (false for transparent images), `isFeatured` |
 | `certs` | `src/content/certs/*.md` | `title`, `achievedDate`, `expirationDate`, `image`, `tech[]` |
 | `now` | `src/content/now.md` | `date` |
 | `home` | `src/content/home.md` | `greeting`, `tagline`, `intro`, `now[]` (`label`, `text` with inline Markdown) |
