@@ -1052,6 +1052,10 @@ span.post-title:hover {
   border-radius: 6px;
 }
 
+.lead-image.no-border {
+  border: none;
+}
+
 /* Theme-specific images (e.g. a project screenshot per theme). */
 .theme-dark-only {
   display: none;

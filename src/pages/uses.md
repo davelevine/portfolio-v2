@@ -27,10 +27,12 @@ sections:
         text: >-
           This site is built with Astro. It's fast, it ships next to no JavaScript, and every page is
           just a Markdown file in a repo.
-      - name: Cloudflare Pages
+      - name: Cloudflare Pages & Workers
         text: >-
           My go-to for [static website hosting](/writing/jamstack/). I used Vercel for a while, but I
-          always keep coming back to Cloudflare Pages. It just works.
+          always keep coming back to Cloudflare. It just works. When a site needs a bit of backend,
+          like the [contact form](/contact/) here or [Upshot](/projects/upshot/), with its article
+          text in Workers KV, that's a Worker.
       - name: Umami
         text: >-
           When I [went with Plausible](/writing/plausible/), I said I'd give Umami a try some day. Some
