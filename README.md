@@ -122,43 +122,17 @@ npm test         # contact Worker unit tests
 
 ## 📬 Contact Form
 
-[`/contact`](./src/pages/contact.astro) posts with `fetch` to `/api/contact`,
-served by the `portfolio-contact` Worker in [`worker/`](./worker/src/index.js).
-The Worker drops honeypot submissions, validates the email and message,
-verifies the Turnstile token (including that it was solved on this hostname),
-then emails the message through [Lettermint](https://lettermint.co/) from
-`contact@example.com`, with the visitor as Reply-To. Nothing is stored. There's no
-backend under `npm run dev`, so sends only work in production.
+[`/contact`](./src/pages/contact.astro) posts to `/api/contact`, served by a small
+Cloudflare Worker in [`worker/`](./worker/src/index.js). The Worker checks the
+submission and the Turnstile token, then emails the message with the visitor as
+Reply-To. Nothing is stored. There's no backend under `npm run dev`, so sends only
+work in production.
 
-Infrastructure is split with the private homelab-iac repo, where ADR-0087 records the decision:
-
-| Piece | Where |
-|---|---|
-| Worker code and tests | this repo, `worker/` |
-| Deploys | [`.github/workflows/contact-worker.yml`](./.github/workflows/contact-worker.yml): tests on PRs, `wrangler deploy` on pushes to `main` that touch `worker/` |
-| Route `dave.levine.io/api/contact` | homelab-iac `terraform/modules/cloudflare/workers.tf` |
-| Turnstile widget "levine.io (Spin)" | homelab-iac `terraform/modules/cloudflare/turnstile.tf` |
-| Worker secrets | set by hand with `wrangler secret put`; rotation in homelab-iac's credential-rotation runbook |
-
-**Secrets.** Repo secrets `CLOUDFLARE_API_TOKEN` (Account: Workers Scripts: Edit
-only) and `CLOUDFLARE_ACCOUNT_ID` deploy the script. The Worker itself needs:
-
-```bash
-cd worker
-npx wrangler secret put TURNSTILE_SECRET   # homelab-iac: tofu output -raw portfolio_turnstile_secret
-npx wrangler secret put LETTERMINT_TOKEN   # the shared Lettermint project token (Bitwarden)
-npx wrangler secret put CONTACT_TO         # inbox that receives messages
-```
-
-**First deploy order.** Merging switches the live page to `/api/contact`, so the
-backend has to be in place first:
-
-1. From this branch, `npx wrangler deploy` in `worker/`, then set the three secrets.
-2. Apply the homelab-iac route.
-3. Check the route answers: `curl -si -F email=a@example.org -F message=test https://dave.levine.io/api/contact`
-   should return the Worker's `403` spam-check JSON, not a Pages page.
-4. Merge. The workflow redeploys the same script, and Pages ships the page.
-5. Send a real message, then delete the Formspree form.
+[`.github/workflows/contact-worker.yml`](./.github/workflows/contact-worker.yml)
+runs the Worker's tests on PRs and deploys it from `main`. The route and the
+Turnstile widget are managed outside this repo, and the Worker's settings
+(`TURNSTILE_SECRET`, `LETTERMINT_TOKEN`, `CONTACT_TO`, `CONTACT_FROM`) are Worker
+secrets.
 
 ## 📁 Project Structure
 

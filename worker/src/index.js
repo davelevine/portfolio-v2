@@ -2,11 +2,10 @@
 // Verifies the Turnstile token, validates the fields, and emails the message through
 // Lettermint with the visitor's address as Reply-To, so a reply goes straight to them.
 //
-// Secrets (wrangler secret put): TURNSTILE_SECRET, LETTERMINT_TOKEN, CONTACT_TO.
+// Secrets (wrangler secret put): TURNSTILE_SECRET, LETTERMINT_TOKEN, CONTACT_TO, CONTACT_FROM.
 
 const SITEVERIFY = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const LETTERMINT = 'https://api.lettermint.co/v1/send';
-const FROM = 'dave.levine.io <contact@example.com>';
 const MAX_BODY = 64 * 1024;
 const MAX_MESSAGE = 5000;
 // No whitespace anywhere, so the address can't smuggle header line breaks into Reply-To.
@@ -16,7 +15,7 @@ const EMAIL = /^[^\s@]{1,64}@[^\s@]+\.[^\s@]+$/;
 const reply = (status, error) => Response.json(error ? { error } : { ok: true }, { status });
 
 export default {
-  /** @param {Request} request @param {{ TURNSTILE_SECRET: string, LETTERMINT_TOKEN: string, CONTACT_TO: string }} env */
+  /** @param {Request} request @param {{ TURNSTILE_SECRET: string, LETTERMINT_TOKEN: string, CONTACT_TO: string, CONTACT_FROM: string }} env */
   async fetch(request, env) {
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405, headers: { Allow: 'POST' } });
@@ -62,7 +61,7 @@ export default {
       method: 'POST',
       headers: { 'x-lettermint-token': env.LETTERMINT_TOKEN, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        from: FROM,
+        from: env.CONTACT_FROM,
         to: [env.CONTACT_TO],
         reply_to: [email],
         subject: `Contact form: ${email}`,

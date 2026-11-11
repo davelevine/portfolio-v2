@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { afterEach, test } from 'node:test';
 import worker from '../src/index.js';
 
-const env = { TURNSTILE_SECRET: 'ts-secret', LETTERMINT_TOKEN: 'lm-token', CONTACT_TO: 'inbox@example.com' };
+const env = { TURNSTILE_SECRET: 'ts-secret', LETTERMINT_TOKEN: 'lm-token', CONTACT_TO: 'inbox@example.com', CONTACT_FROM: 'site <sender@example.com>' };
 const realFetch = globalThis.fetch;
 afterEach(() => (globalThis.fetch = realFetch));
 
@@ -38,6 +38,7 @@ test('sends a valid message with the visitor as Reply-To', async () => {
 
   assert.equal(calls[1].init.headers['x-lettermint-token'], 'lm-token');
   const mail = JSON.parse(calls[1].init.body);
+  assert.equal(mail.from, 'site <sender@example.com>');
   assert.deepEqual(mail.to, ['inbox@example.com']);
   assert.deepEqual(mail.reply_to, ['visitor@example.org']);
   assert.equal(mail.text, 'Hello there');
