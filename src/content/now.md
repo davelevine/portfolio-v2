@@ -1,5 +1,5 @@
 ---
-date: "2026-09-26T12:00:00Z"
+date: "2026-11-11T12:00:00Z"
 ---
 
 This is my [Now Page]: a brief update on what's currently happening in my life, inspired by [Derek Sivers].
@@ -17,6 +17,7 @@ Also, I've been getting back into exercising after a prolonged hiatus. It's been
 Whatever's left of my spare time is spent:
 
 * Building [Journalistic], a micro-journaling PWA I wrote from scratch to capture daily thoughts and reflections, inspired by the [original Journalistic app] (no shared code).
+* Building [Upshot], a tech news digest that reads a curated list of feeds and uses Claude to keep only the stories worth reading.
 * Managing and updating my [homelab], which is a constant yet rewarding project.
 
 ## Professional
@@ -34,5 +35,6 @@ Lately, I've been focusing on:
   [original Journalistic app]: https://journalisticapp.com
   [homelab]: https://cdn.levine.io/uploads/images/gallery/2025-10/systems-architecture-diagram-dark-2025-10-10.webp
   [Journalistic]: /projects/journalistic/
+  [Upshot]: /projects/upshot/
   [Weill Cornell Medicine]: https://weill.cornell.edu/
   [Derek Sivers]: https://sive.rs/now
