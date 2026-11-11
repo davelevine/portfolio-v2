@@ -38,6 +38,8 @@ const projects = defineCollection({
     image: z.string().optional(),
     // Optional dark-theme variant of `image`, shown when the site is in dark mode.
     imageDark: z.string().optional(),
+    // Set false for images with a transparent background (e.g. device composites).
+    imageBorder: z.boolean().optional().default(true),
     isFeatured: z.boolean().optional().default(false),
   }),
 });

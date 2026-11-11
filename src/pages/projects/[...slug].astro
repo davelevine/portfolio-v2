@@ -11,8 +11,9 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, description, tech, image, imageDark, githubLink, githubComingSoon, liveLink } = project.data;
+const { title, description, tech, image, imageDark, imageBorder, githubLink, githubComingSoon, liveLink } = project.data;
 const cdn = 'https://cdn.levine.io/uploads/portfolio/public/images/projects';
+const imgClass = imageBorder ? 'lead-image' : 'lead-image no-border';
 const src = (img?: string) => (img?.startsWith('http') ? img : `${cdn}/${img}`);
 ---
 
@@ -35,11 +36,11 @@ const src = (img?: string) => (img?.startsWith('http') ? img : `${cdn}/${img}`);
       {image && (imageDark ? (
         <>
           {/* Theme-matched screenshots; CSS shows the one for the active theme. */}
-          <img class="lead-image theme-light-only" src={src(image)} alt={`${title} screenshot`} loading="lazy" />
-          <img class="lead-image theme-dark-only" src={src(imageDark)} alt={`${title} screenshot`} loading="lazy" />
+          <img class={`${imgClass} theme-light-only`} src={src(image)} alt={`${title} screenshot`} loading="lazy" />
+          <img class={`${imgClass} theme-dark-only`} src={src(imageDark)} alt={`${title} screenshot`} loading="lazy" />
         </>
       ) : (
-        <img class="lead-image" src={src(image)} alt={`${title} screenshot`} fetchpriority="high" />
+        <img class={imgClass} src={src(image)} alt={`${title} screenshot`} fetchpriority="high" />
       ))}
 
       <div class="prose">
