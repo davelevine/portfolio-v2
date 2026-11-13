@@ -20,7 +20,9 @@ export default {
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405, headers: { Allow: 'POST' } });
     }
-    if (Number(request.headers.get('Content-Length')) > MAX_BODY) {
+    // Browsers always send Content-Length with form data; a request without it would be read in full.
+    const length = request.headers.get('Content-Length');
+    if (!length || Number(length) > MAX_BODY) {
       return reply(413, 'That message is too long.');
     }
 

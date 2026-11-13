@@ -18,12 +18,19 @@ function stub({ turnstile = { success: true, hostname: 'dave.levine.io' }, lette
   return calls;
 }
 
-function post(fields, url = 'https://dave.levine.io/api/contact') {
-  const body = new FormData();
+/** Encode a multipart body with the Content-Length a browser would send. */
+async function encode(fields) {
+  const form = new FormData();
   for (const [k, v] of Object.entries({ email: 'visitor@example.org', message: 'Hello there', 'cf-turnstile-response': 'tok', ...fields })) {
-    body.set(k, v);
+    form.set(k, v);
   }
-  return worker.fetch(new Request(url, { method: 'POST', body }), env);
+  const encoded = new Response(form);
+  const body = await encoded.arrayBuffer();
+  return { body, headers: { 'Content-Type': encoded.headers.get('Content-Type'), 'Content-Length': String(body.byteLength) } };
+}
+
+async function post(fields, url = 'https://dave.levine.io/api/contact') {
+  return worker.fetch(new Request(url, { method: 'POST', ...(await encode(fields)) }), env);
 }
 
 test('sends a valid message with the visitor as Reply-To', async () => {
@@ -84,4 +91,15 @@ test('reports a Lettermint failure as 502', async () => {
 test('only accepts POST', async () => {
   const res = await worker.fetch(new Request('https://dave.levine.io/api/contact'), env);
   assert.equal(res.status, 405);
+});
+
+test('rejects a body without Content-Length before reading it', async () => {
+  const calls = stub();
+  const { body, headers } = await encode({});
+  const res = await worker.fetch(
+    new Request('https://dave.levine.io/api/contact', { method: 'POST', body, headers: { 'Content-Type': headers['Content-Type'] } }),
+    env
+  );
+  assert.equal(res.status, 413);
+  assert.equal(calls.length, 0);
 });
