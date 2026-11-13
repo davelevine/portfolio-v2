@@ -367,3 +367,23 @@ Email Routing, which needs Cloudflare MX records, and levine.io's MX points at S
 **How to apply:** when a design depends on a paid or beta feature, name the exact plan it needs, ask
 or check which plan the user is on, and confirm that any "free" exception applies to their setup
 (DNS, MX, zone). Do this before starting to build.
+
+## Name the Cloudflare account in any wrangler command handed to the user
+
+**Context:** I gave Dave `npx wrangler secret put CONTACT_FROM` to run in `worker/`. His wrangler
+login can see two Cloudflare accounts, and `worker/wrangler.toml` doesn't set `account_id`, so
+wrangler used the other account and created a new, empty `portfolio-contact` Worker there to hold
+the secret. The real Worker never got it.
+
+**How to apply next time:** before handing over a wrangler command, check which account the target
+Worker is in. Either prefix it with `CLOUDFLARE_ACCOUNT_ID=<id>` or set the secret through the API
+against the named account, then confirm it landed by listing that Worker's secrets.
+
+## Limit a history rewrite to the commits that need it
+
+**Context:** `git filter-repo --replace-text` over all of `main` rehashed the whole history,
+because filter-repo drops the GitHub signatures on merge commits, even though only the last 13
+commits contained the text.
+
+**How to apply next time:** pass `--refs <first-bad-commit>^..main` so older commits keep their
+hashes and signatures, and check that the first rewritten commit's parent hash is unchanged.
