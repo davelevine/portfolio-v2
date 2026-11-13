@@ -97,7 +97,11 @@ const turnstileSitekey = '0x4AAAAAAFE4sbtlDVsHJpzy';
         execution: 'execute',
         appearance: 'interaction-only',
         callback: (token: string) => pending?.resolve(token),
+        // Any of these leaves the check unfinished; reject so Send re-enables instead of hanging.
         'error-callback': () => pending?.reject(),
+        'timeout-callback': () => pending?.reject(),
+        'expired-callback': () => pending?.reject(),
+        'unsupported-callback': () => pending?.reject(),
         'before-interactive-callback': () => {
           box.classList.add('shown');
           show("Please confirm you're not a bot.");
