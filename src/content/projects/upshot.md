@@ -11,10 +11,10 @@ stack: ['Python', 'Cloudflare Workers']
 description: A news digest for AI, security, infrastructure, software engineering and tech regulation. It reads a curated list of feeds, has an LLM keep only the stories worth reading, and summarizes each one in a sentence.
 summary: "A tech news digest that keeps only the stories worth reading."
 
-liveLink: https://upshot.levine.io
+liveLink: https://upshot.me
 githubLink: https://github.com/davelevine/upshot
-image: https://cdn.levine.io/uploads/images/gallery/2026-11/screenshot-light.webp
-imageDark: https://cdn.levine.io/uploads/images/gallery/2026-11/screenshot-dark.webp
+image: https://cdn.levine.io/uploads/images/gallery/2026-11/upshot-light.webp
+imageDark: https://cdn.levine.io/uploads/images/gallery/2026-11/upshot-dark.webp
 imageBorder: false
 isFeatured: true
 
