@@ -387,3 +387,16 @@ commits contained the text.
 
 **How to apply next time:** pass `--refs <first-bad-commit>^..main` so older commits keep their
 hashes and signatures, and check that the first rewritten commit's parent hash is unchanged.
+
+## Check a sequel post's facts against the original post
+
+**Date:** 2026-11-24
+
+**What happened:** drafting the follow-up to *The Road to Better Email Security*, I turned Dave's
+"started paying for Proton in 2017, took ages to update addresses" into a line saying he chipped
+away at address updates for years. The original post says he subscribed in 2016 and updated
+everything onto aliases in about 16 hours over two days in 2021, so the draft contradicted it.
+
+**How to apply next time:** before writing timeline or history lines in a post that follows up
+an earlier one, reread the earlier post and reconcile dates and claims with it. If the user's
+recollection differs from what was published, point out the difference instead of picking one.
