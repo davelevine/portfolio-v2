@@ -8,6 +8,7 @@ categories:
 date: "2026-11-24T12:00:00Z"
 description: Five years after I first put my email behind aliases, I've changed mailbox providers twice. The aliases are the only part that never had to move.
 ail: 2
+isFeatured: true
 ---
 
 ## Summary
